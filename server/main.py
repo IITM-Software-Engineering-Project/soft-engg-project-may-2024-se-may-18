@@ -8,8 +8,7 @@ app = FastAPI()
 
 # List of origins that should be allowed to make cross-origin requests
 origins = [
-    "http://localhost:3000",  # Frontend running on localhost:3000
-    "http://localhost:8080",  # Adjust with your frontend's URL and port
+    "http://localhost:5173",  # Frontend running on localhost:5173
     "http://your-frontend-domain.com"  # Add other origins as needed
 ]
 

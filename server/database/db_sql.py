@@ -6,7 +6,7 @@ load_dotenv()
 
 
 def init_db():
-    db_uri = os.getenv('DATABASE_URL').replace(
+    db_uri = os.getenv('DATABASE_SQL_URL').replace(
         "postgresql://", "cockroachdb://")
     try:
         create_engine(db_uri)

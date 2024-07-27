@@ -22,4 +22,5 @@ engine = None
 if not engine:
     engine = init_db()
     Base.metadata.create_all(engine, checkfirst=True)
-    session = sessionmaker(bind=engine, expire_on_commit=True)
+    session = sessionmaker(bind=engine)
+    print("SQL Database connected Successfully.")

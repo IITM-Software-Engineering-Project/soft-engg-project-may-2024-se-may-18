@@ -11,7 +11,11 @@ SECRET_KEY = 'secret-key'
 ALGORITHM = "HS256"
 
 
-@auth_router.post("/register")
+@auth_router.post("/register",
+                  description="Register a new user to the portal",
+                  response_description="Message indicating success or failure",
+                  tags=["authentication", "Register User"],
+                  )
 async def register(request: Request):
     data = await request.json()
     username = data["username"]
@@ -42,7 +46,11 @@ async def register(request: Request):
     return {"message": "User registered successfully"}
 
 
-@auth_router.post("/login")
+@auth_router.post("/login",
+                  description="Login to the application",
+                  response_description="Access Token and Token Type",
+                  tags=["authentication", "Verify User", "Login"],
+                  )
 async def login(request: Request):
     data = await request.json()
     username = data["username"]

@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from resources.test import root_router
-from database.db_sql import init_db
+from resources.auth import auth_router
 import uvicorn
 
-
 app = FastAPI()
-init_db()
 
 # List of origins that should be allowed to make cross-origin requests
 origins = [
@@ -23,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(root_router)
+app.include_router(auth_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, debug=True)

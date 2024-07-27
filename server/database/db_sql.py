@@ -1,16 +1,17 @@
 from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
+from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
 
 
 def init_db():
-    db_uri = os.getenv('DATABASE_SQL_URL').replace(
-        "postgresql://", "cockroachdb://")
     try:
-        create_engine(db_uri)
-        print("Connected to Cockroach DB.")
+        print("Connecting to SQL database.")
+        engine = create_engine(os.getenv('DATABASE_SQL_URL').replace(
+            "postgresql://", "cockroachdb://"))
+        return engine
     except Exception as e:
         print("Failed to connect to database.")
         print(f"{e}")

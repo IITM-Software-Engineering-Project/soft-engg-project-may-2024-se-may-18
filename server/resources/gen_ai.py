@@ -51,3 +51,25 @@ def call_gemini_vision(prompt: str, images: List[UploadFile], data=None, data_is
             return {"message": "Failed to parse JSON response."}
     else:
         return {"message": response.text}
+
+
+genai_router = APIRouter()
+
+
+@genai_router.post("/ai-search-courses",
+                   description="Search for courses using generative AI",
+                   response_description="Response from AI in the form of a json",
+                   tags=["Gen AI", "Search Courses"],
+                   )
+async def gemini(request: Request):
+    data = await request.json()
+    prompt = data["prompt"]
+    prompt = search_courses_prompt.format(user_prompt=prompt)
+    try:
+        data = data["data"]
+    except Exception:
+        data = None
+
+    response = call_gemini(prompt, data)
+    return response
+

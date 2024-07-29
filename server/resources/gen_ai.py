@@ -73,3 +73,21 @@ async def gemini(request: Request):
     response = call_gemini(prompt, data)
     return response
 
+
+@genai_router.post("/ai-explain-course",
+                   description="Answer queston for a single course using generative AI",
+                   response_description="Response from AI in the form of a json with a text message inside",
+                   tags=["Gen AI", "Explain Courses"],
+                   )
+async def gemini(request: Request):
+    data = await request.json()
+    prompt = data["prompt"]
+    prompt = explain_courses_prompt.format(user_prompt=prompt)
+    try:
+        data = data["data"]
+    except Exception:
+        data = None
+
+    response = call_gemini(prompt, data)
+    return response
+

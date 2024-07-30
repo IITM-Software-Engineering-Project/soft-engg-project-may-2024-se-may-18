@@ -17,6 +17,17 @@ class User(Base):
     password = Column(String(100), nullable=False)
 
 
+
+class Content(Base):
+    __tablename__ = 'contents'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(50), nullable=False)
+    week_no=Column(Integer, nullable=False)
+    link = Column(String(50), nullable=False)
+
+
+
 engine = None
 
 if not engine:

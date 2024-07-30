@@ -1,4 +1,4 @@
-print('instructor APis')
+from sqlite3 import IntegrityError
 from fastapi import APIRouter, HTTPException, Request
 from database.models import Content, session
 
@@ -15,8 +15,8 @@ async def add_content(request: Request):
             db.add(content)
             db.commit()
             db.close()
-    except IntegrityError:
-        raise HTTPException(status_code=400, detail="Error uploading content")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error uploading content:{e}")
 
 
     return {

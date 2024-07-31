@@ -3,18 +3,18 @@ from datetime import datetime
 from fastapi import APIRouter, HTTPException
 from fastapi.requests import Request
 import tempfile
-import os, subprocess
-from database.models import ComputeCodeRequest, CodeInfo, DeleteCodeInfoRequest
+import os
+import subprocess
+from api.payload_schema.payloadschema import ComputeCodeRequest, CodeInfo, DeleteCodeInfoRequest
 
 code_router = APIRouter()
 
-# Initialize Docker client
 
 @code_router.post("/compute",
-    description="Compute test cases for submitted code using subprocesses",
-    response_description="Message indicating test case results",
-    tags=["Compute Test Cases"],
-)
+                  description="Compute test cases for submitted code using subprocesses",
+                  response_description="Message indicating test case results",
+                  tags=["Compute Test Cases"],
+                  )
 async def compute_code(request: ComputeCodeRequest):
     data = request.model_dump()
     code = data["code"]
@@ -54,8 +54,9 @@ async def compute_code(request: ComputeCodeRequest):
             # Run the code using subprocess
             try:
                 output = ""
-                output = run_code_with_subprocess(language, code_dir, code_file_name, input_data)
-                
+                output = run_code_with_subprocess(
+                    language, code_dir, code_file_name, input_data)
+
                 # Compare output with expected output
                 if output.strip() == expected_output.strip():
                     test_cases_passed += 1
@@ -66,7 +67,8 @@ async def compute_code(request: ComputeCodeRequest):
                         "your_output": output
                     })
                 else:
-                    print(f"Test case {i} failed. Expected: '{expected_output}', Got: '{output}'")
+                    print(f"Test case {i} failed. Expected: '{
+                          expected_output}', Got: '{output}'")
                     error_list.append({
                         "error": "Test case failed",
                         "input_data": input_data,
@@ -107,6 +109,7 @@ async def compute_code(request: ComputeCodeRequest):
         "result": error_list
     }
 
+
 def get_file_extension(language):
     extensions = {
         "python": "py",
@@ -115,6 +118,7 @@ def get_file_extension(language):
         # Add more languages as needed
     }
     return extensions.get(language, "txt")
+
 
 def run_code_with_subprocess(language, code_dir, code_file_name, input_data):
     if language == "python":
@@ -137,7 +141,8 @@ def run_code_with_subprocess(language, code_dir, code_file_name, input_data):
             text=True,
             cwd=code_dir
         )
-        stdout, stderr = process.communicate(input=input_data, timeout=5)  # 5 second timeout
+        stdout, stderr = process.communicate(
+            input=input_data, timeout=5)  # 5 second timeout
 
         if process.returncode != 0:
             raise RuntimeError(f"Code execution failed: {stderr}")
@@ -149,9 +154,9 @@ def run_code_with_subprocess(language, code_dir, code_file_name, input_data):
 
 
 @code_router.post("/add_code_info",
-    description="Add or update code information in the database",
-    response_description="Code information added or updated successfully",
-    tags=["Add Code Info"])
+                  description="Add or update code information in the database",
+                  response_description="Code information added or updated successfully",
+                  tags=["Add Code Info"])
 async def add_code_info(request: CodeInfo):
     data = request.model_dump()  # Convert Pydantic model to dictionary
 
@@ -186,14 +191,12 @@ async def add_code_info(request: CodeInfo):
         return {
             "message": "Code information added successfully"
         }
-    
-
 
 
 @code_router.delete("/delete_code_info",
-    description="Delete code information from the database",
-    response_description="Code information deleted successfully",
-    tags=["Delete Code Info"])
+                    description="Delete code information from the database",
+                    response_description="Code information deleted successfully",
+                    tags=["Delete Code Info"])
 async def delete_code_info(request: DeleteCodeInfoRequest):
     data = request.model_dump()  # Convert Pydantic model to dictionary
 
@@ -208,7 +211,8 @@ async def delete_code_info(request: DeleteCodeInfoRequest):
     result = await code_info_collection.delete_one(filter_query)
 
     if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Code information not found")
+        raise HTTPException(
+            status_code=404, detail="Code information not found")
 
     return {
         "message": "Code information deleted successfully"

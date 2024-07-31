@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Seek-Next
+  title: Team 18 - Seek-Next
   description: This is the backend documentation for the Seek-Next platform, which leverages Generative AI (GenAI) to deliver an enhanced learning experience.
   version: 0.1.0
 paths:

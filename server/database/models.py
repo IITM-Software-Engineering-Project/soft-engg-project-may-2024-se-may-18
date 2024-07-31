@@ -1,9 +1,7 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import JSON, Column, Float, ForeignKey, Integer, String, DateTime, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declarative_base, sessionmaker
 from database.db_sql import init_db
-from pydantic import BaseModel
-from typing import List
 
 Base = declarative_base()
 
@@ -19,66 +17,76 @@ class User(Base):
     password = Column(String(100), nullable=False)
 
 
-
-class Content(Base):
-    __tablename__ = 'contents'
+class Course(Base):
+    __tablename__ = 'courses'
 
     id = Column(Integer, primary_key=True)
-    title = Column(String(50), nullable=False)
-    week_no=Column(Integer, nullable=False)
-    link = Column(String(50), nullable=False)
+    title = Column(String(100), nullable=False)
+    description = Column(String(500), nullable=False)
+    total_modules = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
 
-class ComputeCodeRequest(BaseModel):
-    code: str
-    user_id: str
-    language: str
-    problem_id: str
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "code": "import sys\nclass Solution:\n    def print_statement(s):\n        print(s)\ndef main():\n    # Read input from stdin\n    input_data = sys.stdin.read().strip()\n    Solution.print_statement(input_data)\nif __name__ == \"__main__\":     main() ",
-                "user_id": "1",
-                "language": "python",
-                "problem_id": "1"
-            }
-        }
+class CourseInstructor(Base):
+    __tablename__ = 'course_instructors'
 
-class TestCase(BaseModel):
-    input: str
-    expected_output: str
+    id = Column(Integer, primary_key=True)
+    instructor_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "input": "1",
-                "expected_output": "1"
-            }
-        }
 
-class CodeInfo(BaseModel):
-    problem_id: str
-    user_id: str
-    total_test_cases: str
-    test_cases: List[TestCase]
+class CourseEnrollment(Base):
+    __tablename__ = 'course_enrollments'
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "problem_id": 1,
-                "user_id": 1,
-                "total_test_cases": 1,
-                "test_cases": [
-                    {
-                        "input": "1",
-                        "expected_output": "1"
-                    }
-                ]
-            }
-        }
+    id = Column(Integer, primary_key=True)
+    student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
+    enrollment_date = Column(DateTime, nullable=False)
 
-class DeleteCodeInfoRequest(BaseModel):
-    problem_id: str
+
+class Transaction(Base):
+    __tablename__ = 'transactions'
+
+    id = Column(Integer, primary_key=True)
+    amount = Column(Float, nullable=False)
+    date = Column(DateTime, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    transaction_type = Column(String(50))
+    description = Column(String(255))
+    status = Column(String(50))
+
+
+class Module(Base):
+    __tablename__ = 'modules'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(100), nullable=False)
+    total_lectures = Column(Integer, nullable=False)
+    total_assignments = Column(Integer, nullable=False)
+    description = Column(String(500), nullable=True)
+    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
+
+
+class Lecture(Base):
+    __tablename__ = 'lectures'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(100), nullable=False)
+    module_id = Column(Integer, ForeignKey('modules.id'), nullable=False)
+    url = Column(String(255), nullable=False)
+    transcript = Column(Text, nullable=True)
+
+
+class AssignmentQuestion(Base):
+    __tablename__ = 'assignment_questions'
+
+    id = Column(Integer, primary_key=True)
+    assignment_id = Column(Integer, ForeignKey(
+        'assignments.id'), nullable=False)
+    image = Column(String(255), nullable=True)
+    question = Column(Text, nullable=False)
+    options = Column(JSON, nullable=False)
+    answer = Column(String(100), nullable=False)
 
 
 engine = None
@@ -88,3 +96,12 @@ if not engine:
     Base.metadata.create_all(engine, checkfirst=True)
     session = sessionmaker(bind=engine)
     print("SQL Database connected Successfully.")
+
+
+""" class Content(Base):
+    __tablename__ = 'contents'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(50), nullable=False)
+    week_no = Column(Integer, nullable=False)
+    link = Column(String(50), nullable=False) """

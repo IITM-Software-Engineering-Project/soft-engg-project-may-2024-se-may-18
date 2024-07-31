@@ -1,4 +1,4 @@
-from sqlite3 import IntegrityError
+""" from sqlite3 import IntegrityError
 from fastapi import APIRouter, HTTPException, Request
 from database.models import Content, session
 
@@ -62,4 +62,4 @@ async def delete_content(content_id: int):
 
     return {
         "message": "Content deleted successfully"
-    }
+    } """

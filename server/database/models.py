@@ -77,6 +77,17 @@ class Lecture(Base):
     transcript = Column(Text, nullable=True)
 
 
+class Assignment(Base):
+    __tablename__ = 'assignments'
+
+    id = Column(Integer, primary_key=True)
+    module_id = Column(Integer, ForeignKey('modules.id'), nullable=False)
+    title = Column(String(100), nullable=False)
+    description = Column(String(500), nullable=True)
+    type = Column(String(50), nullable=False)
+    due_date = Column(DateTime, nullable=False)
+
+
 class AssignmentQuestion(Base):
     __tablename__ = 'assignment_questions'
 

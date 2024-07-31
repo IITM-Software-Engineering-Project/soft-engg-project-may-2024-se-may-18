@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List
-
+from datetime import datetime
 
 class ComputeCodeRequest(BaseModel):
     code: str
@@ -56,3 +56,47 @@ class CodeInfo(BaseModel):
 
 class DeleteCodeInfoRequest(BaseModel):
     problem_id: str
+
+
+class CourseOverview(BaseModel):
+    course_description: str
+    assignment_marks: dict
+    exam_marks: dict
+
+class ModuleDetails(BaseModel):
+    title: str
+    description: str
+    total_lectures: int
+    total_assignments: int
+
+class CourseDetails(BaseModel):
+    title: str
+    description: str
+    total_modules: int
+    price: float
+
+class EnrollmentResponse(BaseModel):
+    message: str
+
+class CourseEnrolled(BaseModel):
+    id: int
+    title: str
+
+class StudentEnrolled(BaseModel):
+    id: int
+    username: str
+
+class StudentCourseOverviewRequest(BaseModel):
+    course_id: int
+    student_id: int
+
+class StudentModuleDetailsRequest(BaseModel):
+    course_id: int
+    module_id: int
+
+class CreateAssignmentRequest(BaseModel):
+    module_id: int 
+    title: str 
+    description: str
+    type: str 
+    due_date: datetime

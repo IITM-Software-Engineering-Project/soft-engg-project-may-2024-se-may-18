@@ -1,20 +1,20 @@
 from sqlite3 import IntegrityError
 from fastapi import APIRouter, HTTPException, Request
-from database.models import Module, session, Course,Lecture, Assignment
+from database.models import AssignmentQuestion, Module, session, Course, Lecture, Assignment
 
-instructor_router= APIRouter()
-
-
+instructor_router = APIRouter()
 
 
 '''Add, Edit, Delete Modules'''
+
+
 @instructor_router.post('/add_module',
-                  description="Add new module to course",
-                  response_description="Message indicating success or failure",
-                  tags=["Instructor", "Module"])
+                        description="Add new module to course",
+                        response_description="Message indicating success or failure",
+                        tags=["Instructor", "Module"])
 async def add_module(request: Request):
-    data= await request.json()
-    module=Module(**data)
+    data = await request.json()
+    module = Module(**data)
 
     try:
         with session.begin() as db:
@@ -22,21 +22,24 @@ async def add_module(request: Request):
             db.commit()
             db.close()
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error uploading Module:{e}")
-
+        raise HTTPException(
+            status_code=400, detail=f"Error uploading Module:{e}")
 
     return {
-            "message": "Module added successfully",
+        "message": "Module added successfully",
 
-        }
+    }
+
+
 @instructor_router.put('/edit_module/{module_id}',
-                  description="Editing new module",
-                  response_description="Message indicating success or failure",
-                  tags=["Instructor", "Module"])
-async def edit_module(module_id: int):
+                       description="Editing new module",
+                       response_description="Message indicating success or failure",
+                       tags=["Instructor", "Module"])
+async def edit_module(request: Request, module_id: int):
     data = await request.json()
 
-    module = db.query(Module).filter(Module.id == module_id).first()
+    with session.begin() as db:
+        module = db.query(Module).filter(Module.id == module_id).first()
     if not module:
         raise HTTPException(status_code=404, detail="Content not found")
 
@@ -52,16 +55,17 @@ async def edit_module(module_id: int):
 
     return {
         "message": "Module updated successfully",
-        
+
     }
 
 
 @instructor_router.delete('/delete_module/{module_id}',
-                  description="Delete module",
-                  response_description="Message indicating success or failure",
-                  tags=["Instructor", "Module"])
+                          description="Delete module",
+                          response_description="Message indicating success or failure",
+                          tags=["Instructor", "Module"])
 async def delete_module(module_id: int):
-    module = db.query(Module).filter(Module.id == module_id).first()
+    with session.begin() as db:
+        module = db.query(Module).filter(Module.id == module_id).first()
     if not module:
         raise HTTPException(status_code=404, detail="Module not found")
 
@@ -77,19 +81,16 @@ async def delete_module(module_id: int):
     }
 
 
-
-
-
-
 '''Add, Edit, Delete Lectures'''
+
 
 @instructor_router.post('/add_lecture',
                         description="Add lecture to a module",
-                  response_description="Message indicating success or failure",
-                  tags=["Instructor", "Lecture"])
+                        response_description="Message indicating success or failure",
+                        tags=["Instructor", "Lecture"])
 async def add_lecture(request: Request):
-    data= await request.json()
-    lecture=Lecture(**data)
+    data = await request.json()
+    lecture = Lecture(**data)
 
     try:
         with session.begin() as db:
@@ -97,21 +98,23 @@ async def add_lecture(request: Request):
             db.commit()
             db.close()
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error uploading lecture:{e}")
-
+        raise HTTPException(
+            status_code=400, detail=f"Error uploading lecture:{e}")
 
     return {
-            "message": "Lecture added successfully",
+        "message": "Lecture added successfully",
 
-        }
+    }
+
+
 @instructor_router.put('/edit_lecture/{lecture_id}',
-                  description="Editing lecture",
-                  response_description="Message indicating success or failure",
-                  tags=["Instructor", "Lecture"])
-async def edit_lecture(lecture_id: int):
+                       description="Editing lecture",
+                       response_description="Message indicating success or failure",
+                       tags=["Instructor", "Lecture"])
+async def edit_lecture(request: Request, lecture_id: int):
     data = await request.json()
-
-    lecture = db.query(Lecture).filter(Lecture.id == lecture_id).first()
+    with session.begin() as db:
+        lecture = db.query(Lecture).filter(Lecture.id == lecture_id).first()
     if not lecture:
         raise HTTPException(status_code=404, detail="lecture not found")
 
@@ -127,16 +130,17 @@ async def edit_lecture(lecture_id: int):
 
     return {
         "message": "lecture updated successfully",
-        
+
     }
 
 
 @instructor_router.delete('/delete_lecture/{lecture_id}',
-                  description="Deleting Lecture from the module",
-                  response_description="Message indicating success or failure",
-                  tags=["Instructor", "Lecture"])
+                          description="Deleting Lecture from the module",
+                          response_description="Message indicating success or failure",
+                          tags=["Instructor", "Lecture"])
 async def delete_lecture(lecture_id: int):
-    lecture = db.query(Lecture).filter(Lecture.id == lecture_id).first()
+    with session.begin() as db:
+        lecture = db.query(Lecture).filter(Lecture.id == lecture_id).first()
     if not lecture:
         raise HTTPException(status_code=404, detail="lecture not found")
 
@@ -153,23 +157,16 @@ async def delete_lecture(lecture_id: int):
     }
 
 
-
-
-
-
-
-
-
-
 '''Add, Edit, Delete Assignments'''
 
+
 @instructor_router.post('/add_assignment',
-                  description="Adding assignment to module",
-                  response_description="Message indicating success or failure",
-                  tags=["Assignnment", "Module"])
+                        description="Adding assignment to module",
+                        response_description="Message indicating success or failure",
+                        tags=["Assignnment", "Module"])
 async def add_assignment(request: Request):
-    data= await request.json()
-    assignment=Assignment(**data)
+    data = await request.json()
+    assignment = Assignment(**data)
 
     try:
         with session.begin() as db:
@@ -177,21 +174,24 @@ async def add_assignment(request: Request):
             db.commit()
             db.close()
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error uploading assignment:{e}")
-
+        raise HTTPException(
+            status_code=400, detail=f"Error uploading assignment:{e}")
 
     return {
-            "message": "assignment added successfully",
+        "message": "assignment added successfully",
 
-        }
+    }
+
+
 @instructor_router.put('/edit_assignment/{assignment_id}',
-                  description="Editing Assignment",
-                  response_description="Message indicating success or failure",
-                  tags=["Module", "Assignment","Instructor"])
-async def edit_assignment(assignment_id: int):
+                       description="Editing Assignment",
+                       response_description="Message indicating success or failure",
+                       tags=["Module", "Assignment", "Instructor"])
+async def edit_assignment(request: Request, assignment_id: int):
     data = await request.json()
-
-    assignment = db.query(Assignment).filter(Assignment.id == assignment_id).first()
+    with session.begin() as db:
+        assignment = db.query(Assignment).filter(
+            Assignment.id == assignment_id).first()
     if not assignment:
         raise HTTPException(status_code=404, detail="assignment not found")
 
@@ -204,20 +204,23 @@ async def edit_assignment(assignment_id: int):
         db.refresh(assignment)
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Error updating assignment")
+        raise HTTPException(
+            status_code=400, detail="Error updating assignment")
 
     return {
         "message": "assignment updated successfully",
-        
+
     }
 
 
 @instructor_router.delete('/delete_assignment/{assignment_id}',
-                  description="Deleting Assignment",
-                  response_description="Message indicating success or failure",
-                  tags=["Assignment", "Module"])
+                          description="Deleting Assignment",
+                          response_description="Message indicating success or failure",
+                          tags=["Assignment", "Module"])
 async def delete_assignment(assignment_id: int):
-    assignment = db.query(Assignment).filter(Assignment.id == assignment_id).first()
+    with session.begin() as db:
+        assignment = db.query(Assignment).filter(
+            Assignment.id == assignment_id).first()
     if not assignment:
         raise HTTPException(status_code=404, detail="lecture not found")
 
@@ -226,29 +229,24 @@ async def delete_assignment(assignment_id: int):
         db.commit()
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Error deleting assignment")
+        raise HTTPException(
+            status_code=400, detail="Error deleting assignment")
 
     return {
         "message": "assignment deleted successfully"
     }
 
 
-
-
-
-
-
-
-
 '''Add, Edit, Delete Questions'''
 
+
 @instructor_router.post('/add_question',
-                  description="Adding question to assignment",
-                  response_description="Message indicating success or failure",
-                  tags=["Assignment", "Module"])
+                        description="Adding question to assignment",
+                        response_description="Message indicating success or failure",
+                        tags=["Assignment", "Module"])
 async def add_question(request: Request):
-    data= await request.json()
-    question=AssignmentQuestion(**data)
+    data = await request.json()
+    question = AssignmentQuestion(**data)
 
     try:
         with session.begin() as db:
@@ -256,21 +254,24 @@ async def add_question(request: Request):
             db.commit()
             db.close()
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error uploading question:{e}")
-
+        raise HTTPException(
+            status_code=400, detail=f"Error uploading question:{e}")
 
     return {
-            "message": "Question added successfully",
+        "message": "Question added successfully",
 
-        }
-@instructor_router.put('/edit_question/{question_id}' ,
-                  description="Edit Question ",
-                  response_description="Message indicating success or failure",
-                  tags=["Question", "Assignment"])
-async def edit_question(question_id: int):
+    }
+
+
+@instructor_router.put('/edit_question/{question_id}',
+                       description="Edit Question ",
+                       response_description="Message indicating success or failure",
+                       tags=["Question", "Assignment"])
+async def edit_question(request: Request, question_id: int):
     data = await request.json()
-
-    question = db.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
+    with session.begin() as db:
+        question = db.query(AssignmentQuestion).filter(
+            AssignmentQuestion.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="question not found")
 
@@ -287,16 +288,18 @@ async def edit_question(question_id: int):
 
     return {
         "message": "question updated successfully",
-        
+
     }
 
 
 @instructor_router.delete('/delete_question/{question_id}',
-                  description="Delete question from Assignment",
-                  response_description="Message indicating success or failure",
-                  tags=["Question", "Assignment"])
-async def delete_question(aquestion_id: int):
-    question = db.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
+                          description="Delete question from Assignment",
+                          response_description="Message indicating success or failure",
+                          tags=["Question", "Assignment"])
+async def delete_question(question_id: int):
+    with session.begin() as db:
+        question = db.query(AssignmentQuestion).filter(
+            AssignmentQuestion.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="question not found")
 

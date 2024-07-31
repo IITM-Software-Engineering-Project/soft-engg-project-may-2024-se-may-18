@@ -8,7 +8,10 @@ instructor_router= APIRouter()
 
 
 '''Add, Edit, Delete Modules'''
-@instructor_router.post('/add_module')
+@instructor_router.post('/add_module',
+                  description="Add new module to course",
+                  response_description="Message indicating success or failure",
+                  tags=["Instructor", "Module"])
 async def add_module(request: Request):
     data= await request.json()
     module=Module(**data)
@@ -26,7 +29,10 @@ async def add_module(request: Request):
             "message": "Module added successfully",
 
         }
-@instructor_router.put('/edit_module/{module_id}')
+@instructor_router.put('/edit_module/{module_id}',
+                  description="Editing new module",
+                  response_description="Message indicating success or failure",
+                  tags=["Instructor", "Module"])
 async def edit_module(module_id: int):
     data = await request.json()
 
@@ -50,7 +56,10 @@ async def edit_module(module_id: int):
     }
 
 
-@instructor_router.delete('/delete_module/{module_id}')
+@instructor_router.delete('/delete_module/{module_id}',
+                  description="Delete module",
+                  response_description="Message indicating success or failure",
+                  tags=["Instructor", "Module"])
 async def delete_module(module_id: int):
     module = db.query(Module).filter(Module.id == module_id).first()
     if not module:
@@ -74,7 +83,10 @@ async def delete_module(module_id: int):
 
 '''Add, Edit, Delete Lectures'''
 
-@instructor_router.post('/add_lecture')
+@instructor_router.post('/add_lecture',
+                        description="Add lecture to a module",
+                  response_description="Message indicating success or failure",
+                  tags=["Instructor", "Lecture"])
 async def add_lecture(request: Request):
     data= await request.json()
     lecture=Lecture(**data)
@@ -92,7 +104,10 @@ async def add_lecture(request: Request):
             "message": "Lecture added successfully",
 
         }
-@instructor_router.put('/edit_lecture/{lecture_id}')
+@instructor_router.put('/edit_lecture/{lecture_id}',
+                  description="Editing lecture",
+                  response_description="Message indicating success or failure",
+                  tags=["Instructor", "Lecture"])
 async def edit_lecture(lecture_id: int):
     data = await request.json()
 
@@ -116,7 +131,10 @@ async def edit_lecture(lecture_id: int):
     }
 
 
-@instructor_router.delete('/delete_lecture/{lecture_id}')
+@instructor_router.delete('/delete_lecture/{lecture_id}',
+                  description="Deleting Lecture from the module",
+                  response_description="Message indicating success or failure",
+                  tags=["Instructor", "Lecture"])
 async def delete_lecture(lecture_id: int):
     lecture = db.query(Lecture).filter(Lecture.id == lecture_id).first()
     if not lecture:
@@ -145,7 +163,10 @@ async def delete_lecture(lecture_id: int):
 
 '''Add, Edit, Delete Assignments'''
 
-@instructor_router.post('/add_assignment')
+@instructor_router.post('/add_assignment',
+                  description="Adding assignment to module",
+                  response_description="Message indicating success or failure",
+                  tags=["Assignnment", "Module"])
 async def add_assignment(request: Request):
     data= await request.json()
     assignment=Assignment(**data)
@@ -163,7 +184,10 @@ async def add_assignment(request: Request):
             "message": "assignment added successfully",
 
         }
-@instructor_router.put('/edit_assignment/{assignment_id}')
+@instructor_router.put('/edit_assignment/{assignment_id}',
+                  description="Editing Assignment",
+                  response_description="Message indicating success or failure",
+                  tags=["Module", "Assignment","Instructor"])
 async def edit_assignment(assignment_id: int):
     data = await request.json()
 
@@ -188,7 +212,10 @@ async def edit_assignment(assignment_id: int):
     }
 
 
-@instructor_router.delete('/delete_assignment/{assignment_id}')
+@instructor_router.delete('/delete_assignment/{assignment_id}',
+                  description="Deleting Assignment",
+                  response_description="Message indicating success or failure",
+                  tags=["Assignment", "Module"])
 async def delete_assignment(assignment_id: int):
     assignment = db.query(Assignment).filter(Assignment.id == assignment_id).first()
     if not assignment:
@@ -215,7 +242,10 @@ async def delete_assignment(assignment_id: int):
 
 '''Add, Edit, Delete Questions'''
 
-@instructor_router.post('/add_question')
+@instructor_router.post('/add_question',
+                  description="Adding question to assignment",
+                  response_description="Message indicating success or failure",
+                  tags=["Assignment", "Module"])
 async def add_question(request: Request):
     data= await request.json()
     question=AssignmentQuestion(**data)
@@ -233,7 +263,10 @@ async def add_question(request: Request):
             "message": "Question added successfully",
 
         }
-@instructor_router.put('/edit_question/{question_id}')
+@instructor_router.put('/edit_question/{question_id}' ,
+                  description="Edit Question ",
+                  response_description="Message indicating success or failure",
+                  tags=["Question", "Assignment"])
 async def edit_question(question_id: int):
     data = await request.json()
 
@@ -258,7 +291,10 @@ async def edit_question(question_id: int):
     }
 
 
-@instructor_router.delete('/delete_question/{question_id}')
+@instructor_router.delete('/delete_question/{question_id}',
+                  description="Delete question from Assignment",
+                  response_description="Message indicating success or failure",
+                  tags=["Question", "Assignment"])
 async def delete_question(aquestion_id: int):
     question = db.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
     if not question:

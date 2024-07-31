@@ -12,7 +12,7 @@ genai_router = APIRouter()
 @genai_router.post("/ai-search-courses",
                    description="Search for courses using generative AI",
                    response_description="Response from AI in the form of a json",
-                   tags=["Gen AI", "Search Courses"],
+                   tags=["Gen AI"],
                    )
 async def gemini(request: Request):
     data = await request.json()
@@ -30,7 +30,7 @@ async def gemini(request: Request):
 @genai_router.post("/ai-explain-course",
                    description="Answer queston for a single course using generative AI",
                    response_description="Response from AI in the form of a json with a text message inside",
-                   tags=["Gen AI", "Explain Courses"],
+                   tags=["Gen AI"],
                    )
 async def gemini(request: Request):
     data = await request.json()
@@ -48,7 +48,7 @@ async def gemini(request: Request):
 @genai_router.post("/ai-summarize-transcript",
                    description="Summarize a transcript using generative AI",
                    response_description="Response from AI in the form of a json with a text message inside",
-                   tags=["Gen AI", "Summarize Transcript"],
+                   tags=["Gen AI"],
                    )
 async def gemini(request: Request):
     data = await request.json()
@@ -65,7 +65,7 @@ async def gemini(request: Request):
 @genai_router.post("/ai-programming-feedback",
                    description="Get feedback on programming code using generative AI",
                    response_description="Response from AI in the form of a JSON with a text message inside",
-                   tags=["Gen AI", "Programming Feedback"])
+                   tags=["Gen AI"])
 async def gemini(request: Request, images: List[UploadFile] = File(...)):
     form_data = await request.form()
     prompt = form_data.get("prompt")

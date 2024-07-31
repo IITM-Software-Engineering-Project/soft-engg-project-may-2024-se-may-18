@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 from database.models import Course, CourseEnrollment, User, Module, Assignment, AssignmentMarks, Exam
@@ -19,9 +19,7 @@ student_router = APIRouter()
 @student_router.get("/student/enrolled_course/student-overview", response_model=CourseOverview,
                     description="Get an overview of the student's course including assignments and exam marks.",
                     tags=["Student"])
-def get_student_course_overview(request: StudentCourseOverviewRequest):
-    course_id = request.course_id
-    student_id = request.student_id
+def get_student_course_overview(course_id: int, student_id: int):
     enrollment = session.query(CourseEnrollment).filter(
         CourseEnrollment.course_id == course_id,
         CourseEnrollment.student_id == student_id
@@ -56,9 +54,7 @@ def get_student_course_overview(request: StudentCourseOverviewRequest):
 @student_router.get("/student/enrolled_course/", response_model=ModuleDetails,
                     tags = ["Student"],
                     description="Get details of a module of the course.")
-def get_module_details(request: StudentModuleDetailsRequest):
-    course_id = request.course_id
-    module_id = request.module_id
+def get_module_details(course_id: int,module_id: int):
     module = session.query(Module).filter(
         Module.course_id == course_id,
         Module.id == module_id

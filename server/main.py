@@ -4,7 +4,8 @@ from resources.test import root_router
 from resources.auth import auth_router
 from resources.gen_ai import genai_router
 from resources.student import student_router
-# from resources.instructor import instructor_router
+from resources.instructor import instructor_router
+from resources.admin import admin_router
 from resources.code_computing import code_router
 import uvicorn
 
@@ -27,9 +28,10 @@ app.add_middleware(
 app.include_router(root_router)
 app.include_router(auth_router)
 app.include_router(genai_router)
-# app.include_router(instructor_router)
+app.include_router(instructor_router)
 app.include_router(code_router)
 app.include_router(student_router)
+app.include_router(admin_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, debug=True)

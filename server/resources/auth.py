@@ -14,7 +14,7 @@ ALGORITHM = "HS256"
 @auth_router.post("/register",
                   description="Register a new user to the portal",
                   response_description="Message indicating success or failure",
-                  tags=["authentication", "Register User"],
+                  tags=["authentication"],
                   )
 async def register(request: Request):
     data = await request.json()
@@ -49,7 +49,7 @@ async def register(request: Request):
 @auth_router.post("/login",
                   description="Login to the application",
                   response_description="Access Token and Token Type",
-                  tags=["authentication", "Verify User", "Login"],
+                  tags=["authentication"],
                   )
 async def login(request: Request):
     data = await request.json()

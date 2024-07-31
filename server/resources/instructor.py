@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, HTTPException, Request
 from sqlalchemy import func
 from database.models import AssignmentMarks, AssignmentQuestion, CourseEnrollment, Exam, Module, User, session, Course, Lecture, Assignment
-from server.api.payload_schema.payloadschema import CreateAssignmentRequest, StudentCourseOverviewRequest, StudentEnrolled
+from api.payload_schema.payloadschema import CreateAssignmentRequest, StudentCourseOverviewRequest, StudentEnrolled
 
 instructor_router = APIRouter()
 
@@ -14,7 +14,7 @@ instructor_router = APIRouter()
 @instructor_router.post('/add_module',
                         description="Add new module to course",
                         response_description="Message indicating success or failure",
-                        tags=["Instructor", "Module"])
+                        tags=["Module"])
 async def add_module(request: Request):
     data = await request.json()
     module = Module(**data)
@@ -37,7 +37,7 @@ async def add_module(request: Request):
 @instructor_router.put('/edit_module/{module_id}',
                        description="Editing new module",
                        response_description="Message indicating success or failure",
-                       tags=["Instructor", "Module"])
+                       tags=["Module"])
 async def edit_module(request: Request, module_id: int):
     data = await request.json()
 
@@ -65,7 +65,7 @@ async def edit_module(request: Request, module_id: int):
 @instructor_router.delete('/delete_module/{module_id}',
                           description="Delete module",
                           response_description="Message indicating success or failure",
-                          tags=["Instructor", "Module"])
+                          tags=["Module"])
 async def delete_module(module_id: int):
     with session.begin() as db:
         module = db.query(Module).filter(Module.id == module_id).first()
@@ -90,7 +90,7 @@ async def delete_module(module_id: int):
 @instructor_router.post('/add_lecture',
                         description="Add lecture to a module",
                         response_description="Message indicating success or failure",
-                        tags=["Instructor", "Lecture"])
+                        tags=["Lecture"])
 async def add_lecture(request: Request):
     data = await request.json()
     lecture = Lecture(**data)
@@ -113,7 +113,7 @@ async def add_lecture(request: Request):
 @instructor_router.put('/edit_lecture/{lecture_id}',
                        description="Editing lecture",
                        response_description="Message indicating success or failure",
-                       tags=["Instructor", "Lecture"])
+                       tags=["Lecture"])
 async def edit_lecture(request: Request, lecture_id: int):
     data = await request.json()
     with session.begin() as db:
@@ -140,7 +140,7 @@ async def edit_lecture(request: Request, lecture_id: int):
 @instructor_router.delete('/delete_lecture/{lecture_id}',
                           description="Deleting Lecture from the module",
                           response_description="Message indicating success or failure",
-                          tags=["Instructor", "Lecture"])
+                          tags=["Lecture"])
 async def delete_lecture(lecture_id: int):
     with session.begin() as db:
         lecture = db.query(Lecture).filter(Lecture.id == lecture_id).first()
@@ -166,7 +166,7 @@ async def delete_lecture(lecture_id: int):
 @instructor_router.post('/add_assignment',
                         description="Adding assignment to module",
                         response_description="Message indicating success or failure",
-                        tags=["Assignnment", "Module"])
+                        tags=["Assignment", "Module"])
 async def add_assignment(request: Request):
     data = await request.json()
     assignment = Assignment(**data)
@@ -189,7 +189,7 @@ async def add_assignment(request: Request):
 @instructor_router.put('/edit_assignment/{assignment_id}',
                        description="Editing Assignment",
                        response_description="Message indicating success or failure",
-                       tags=["Module", "Assignment", "Instructor"])
+                       tags=["Module", "Assignment"])
 async def edit_assignment(request: Request, assignment_id: int):
     data = await request.json()
     with session.begin() as db:
@@ -246,7 +246,7 @@ async def delete_assignment(assignment_id: int):
 @instructor_router.post('/add_question',
                         description="Adding question to assignment",
                         response_description="Message indicating success or failure",
-                        tags=["Assignment", "Module"])
+                        tags=["Assignment"])
 async def add_question(request: Request):
     data = await request.json()
     question = AssignmentQuestion(**data)
@@ -269,7 +269,7 @@ async def add_question(request: Request):
 @instructor_router.put('/edit_question/{question_id}',
                        description="Edit Question ",
                        response_description="Message indicating success or failure",
-                       tags=["Question", "Assignment"])
+                       tags=["Assignment"])
 async def edit_question(request: Request, question_id: int):
     data = await request.json()
     with session.begin() as db:
@@ -298,7 +298,7 @@ async def edit_question(request: Request, question_id: int):
 @instructor_router.delete('/delete_question/{question_id}',
                           description="Delete question from Assignment",
                           response_description="Message indicating success or failure",
-                          tags=["Question", "Assignment"])
+                          tags=["Assignment"])
 async def delete_question(question_id: int):
     with session.begin() as db:
         question = db.query(AssignmentQuestion).filter(
@@ -319,7 +319,7 @@ async def delete_question(question_id: int):
 
 
 @instructor_router.get("/instructor/enrolled-students/{course_id}", response_model=List[StudentEnrolled],
-                       tags=["Instructor"],
+                       tags=["Instructor","Admin"],
                        description="Get the list of students enrolled in a course.")
 def get_enrolled_students(course_id: int):
     enrollments = session.query(CourseEnrollment).filter(
@@ -349,7 +349,7 @@ def get_enrolled_students(course_id: int):
 #     return {"message": "Assignment created successfully", "assignment_id": new_assignment.id}
 
 
-@instructor_router.post("/instructor/create-exam")
+@instructor_router.post("/instructor/create-exam", tags=["Exam"], description="Create an exam for a course")
 def create_exam(course_id: int, exam_id: int):
     # Create an exam entry for each enrolled student
     enrollments = session.query(CourseEnrollment).filter(
@@ -366,7 +366,7 @@ def create_exam(course_id: int, exam_id: int):
     return {"message": "Exam created successfully for all enrolled students"}
 
 
-@instructor_router.put("/instructor/grade-exam")
+@instructor_router.put("/instructor/grade-exam", tags=["Exam"], description="Grade an exam")
 def grade_exam(course_id: int, student_id: int, exam_id: int, marks: float):
     exam = session.query(Exam).filter(
         Exam.course_id == course_id,
@@ -380,10 +380,8 @@ def grade_exam(course_id: int, student_id: int, exam_id: int, marks: float):
     return {"message": "Exam graded successfully"}
 
 
-@instructor_router.get("/instructor/course-progress", tags=["Instructor"], description="Get the progress of a student in a course")
-def get_course_progress(request: StudentCourseOverviewRequest):
-    course_id = request.course_id
-    student_id = request.student_id
+@instructor_router.get("/course-progress", tags=["Instructor"], description="Get the progress of a student in a course")
+def get_course_progress(course_id: int, student_id: int):
     # Get total number of assignments and exams
     total_assignments = session.query(func.count(Assignment.id)).join(
         Module).filter(Module.course_id == course_id).scalar()

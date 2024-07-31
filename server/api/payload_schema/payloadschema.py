@@ -100,3 +100,21 @@ class CreateAssignmentRequest(BaseModel):
     description: str
     type: str 
     due_date: datetime
+
+class CourseBase(BaseModel):
+    title: str
+    description: str
+    total_modules: int
+    price: float
+
+class CourseCreate(CourseBase):
+    pass
+
+class CourseUpdate(CourseBase):
+    id: int
+
+class CourseResponse(CourseBase):
+    id: int
+
+    class Config:
+        from_attributes = True

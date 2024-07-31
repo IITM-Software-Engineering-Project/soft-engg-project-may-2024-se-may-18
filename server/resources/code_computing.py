@@ -13,7 +13,7 @@ code_router = APIRouter()
 @code_router.post("/compute",
                   description="Compute test cases for submitted code using subprocesses",
                   response_description="Message indicating test case results",
-                  tags=["Compute Test Cases"],
+                  tags=["Coding Assignment"],
                   )
 async def compute_code(request: ComputeCodeRequest):
     data = request.model_dump()
@@ -67,8 +67,8 @@ async def compute_code(request: ComputeCodeRequest):
                         "your_output": output
                     })
                 else:
-                    print(f"Test case {i} failed. Expected: '{
-                          expected_output}', Got: '{output}'")
+                    print(f'''Test case {i} failed. Expected: {
+                          expected_output}, Got: {output}''')
                     error_list.append({
                         "error": "Test case failed",
                         "input_data": input_data,
@@ -153,10 +153,10 @@ def run_code_with_subprocess(language, code_dir, code_file_name, input_data):
         raise RuntimeError("Code execution timed out")
 
 
-@code_router.post("/add_code_info",
+@code_router.post("/add-code-info",
                   description="Add or update code information in the database",
                   response_description="Code information added or updated successfully",
-                  tags=["Add Code Info"])
+                  tags=["Coding Assignment", "Instructor"])
 async def add_code_info(request: CodeInfo):
     data = request.model_dump()  # Convert Pydantic model to dictionary
 
@@ -193,18 +193,18 @@ async def add_code_info(request: CodeInfo):
         }
 
 
-@code_router.delete("/delete_code_info",
+@code_router.delete("/delete-code-info",
                     description="Delete code information from the database",
                     response_description="Code information deleted successfully",
-                    tags=["Delete Code Info"])
-async def delete_code_info(request: DeleteCodeInfoRequest):
-    data = request.model_dump()  # Convert Pydantic model to dictionary
+                    tags=["Coding Assignment","Instructor"])
+async def delete_code_info(problem_id: str):
+    # data = request.model_dump()  # Convert Pydantic model to dictionary
 
     code_info_collection = get_code_info_collection()
 
     # Define the filter to find the document by problem_id
     filter_query = {
-        "problem_id": data["problem_id"]
+        "problem_id": problem_id
     }
 
     # Perform the deletion

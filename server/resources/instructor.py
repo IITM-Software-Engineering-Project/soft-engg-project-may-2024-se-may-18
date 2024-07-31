@@ -125,6 +125,7 @@ async def delete_lecture(lecture_id: int):
     try:
         db.delete(lecture)
         db.commit()
+
     except IntegrityError:
         db.rollback()
         raise HTTPException(status_code=400, detail="Error deleting lecture")
@@ -145,7 +146,7 @@ async def delete_lecture(lecture_id: int):
 '''Add, Edit, Delete Assignments'''
 
 @instructor_router.post('/add_assignment')
-async def add_lecture(request: Request):
+async def add_assignment(request: Request):
     data= await request.json()
     assignment=Assignment(**data)
 
@@ -174,6 +175,7 @@ async def edit_assignment(assignment_id: int):
         setattr(assignment, key, value)
 
     try:
+
         db.commit()
         db.refresh(assignment)
     except IntegrityError:
@@ -201,4 +203,74 @@ async def delete_assignment(assignment_id: int):
 
     return {
         "message": "assignment deleted successfully"
+    }
+
+
+
+
+
+
+
+
+
+'''Add, Edit, Delete Questions'''
+
+@instructor_router.post('/add_question')
+async def add_question(request: Request):
+    data= await request.json()
+    question=AssignmentQuestion(**data)
+
+    try:
+        with session.begin() as db:
+            db.add(question)
+            db.commit()
+            db.close()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error uploading question:{e}")
+
+
+    return {
+            "message": "Question added successfully",
+
+        }
+@instructor_router.put('/edit_question/{question_id}')
+async def edit_question(question_id: int):
+    data = await request.json()
+
+    question = db.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
+    if not question:
+        raise HTTPException(status_code=404, detail="question not found")
+
+    for key, value in data.items():
+        setattr(question, key, value)
+
+    try:
+
+        db.commit()
+        db.refresh(question)
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Error updating question")
+
+    return {
+        "message": "question updated successfully",
+        
+    }
+
+
+@instructor_router.delete('/delete_question/{question_id}')
+async def delete_question(aquestion_id: int):
+    question = db.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
+    if not question:
+        raise HTTPException(status_code=404, detail="question not found")
+
+    try:
+        db.delete(question)
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Error deleting question")
+
+    return {
+        "message": "question deleted successfully"
     }

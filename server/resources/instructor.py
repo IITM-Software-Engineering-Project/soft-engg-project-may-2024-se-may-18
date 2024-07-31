@@ -23,3 +23,43 @@ async def add_content(request: Request):
             "message": "Content added successfully",
 
         }
+@instructor_router.put('/edit_content/{content_id}')
+async def edit_content(content_id: int):
+    data = await request.json()
+
+    content = db.query(Content).filter(Content.id == content_id).first()
+    if not content:
+        raise HTTPException(status_code=404, detail="Content not found")
+
+    for key, value in data.items():
+        setattr(content, key, value)
+
+    try:
+        db.commit()
+        db.refresh(content)
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Error updating content")
+
+    return {
+        "message": "Content updated successfully",
+        "content": content
+    }
+
+
+@instructor_router.delete('/delete_content/{content_id}')
+async def delete_content(content_id: int):
+    content = db.query(Content).filter(Content.id == content_id).first()
+    if not content:
+        raise HTTPException(status_code=404, detail="Content not found")
+
+    try:
+        db.delete(content)
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Error deleting content")
+
+    return {
+        "message": "Content deleted successfully"
+    }

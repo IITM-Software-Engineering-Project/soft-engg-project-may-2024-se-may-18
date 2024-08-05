@@ -166,11 +166,9 @@ async def add_code_info(request: CodeInfo):
     filter_query = {
         "problem_id": data["problem_id"]
     }
-
     # Define the update operation
     update_operation = {
         "$set": {
-            "user_id": data["user_id"],
             "total_test_cases": data["total_test_cases"],
             "test_cases": data["test_cases"]
         }

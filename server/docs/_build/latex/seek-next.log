@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.8.5)  5 AUG 2024 17:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.8.5)  5 AUG 2024 17:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -851,58 +851,49 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ] [2
 
+] [1] [2
+
 ]
 Chapter 1.
+LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 9
+9.
+(/usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
+File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
+)
+LaTeX Font Info:    Trying to load font information for T1+txtt on input line 1
+13.
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sphinxtitleref' on input line 91.
-
-LaTeX Font Info:    Trying to load font information for T1+txtt on input line 9
-6.
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
-(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 97.
-LaTeX Font Info:    Font shape `T1/txtt/m/it' in size <10> not available
-(Font)              Font shape `T1/txtt/m/sl' tried instead on input line 139.
-
-Overfull \vbox (1.32195pt too high) detected at line 160
- []
-
-[1
-
-] [2]
-Chapter 2.
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sphinxtitleref' on input line 163.
-
-[3
-
-] (./seek-next.ind) [4] (./seek-next.aux)
+(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 149.
+ [3] [4]
+(./seek-next.ind) [5] (./seek-next.aux)
 Package rerunfilecheck Info: File `seek-next.out' has not changed.
-(rerunfilecheck)             Checksum: 8C931F42B4574F77EA0C1D3AD563994B;430.
+(rerunfilecheck)             Checksum: 596BFE1EC9A2F5348AF63493E3D35641;96.
  ) 
 Here is how much of TeX's memory you used:
- 16026 strings out of 480247
- 269449 string characters out of 5896152
- 721729 words of memory out of 5000000
- 33583 multiletter control sequences out of 15000+600000
- 519618 words of font info for 65 fonts, out of 8000000 for 9000
+ 16050 strings out of 480247
+ 269724 string characters out of 5896152
+ 620645 words of memory out of 5000000
+ 33599 multiletter control sequences out of 15000+600000
+ 516886 words of font info for 65 fonts, out of 8000000 for 9000
  15 hyphenation exceptions out of 8191
- 70i,11n,76p,401b,543s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}</usr/share/texmf/fonts/t
-ype1/public/tex-gyre/qhvb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhv
-bi.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf
-/fonts/type1/public/tex-gyre/qtmbi.pfb></usr/share/texmf/fonts/type1/public/tex
--gyre/qtmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xbtt
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on seek-next.pdf (8 pages, 131893 bytes).
+ 70i,11n,76p,773b,690s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
+nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy5.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhvb.pfb></usr/shar
+e/texmf/fonts/type1/public/tex-gyre/qhvbi.pfb></usr/share/texmf/fonts/type1/pub
+lic/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></
+usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/txfonts/t1xtt.pfb>
+Output written on seek-next.pdf (9 pages, 145979 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 37 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 110 PDF objects out of 1000 (max. 8388607)
+ 82 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 500000)
+ 29 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -34,7 +34,6 @@ class TestCase(BaseModel):
 
 class CodeInfo(BaseModel):
     problem_id: str
-    user_id: str
     total_test_cases: str
     test_cases: List[TestCase]
 
@@ -42,7 +41,6 @@ class CodeInfo(BaseModel):
         json_schema_extra = {
             "example": {
                 "problem_id": 1,
-                "user_id": 1,
                 "total_test_cases": 1,
                 "test_cases": [
                     {

@@ -98,7 +98,7 @@ async def compute_code(request: ComputeCodeRequest):
             "result": error_list
         }
     }
-    res = await user_code_collection.update_one(
+    res =  user_code_collection.update_one(
         filter_query,
         update_operation,
         upsert=True
@@ -177,7 +177,7 @@ async def add_code_info(request: CodeInfo):
     }
 
     # Perform the update with upsert
-    result = await code_info_collection.update_one(
+    result = code_info_collection.update_one(
         filter_query,
         update_operation,
         upsert=True
@@ -208,7 +208,7 @@ async def delete_code_info(problem_id: str):
     }
 
     # Perform the deletion
-    result = await code_info_collection.delete_one(filter_query)
+    result = code_info_collection.delete_one(filter_query)
 
     if result.deleted_count == 0:
         raise HTTPException(

@@ -4,7 +4,7 @@ import sys
 
 # Project information
 project = 'Seek - Next'
-copyright = '2024, Your Name'
+copyright = 'May 2024 '
 author = 'Team 18'
 
 # The full version, including alpha/beta/rc tags

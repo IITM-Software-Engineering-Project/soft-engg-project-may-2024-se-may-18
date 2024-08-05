@@ -1,129 +1,174 @@
-Unit Tests
-==========
+Unit Test Documentation
+=======================
 
-Test Cases for `/compute` Endpoint
------------------------------------
+This document provides details about the unit tests for the API endpoints. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
 
-**Python Code Test**
+Test Cases
+----------
 
-.. code-block:: python
+1. **Test Case: `test_read_main`**
 
-    def test_compute_code_python():
-        response = client.post(
-            "/compute",
-            json={
-                "code": (
-                    "import sys\n"
-                    "class Solution:\n"
-                    "    def print_statement(s):\n"
-                    "        print(\"s\",s)\n"
-                    "def main():\n"
-                    "    # Read input from stdin\n"
-                    "    input_data = sys.stdin.read().strip()\n"
-                    "    Solution.print_statement(input_data)\n"
-                    "if __name__ == \"__main__\":     main()"
-                ),
-                "user_id": "1",
-                "language": "python",
-                "problem_id": "1"
-            }
-        )
-        assert response.status_code == 200
-        data = response.json()
-        assert "message" in data
-        assert "result" in data
-        assert data["message"] == "Passed 0 out of 2 test cases"
-        assert len(data["result"]) == 2
-        assert data["result"][0]["error"] == "Test case failed"
-        assert data["result"][0]["input_data"] == "hello"
-        assert data["result"][0]["expected_output"] == "hello"
-        assert data["result"][0]["your_output"] == "s hello\n"
-        assert data["result"][1]["error"] == "Test case failed"
-        assert data["result"][1]["input_data"] == "world"
-        assert data["result"][1]["expected_output"] == "world"
-        assert data["result"][1]["your_output"] == "s world\n"
+   - **API being tested:** `/`
+   - **Inputs:** None
+   - **Expected Output:**
 
-**Java Code Test**
+     .. code-block:: python
 
-.. code-block:: java
+       {
+         "message": "Hello World from Seek Next!"
+       }
 
-    public class solution {
-        public static void main(String[] args) {
-            // Create a Scanner object to read input from stdin
-            Scanner scanner = new Scanner(System.in);
-            
-            // Read all input from stdin
-            StringBuilder inputBuilder = new StringBuilder();
-            while (scanner.hasNextLine()) {
-                inputBuilder.append(scanner.nextLine());
-                if (scanner.hasNextLine()) {
-                    inputBuilder.append("\n");
-                }
-            }
-            String inputData = inputBuilder.toString().trim();
-            
-            // Print the input
-            // Print an additional statement
-            // Use the input in another statement
-            // Close the scanner
-            scanner.close();
-            System.out.print(inputData);
-        }
-    }
+   - **Actual Output:**
 
-Test Cases for `/compute` Endpoint
------------------------------------
+     .. code-block:: python
 
-**Java Code**
+       {
+         "message": "Hello World from Seek Next!"
+       }
 
-.. code-block:: python
+   - **Result:** Success
 
-    def test_compute_code_java():
-        response = client.post(
-            "/compute",
-            json={
-                "code": (
-                    "import java.util.Scanner;\n\n"
-                    "public class solution {\n"
-                    "    public static void main(String[] args) {\n"
-                    "        // Create a Scanner object to read input from stdin\n"
-                    "        Scanner scanner = new Scanner(System.in);\n"
-                    "        \n"
-                    "        // Read all input from stdin\n"
-                    "        StringBuilder inputBuilder = new StringBuilder();\n"
-                    "        while (scanner.hasNextLine()) {\n"
-                    "            inputBuilder.append(scanner.nextLine());\n"
-                    "            if (scanner.hasNextLine()) {\n"
-                    "                inputBuilder.append(\"\\n\");\n"
-                    "            }\n"
-                    "        }\n"
-                    "        String inputData = inputBuilder.toString().trim();\n"
-                    "        \n"
-                    "        // Print the input\n"
-                    "        // Print an additional statement\n"
-                    "        // Use the input in another statement\n"
-                    "// Close the scanner\n"
-                    "        scanner.close();\n"
-                    "        System.out.print(inputData);\n"
-                    "    }\n"
-                    "}"
-                ),
-                "user_id": "1",
-                "language": "java",
-                "problem_id": "1"
-            }
-        )
-        assert response.status_code == 200
-        data = response.json()
-        assert "message" in data
-        assert "result" in data
-        assert data["message"] == "Passed 2 out of 2 test cases"
-        assert len(data["result"]) == 2
-        assert data["result"][0]["error"] == "Test case passed"
-        assert data["result"][0]["input_data"] == "hello"
-        assert data["result"][0]["expected_output"] == "hello"
-        assert data["result"][0]["your_output"] == "hello"
-        assert data["result"][1]["error"] == "Test case passed"
-        assert data["result"][1]["input_data"] == "world"
-        assert data["result"][1]["expected_output"] == "world"
-        assert data["result"][1]["your_output"] == "world"
+2. **Test Case: `test_compute_code_python`**
+
+   - **API being tested:** `/compute`
+   - **Inputs:**
+
+     .. code-block:: python
+
+       {
+         "code": "import sys\nclass Solution:\n    def print_statement(s):\n        print(\"s\",s)\n...\n",
+         "user_id": "1",
+         "language": "python",
+         "problem_id": "1"
+       }
+
+   - **Expected Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Passed 0 out of 2 test cases",
+         "result": [
+           {"error": "Test case failed", "input_data": "hello", "expected_output": "hello", "your_output": "s hello\n"},
+           {"error": "Test case failed", "input_data": "world", "expected_output": "world", "your_output": "s world\n"}
+         ]
+       }
+
+   - **Actual Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Passed 0 out of 2 test cases",
+         "result": [
+           {"error": "Test case failed", "input_data": "hello", "expected_output": "hello", "your_output": "s hello\n"},
+           {"error": "Test case failed", "input_data": "world", "expected_output": "world", "your_output": "s world\n"}
+         ]
+       }
+
+   - **Result:** Success
+
+3. **Test Case: `test_compute_code_java`**
+
+   - **API being tested:** `/compute`
+   - **Inputs:**
+
+     .. code-block:: python
+
+       {
+         "code": "import java.util.Scanner;\npublic class solution {\n    public static void main(String[] args) {\n...\n",
+         "user_id": "1",
+         "language": "java",
+         "problem_id": "1"
+       }
+
+   - **Expected Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Passed 2 out of 2 test cases",
+         "result": [
+           {"error": "Test case passed", "input_data": "hello", "expected_output": "hello", "your_output": "hello"},
+           {"error": "Test case passed", "input_data": "world", "expected_output": "world", "your_output": "world"}
+         ]
+       }
+
+   - **Actual Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Passed 2 out of 2 test cases",
+         "result": [
+           {"error": "Test case passed", "input_data": "hello", "expected_output": "hello", "your_output": "hello"},
+           {"error": "Test case passed", "input_data": "world", "expected_output": "world", "your_output": "world"}
+         ]
+       }
+
+   - **Result:** Success
+
+4. **Test Case: `test_add_code_info`**
+
+   - **API being tested:** `/add-code-info`
+   - **Inputs:**
+
+     .. code-block:: python
+
+       {
+         "problem_id": "problem123",
+         "user_id": "user123",
+         "total_test_cases": 3,
+         "test_cases": [
+           {"input": "input1", "output": "output1"},
+           {"input": "input2", "output": "output2"},
+           {"input": "input3", "output": "output3"}
+         ]
+       }
+
+   - **Expected Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Code info added successfully"
+       }
+
+   - **Actual Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Code info added successfully"
+       }
+
+   - **Result:** Success
+
+5. **Test Case: `test_delete_code_info`**
+
+   - **API being tested:** `/delete-code-info`
+   - **Inputs:**
+
+     .. code-block:: python
+
+       {
+         "problem_id": "problem123"
+       }
+
+   - **Expected Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Code info deleted successfully"
+       }
+
+   - **Actual Output:**
+
+     .. code-block:: python
+
+       {
+         "message": "Code info deleted successfully"
+       }
+
+   - **Result:** Success

@@ -1,7 +1,6 @@
 from database.no_sql import get_user_code_collection, get_code_info_collection
 from datetime import datetime
-from fastapi import APIRouter, HTTPException
-from fastapi.requests import Request
+from fastapi import APIRouter, HTTPException, Query
 import tempfile
 import os
 import subprocess
@@ -49,7 +48,7 @@ async def compute_code(request: ComputeCodeRequest):
 
         for i, test_case in enumerate(test_cases):
             input_data = test_case["input"]
-            expected_output = test_case["output"]
+            expected_output = test_case["expected_output"]
 
             # Run the code using subprocess
             try:
@@ -195,8 +194,13 @@ async def add_code_info(request: CodeInfo):
                     description="Delete code information from the database",
                     response_description="Code information deleted successfully",
                     tags=["Coding Assignment","Instructor"])
-async def delete_code_info(problem_id: str):
+async def delete_code_info(problem_id: str = Query(..., min_length=1, description="The ID of the problem to delete")):
     # data = request.model_dump()  # Convert Pydantic model to dictionary
+    if not problem_id.strip():
+        raise HTTPException(
+            status_code=422,
+            detail="Problem ID must not be empty"
+        )
 
     code_info_collection = get_code_info_collection()
 

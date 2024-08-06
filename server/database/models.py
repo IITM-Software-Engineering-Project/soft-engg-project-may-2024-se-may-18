@@ -10,7 +10,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), nullable=False)
     role = Column(String(50), nullable=False)
     last_login = Column(DateTime, nullable=False)
@@ -21,7 +21,7 @@ class User(Base):
 class Course(Base):
     __tablename__ = 'courses'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(100), nullable=False)
     description = Column(String(500), nullable=False)
     total_modules = Column(Integer, nullable=False)
@@ -31,7 +31,7 @@ class Course(Base):
 class CourseInstructor(Base):
     __tablename__ = 'course_instructors'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     instructor_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
 
@@ -39,7 +39,7 @@ class CourseInstructor(Base):
 class CourseEnrollment(Base):
     __tablename__ = 'course_enrollments'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
     enrollment_date = Column(DateTime, nullable=False)
@@ -48,7 +48,7 @@ class CourseEnrollment(Base):
 class Transaction(Base):
     __tablename__ = 'transactions'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     amount = Column(Float, nullable=False)
     date = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
@@ -60,7 +60,7 @@ class Transaction(Base):
 class Module(Base):
     __tablename__ = 'modules'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(100), nullable=False)
     total_lectures = Column(Integer, nullable=False)
     total_assignments = Column(Integer, nullable=False)
@@ -73,7 +73,7 @@ class Module(Base):
 class Lecture(Base):
     __tablename__ = 'lectures'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(100), nullable=False)
     module_id = Column(Integer, ForeignKey('modules.id'), nullable=False)
     url = Column(String(255), nullable=False)
@@ -84,7 +84,7 @@ class Lecture(Base):
 class Assignment(Base):
     __tablename__ = 'assignments'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     module_id = Column(Integer, ForeignKey('modules.id'), nullable=False)
     title = Column(String(100), nullable=False)
     description = Column(String(500), nullable=True)
@@ -98,7 +98,7 @@ class Assignment(Base):
 class AssignmentQuestion(Base):
     __tablename__ = 'assignment_questions'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     assignment_id = Column(Integer, ForeignKey(
         'assignments.id'), nullable=False)
     image = Column(String(255), nullable=True)
@@ -110,7 +110,7 @@ class AssignmentQuestion(Base):
 class AssignmentMarks(Base):
     __tablename__ = 'assignment_marks'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     assignment_id = Column(Integer, ForeignKey('assignments.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     marks = Column(Float, nullable=False)
@@ -123,14 +123,14 @@ class AssignmentMarks(Base):
 class Exam(Base):
     __tablename__ = 'exams'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     exam_id = Column(Integer, nullable=False)
     marks = Column(Float, nullable=True)
 
 engine = None
-
+# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 if not engine:
     engine = init_db()
     # Base.metadata.create_all(engine, checkfirst=True)

@@ -1,2 +1,10 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Test Cases}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {1}1. \sphinxstylestrong {Test Case: \textasciigrave {}test\_read\_main\textasciigrave {}}}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}2. \sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_python\textasciigrave {}}}{5}{chapter.2}%
+\contentsline {chapter}{\numberline {3}3. \sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_java\textasciigrave {}}}{7}{chapter.3}%
+\contentsline {chapter}{\numberline {4}4. \sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_invalid\_python\_code\textasciigrave {}}}{9}{chapter.4}%
+\contentsline {chapter}{\numberline {5}5. \sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_invalid\_java\_code\textasciigrave {}}}{11}{chapter.5}%
+\contentsline {chapter}{\numberline {6}6. \sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_no\_problem\_info\textasciigrave {}}}{13}{chapter.6}%
+\contentsline {chapter}{\numberline {7}7. \sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_empty\_problem\_id\textasciigrave {}}}{15}{chapter.7}%
+\contentsline {chapter}{\numberline {8}8. \sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_code\_info\textasciigrave {}}}{17}{chapter.8}%
+\contentsline {chapter}{\numberline {9}9. \sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_code\_info\textasciigrave {}}}{19}{chapter.9}%

@@ -1138,12 +1138,17 @@ INPUT ./seek-next.toc
 INPUT seek-next.toc
 INPUT seek-next.toc
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ec-qtmb.tfm
-OUTPUT seek-next.toc
 INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
 INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
 INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
 INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ts1-qtmb.tfm
+OUTPUT seek-next.toc
+INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qhv.fd
+INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qhv.fd
+INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qhv.fd
+INPUT /usr/share/texmf/tex/latex/tex-gyre/ts1qhv.fd
+INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ts1-qhvb.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ts1-qtmr.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ec-qtmri.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/txfonts/t1txtt.fd
@@ -1156,7 +1161,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/txfonts/t1xbtt.tfm
-INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ec-qtmr.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/ts1-qhvb.tfm
 INPUT ./seek-next.ind
 INPUT seek-next.ind
 INPUT ./seek-next.ind

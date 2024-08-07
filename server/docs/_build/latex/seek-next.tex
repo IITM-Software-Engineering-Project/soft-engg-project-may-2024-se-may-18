@@ -64,7 +64,7 @@
 
 
 \title{Seek \sphinxhyphen{} Next}
-\date{Aug 05, 2024}
+\date{Aug 06, 2024}
 \release{0.1.0}
 \author{Team 18}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -88,16 +88,11 @@
 
 
 \sphinxAtStartPar
-This document provides details about the unit tests for the API endpoints. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
+This document provides details about the unit tests for the API endpoints related to code submissions. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
 
 
-\chapter{Test Cases}
-\label{\detokenize{src/unitTests:test-cases}}\begin{enumerate}
-\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Test Case: \textasciigrave{}test\_read\_main\textasciigrave{}}
-\begin{itemize}
+\chapter{1. \sphinxstylestrong{Test Case: \textasciigrave{}test\_read\_main\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-read-main}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstylestrong{API being tested:} \sphinxtitleref{/}
@@ -112,7 +107,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Hello World from Seek Next!}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Hello World from Seek Next!\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -122,7 +117,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Hello World from Seek Next!}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Hello World from Seek Next!\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -132,10 +127,9 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \end{itemize}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_python\textasciigrave{}}
-\begin{itemize}
+
+\chapter{2. \sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_python\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-compute-code-python}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstylestrong{API being tested:} \sphinxtitleref{/compute}
@@ -146,10 +140,10 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{code}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{import sys}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{class Solution:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{    def print\PYGZus{}statement(s):}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{        print(}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{s}\PYG{l+s+se}{\PYGZbs{}\PYGZdq{}}\PYG{l+s+s2}{,s)}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{...}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{user\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{language}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{python}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{problem\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}wxyz\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}user\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}language\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}python\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import sys\PYGZbs{}nclass Solution:\PYGZbs{}n    def print\PYGZus{}statement(s):\PYGZbs{}n        print(s)\PYGZbs{}n\PYGZbs{}ndef main():\PYGZbs{}n    \PYGZsh{} Read input from stdin\PYGZbs{}n    input\PYGZus{}data = sys.stdin.read().strip()\PYGZbs{}n    Solution.print\PYGZus{}statement(input\PYGZus{}data)\PYGZbs{}n\PYGZbs{}nif \PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{} == \PYGZbs{}\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZbs{}\PYGZdq{}:\PYGZbs{}n    main()\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -159,11 +153,10 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Passed 0 out of 2 test cases}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{result}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case failed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{s hello}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case failed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{s world}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}
-  \PYG{p}{]}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 1 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Test case passed\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZbs{}n\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -173,11 +166,10 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Passed 0 out of 2 test cases}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{result}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case failed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{s hello}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case failed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{s world}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}
-  \PYG{p}{]}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 1 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Test case passed\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZbs{}n\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -187,10 +179,9 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \end{itemize}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_java\textasciigrave{}}
-\begin{itemize}
+
+\chapter{3. \sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_java\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-compute-code-java}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstylestrong{API being tested:} \sphinxtitleref{/compute}
@@ -201,10 +192,10 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{code}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{import java.util.Scanner;}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{public class solution }\PYG{l+s+s2}{\PYGZob{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{    public static void main(String[] args) }\PYG{l+s+s2}{\PYGZob{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{...}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{user\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{language}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{java}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{problem\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{1}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}wxyz\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}user\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}language\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}java\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import java.util.Scanner;\PYGZbs{}n\PYGZbs{}npublic class solution \PYGZob{}\PYGZbs{}n    public static void main(String[] args) \PYGZob{}\PYGZbs{}n        // Create a Scanner object to read input from stdin\PYGZbs{}n        Scanner scanner = new Scanner(System.in);\PYGZbs{}n\PYGZbs{}n        // Read all input from stdin\PYGZbs{}n        StringBuilder inputBuilder = new StringBuilder();\PYGZbs{}n        while (scanner.hasNextLine()) \PYGZob{}\PYGZbs{}n            inputBuilder.append(scanner.nextLine());\PYGZbs{}n            if (scanner.hasNextLine()) \PYGZob{}\PYGZbs{}n                inputBuilder.append(\PYGZbs{}\PYGZdq{}\PYGZbs{}\PYGZbs{}n\PYGZbs{}\PYGZdq{});\PYGZbs{}n            \PYGZcb{}\PYGZbs{}n        \PYGZcb{}\PYGZbs{}n        String inputData = inputBuilder.toString().trim();\PYGZbs{}n\PYGZbs{}n        // Print the input\PYGZbs{}n        System.out.print(inputData);\PYGZbs{}n\PYGZbs{}n        // Close the scanner\PYGZbs{}n        scanner.close();\PYGZbs{}n    \PYGZcb{}\PYGZbs{}n\PYGZcb{}\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -214,11 +205,10 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Passed 2 out of 2 test cases}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{result}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case passed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case passed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}
-  \PYG{p}{]}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 1 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Test case passed\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -228,11 +218,10 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Passed 2 out of 2 test cases}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{result}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case passed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{error}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Test case passed}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input\PYGZus{}data}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{expected\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{your\PYGZus{}output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}
-  \PYG{p}{]}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 1 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Test case passed\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -242,10 +231,205 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \end{itemize}
 
+
+\chapter{4. \sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_invalid\_python\_code\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-compute-code-invalid-python-code}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{Test Case: \textasciigrave{}test\_add\_code\_info\textasciigrave{}}
-\begin{itemize}
+\sphinxstylestrong{API being tested:} \sphinxtitleref{/compute}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Inputs:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}wxyz\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}user\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}language\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}python\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import sys\PYGZbs{}nclass Solution:\PYGZbs{}n    def print\PYGZus{}statement(s):\PYGZbs{}n        print(s)\PYGZbs{}n\PYGZbs{}ndef main():\PYGZbs{}n    \PYGZsh{} Read input from stdin\PYGZbs{}n    input\PYGZus{}data = sys.stdin.read().strip()\PYGZbs{}n    Solution.print\PYGZus{}statement(input\PYGZus{}data\PYGZbs{}n\PYGZbs{}nif \PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{} == \PYGZbs{}\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZbs{}\PYGZdq{}:\PYGZbs{}n    main()\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Expected Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 0 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}SyntaxError\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Actual Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 0 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}SyntaxError\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Result:} Success
+
+\end{itemize}
+
+
+\chapter{5. \sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_invalid\_java\_code\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-compute-code-invalid-java-code}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{API being tested:} \sphinxtitleref{/compute}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Inputs:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}user\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}language\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}java\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import java.util.Scanner;\PYGZbs{}n\PYGZbs{}npublic class solution \PYGZob{}\PYGZbs{}n    public static void main(String[] args) \PYGZob{}\PYGZbs{}n        // Create a Scanner object to read input from stdin\PYGZbs{}n        Scanner scanner = new Scanner(System.in);\PYGZbs{}n\PYGZbs{}n        // Read all input from stdin\PYGZbs{}n        StringBuilder inputBuilder = new StringBuilder();\PYGZbs{}n        while (scanner.hasNextLine()) \PYGZob{}\PYGZbs{}n            inputBuilder.append(scanner.nextLine());\PYGZbs{}n            if (scanner.hasNextLine()) \PYGZob{}\PYGZbs{}n                inputBuilder.append(\PYGZbs{}\PYGZdq{}\PYGZbs{}\PYGZbs{}n\PYGZbs{}\PYGZdq{});\PYGZbs{}n            \PYGZcb{}\PYGZbs{}n        \PYGZcb{}\PYGZbs{}n        String inputData = inputBuilder.toString().trim();\PYGZbs{}n\PYGZbs{}n        // Print the input\PYGZbs{}n        System.out.print(inputData)\PYGZbs{}n\PYGZbs{}n        // Close the scanner\PYGZbs{}n        scanner.close();\PYGZbs{}n    \PYGZcb{}\PYGZbs{}n\PYGZcb{}\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Expected Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 0 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Compilation error\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Actual Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Passed 0 out of 1 test cases\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}result\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}error\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Compilation error\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}input\PYGZus{}data\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}your\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Result:} Success
+
+\end{itemize}
+
+
+\chapter{6. \sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_no\_problem\_info\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-compute-code-no-problem-info}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{API being tested:} \sphinxtitleref{/compute}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Inputs:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}pro\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}user\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}language\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}python\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import sys\PYGZbs{}nclass Solution:\PYGZbs{}n    def print\PYGZus{}statement(s):\PYGZbs{}n        print(s)\PYGZbs{}n\PYGZbs{}ndef main():\PYGZbs{}n    \PYGZsh{} Read input from stdin\PYGZbs{}n    input\PYGZus{}data = sys.stdin.read().strip()\PYGZbs{}n    Solution.print\PYGZus{}statement(input\PYGZus{}data)\PYGZbs{}n\PYGZbs{}nif \PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{} == \PYGZbs{}\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZbs{}\PYGZdq{}:\PYGZbs{}n    main()\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Expected Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Problem not found\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Actual Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Problem not found\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Result:} Success
+
+\end{itemize}
+
+
+\chapter{7. \sphinxstylestrong{Test Case: \textasciigrave{}test\_compute\_code\_empty\_problem\_id\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-compute-code-empty-problem-id}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{API being tested:} \sphinxtitleref{/compute}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Inputs:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}user\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}language\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}python\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}code\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import sys\PYGZbs{}nclass Solution:\PYGZbs{}n    def print\PYGZus{}statement(s):\PYGZbs{}n        print(s)\PYGZbs{}n\PYGZbs{}ndef main():\PYGZbs{}n    \PYGZsh{} Read input from stdin\PYGZbs{}n    input\PYGZus{}data = sys.stdin.read().strip()\PYGZbs{}n    Solution.print\PYGZus{}statement(input\PYGZus{}data)\PYGZbs{}n\PYGZbs{}nif \PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{} == \PYGZbs{}\PYGZdq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZbs{}\PYGZdq{}:\PYGZbs{}n    main()\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Expected Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Invalid input\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Actual Output:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}detail\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Invalid input\PYGZdq{}}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Result:} Success
+
+\end{itemize}
+
+
+\chapter{8. \sphinxstylestrong{Test Case: \textasciigrave{}test\_add\_code\_info\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-add-code-info}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstylestrong{API being tested:} \sphinxtitleref{/add\sphinxhyphen{}code\sphinxhyphen{}info}
@@ -256,14 +440,11 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{problem\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{problem123}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{user\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{user123}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{total\PYGZus{}test\PYGZus{}cases}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{3}\PYG{p}{,}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{test\PYGZus{}cases}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{output1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input2}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{output2}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{output}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{output3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{\PYGZcb{}}
-  \PYG{p}{]}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1001\PYGZus{}test\PYGZus{}unique\PYGZus{}id\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}total\PYGZus{}test\PYGZus{}cases\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}test\PYGZus{}cases\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}\PYG{n+nt}{\PYGZdq{}input\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nt}{\PYGZdq{}expected\PYGZus{}output\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}hello\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{]}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -273,7 +454,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Code info added successfully}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Code information added successfully\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -283,7 +464,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Code info added successfully}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Code information added successfully\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -293,10 +474,9 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \end{itemize}
 
-\item {} 
-\sphinxAtStartPar
-\sphinxstylestrong{Test Case: \textasciigrave{}test\_delete\_code\_info\textasciigrave{}}
-\begin{itemize}
+
+\chapter{9. \sphinxstylestrong{Test Case: \textasciigrave{}test\_delete\_code\_info\textasciigrave{}}}
+\label{\detokenize{src/codeComputing:test-case-test-delete-code-info}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 \sphinxstylestrong{API being tested:} \sphinxtitleref{/delete\sphinxhyphen{}code\sphinxhyphen{}info}
@@ -307,7 +487,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{problem\PYGZus{}id}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{problem123}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}problem\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}1001\PYGZus{}test\PYGZus{}unique\PYGZus{}id\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -317,7 +497,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Code info deleted successfully}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Code information deleted successfully\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -327,7 +507,7 @@ This document provides details about the unit tests for the API endpoints. Each 
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{p}{\PYGZob{}}
-  \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{message}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Code info deleted successfully}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}message\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Code information deleted successfully\PYGZdq{}}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
 
@@ -336,8 +516,6 @@ This document provides details about the unit tests for the API endpoints. Each 
 \sphinxstylestrong{Result:} Success
 
 \end{itemize}
-
-\end{enumerate}
 
 
 

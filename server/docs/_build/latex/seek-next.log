@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.8.5)  5 AUG 2024 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.8.5)  6 AUG 2024 23:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -843,7 +843,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 
-] (./seek-next.toc)
+] (./seek-next.toc
+LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 2
+.
+
+(/usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
+File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
+))
 \tf@toc=\write6
 \openout6 = `seek-next.toc'.
 
@@ -855,32 +861,63 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 Chapter 1.
-LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 9
-9.
-(/usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
-File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
+LaTeX Font Info:    Trying to load font information for TS1+qhv on input line 9
+4.
+(/usr/share/texmf/tex/latex/tex-gyre/ts1qhv.fd
+File: ts1qhv.fd 2009/09/25 v1.2 font definition file for TS1/qhv
 )
 LaTeX Font Info:    Trying to load font information for T1+txtt on input line 1
-13.
+08.
 
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
-(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 149.
- [3] [4]
-(./seek-next.ind) [5] (./seek-next.aux)
+(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 110.
+ [3] [4
+
+]
+Chapter 2.
+[5] [6
+
+]
+Chapter 3.
+[7] [8
+
+]
+Chapter 4.
+[9] [10
+
+]
+Chapter 5.
+[11] [12
+
+]
+Chapter 6.
+[13] [14
+
+]
+Chapter 7.
+[15] [16
+
+]
+Chapter 8.
+[17] [18
+
+]
+Chapter 9.
+(./seek-next.ind) [19] (./seek-next.aux)
 Package rerunfilecheck Info: File `seek-next.out' has not changed.
-(rerunfilecheck)             Checksum: 596BFE1EC9A2F5348AF63493E3D35641;96.
+(rerunfilecheck)             Checksum: 1ADB6B9641546C2D4E538C0C085F2029;2534.
  ) 
 Here is how much of TeX's memory you used:
- 16050 strings out of 480247
- 269724 string characters out of 5896152
- 620645 words of memory out of 5000000
- 33599 multiletter control sequences out of 15000+600000
- 516886 words of font info for 65 fonts, out of 8000000 for 9000
+ 16115 strings out of 480247
+ 270870 string characters out of 5896152
+ 629273 words of memory out of 5000000
+ 33644 multiletter control sequences out of 15000+600000
+ 514772 words of font info for 66 fonts, out of 8000000 for 9000
  15 hyphenation exceptions out of 8191
- 70i,11n,76p,773b,690s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 70i,11n,76p,1154b,541s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
@@ -890,10 +927,10 @@ lic/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></
 usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/txfonts/t1xtt.pfb>
-Output written on seek-next.pdf (9 pages, 145979 bytes).
+Output written on seek-next.pdf (23 pages, 165587 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
- 16 named destinations out of 1000 (max. 500000)
- 29 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 210 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

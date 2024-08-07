@@ -56,10 +56,49 @@ def setup_test_data():
 
 # Test the API endpoint
 def test_get_student_course_overview(setup_test_data):
+    # Test successful response
     response = client.get("/student/enrolled_course/student-overview?course_id=1&student_id=1")
     assert response.status_code == 200
     data = response.json()
-
     assert data["course_description"] == "Test Description"
-    assert data["assignment_marks"] == {'1':None}  # Adjust based on your setup
+    assert data["assignment_marks"] == {'1': None}
     assert data["exam_marks"] == {'1': 90.0}
+
+    # Test with invalid course_id
+    response = client.get("/student/enrolled_course/student-overview?course_id=999&student_id=1")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Enrollment not found"}
+
+    # Test with invalid student_id
+    response = client.get("/student/enrolled_course/student-overview?course_id=1&student_id=999")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Enrollment not found"}
+
+    # Test with both invalid course_id and student_id
+    response = client.get("/student/enrolled_course/student-overview?course_id=999&student_id=999")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Enrollment not found"}
+
+# def test_get_module_details(setup_test_data):
+#     # Test successful response
+#     response = client.get("/student/enrolled_course/?course_id=1&module_id=1")
+#     assert response.status_code == 200
+#     data = response.json()
+#     assert data["title"] == "Test Module"
+#     assert data["total_lectures"] == 5
+#     assert data["total_assignments"] == 3
+
+#     # Test with invalid course_id
+#     response = client.get("/student/enrolled_course/?course_id=999&module_id=1")
+#     assert response.status_code == 404
+#     assert response.json() == {"detail": "Module not found"}
+
+#     # Test with invalid module_id
+#     response = client.get("/student/enrolled_course/?course_id=1&module_id=999")
+#     assert response.status_code == 404
+#     assert response.json() == {"detail": "Module not found"}
+
+#     # Test with both invalid course_id and module_id
+#     response = client.get("/student/enrolled_course/?course_id=999&module_id=999")
+#     assert response.status_code == 404
+#     assert response.json() == {"detail": "Module not found"}

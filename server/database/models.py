@@ -1,7 +1,6 @@
 from sqlalchemy import JSON, Column, Float, ForeignKey, Integer, String, DateTime, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy.orm import relationship
 from database.db_sql import init_db
 
 Base = declarative_base()
@@ -27,6 +26,7 @@ class Course(Base):
     total_modules = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     # modules = relationship("Module", back_populates="course")
+
 
 class CourseInstructor(Base):
     __tablename__ = 'course_instructors'
@@ -70,6 +70,7 @@ class Module(Base):
     # assignments = relationship("Assignment", back_populates="module")
     # lectures = relationship("Lecture", back_populates="module")
 
+
 class Lecture(Base):
     __tablename__ = 'lectures'
 
@@ -107,11 +108,13 @@ class AssignmentQuestion(Base):
     answer = Column(String(100), nullable=False)
     # assignment = relationship("Assignment", back_populates="questions")
 
+
 class AssignmentMarks(Base):
     __tablename__ = 'assignment_marks'
 
     id = Column(Integer, primary_key=True)
-    assignment_id = Column(Integer, ForeignKey('assignments.id'), nullable=False)
+    assignment_id = Column(Integer, ForeignKey(
+        'assignments.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     marks = Column(Float, nullable=False)
     submitted_at = Column(DateTime, nullable=False)
@@ -119,6 +122,7 @@ class AssignmentMarks(Base):
     feedback = Column(Text, nullable=True)
     # assignment = relationship("Assignment", back_populates="marks")
     # student = relationship("User")
+
 
 class Exam(Base):
     __tablename__ = 'exams'
@@ -128,6 +132,7 @@ class Exam(Base):
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     exam_id = Column(Integer, nullable=False)
     marks = Column(Float, nullable=True)
+
 
 engine = None
 

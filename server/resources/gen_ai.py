@@ -1,8 +1,9 @@
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, File, Request, UploadFile
 from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt
 from dotenv import load_dotenv
 from api.gemini import call_gemini, call_gemini_vision
+from fastapi import HTTPException
 
 load_dotenv()
 
@@ -16,6 +17,8 @@ genai_router = APIRouter()
                    )
 async def gemini(request: Request):
     data = await request.json()
+    if "prompt" not in data.keys():
+        raise HTTPException(status_code=422, detail="Prompt is required")
     prompt = data["prompt"]
     prompt = search_courses_prompt.format(user_prompt=prompt)
     try:
@@ -34,6 +37,8 @@ async def gemini(request: Request):
                    )
 async def gemini(request: Request):
     data = await request.json()
+    if "prompt" not in data.keys():
+        raise HTTPException(status_code=422, detail="Prompt is required")
     prompt = data["prompt"]
     prompt = explain_courses_prompt.format(user_prompt=prompt)
     try:
@@ -52,6 +57,8 @@ async def gemini(request: Request):
                    )
 async def gemini(request: Request):
     data = await request.json()
+    if "prompt" not in data.keys():
+        raise HTTPException(status_code=422, detail="Prompt is required")
     prompt = data["prompt"]
     try:
         data = data["data"]
@@ -66,7 +73,7 @@ async def gemini(request: Request):
                    description="Get feedback on programming code using generative AI",
                    response_description="Response from AI in the form of a JSON with a text message inside",
                    tags=["Gen AI"])
-async def gemini(request: Request, images: List[UploadFile] = File(...)):
+async def gemini(request: Request, images: Optional[List[UploadFile]] = File(None)):
     form_data = await request.form()
     prompt = form_data.get("prompt")
     data = form_data.get("data")

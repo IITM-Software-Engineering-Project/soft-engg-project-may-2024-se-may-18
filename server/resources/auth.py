@@ -40,7 +40,7 @@ async def register(request: Request, session: Session = Depends(get_db)):
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     new_user = User(username=username, email=email,
-                    password=hashed_password.decode('utf-8'), role=role, last_login=None)
+                    password=hashed_password.decode('utf-8'), role=role, last_login=datetime.now())
     try:
         session.add(new_user)
         session.commit()

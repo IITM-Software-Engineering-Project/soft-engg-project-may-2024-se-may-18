@@ -177,7 +177,7 @@ def test_delete_assignment_not_found(setup_test_data):
     assert response.status_code == 404
     assert response.json() == {"detail": "assignment not found"}
 
-def test_add_question_success(setup_test_data):
+def test_add_question_success(setup_test_data):#Not there
     data = {"question": "What is the capital of France?", "assignment_id": 1, "options":{"1":"a","2":"b","3":"c","4":"d"},"answer":"1"}
     response = client.post("/add_question", json=data)
     assert response.status_code == 200

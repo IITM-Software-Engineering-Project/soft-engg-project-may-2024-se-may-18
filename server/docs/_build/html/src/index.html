@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Code Computation Service Unit Tests" href="codeComputing.html" /> 
+    <link rel="next" title="Code Computation Service Unit Tests" href="codeComputingTestCases.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,7 +45,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="codeComputing.html">Code Computation Service Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeComputingTestCases.html">Code Computation Service Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="studentTestCases.html">Student Course Management API Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructorTestCases.html">Test Cases for Instructor Endpoints</a></li>
 </ul>
 
         </div>
@@ -75,16 +77,40 @@
   <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="codeComputing.html">Code Computation Service Unit Tests</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-read-main">1. <strong>Test Case: `test_read_main`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-compute-code-python">2. <strong>Test Case: `test_compute_code_python`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-compute-code-java">3. <strong>Test Case: `test_compute_code_java`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-compute-code-invalid-python-code">4. <strong>Test Case: `test_compute_code_invalid_python_code`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-compute-code-invalid-java-code">5. <strong>Test Case: `test_compute_code_invalid_java_code`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-compute-code-no-problem-info">6. <strong>Test Case: `test_compute_code_no_problem_info`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-compute-code-empty-problem-id">7. <strong>Test Case: `test_compute_code_empty_problem_id`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-add-code-info">8. <strong>Test Case: `test_add_code_info`</strong></a></li>
-<li class="toctree-l2"><a class="reference internal" href="codeComputing.html#test-case-test-delete-code-info">9. <strong>Test Case: `test_delete_code_info`</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeComputingTestCases.html">Code Computation Service Unit Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="codeComputingTestCases.html#test-cases-for">1. <strong>Test Cases for `/`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="codeComputingTestCases.html#test-cases-for-compute">2. <strong>Test Cases for `/compute`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="codeComputingTestCases.html#test-cases-for-add-code-info">3. <strong>Test Cases for `/add-code-info`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="codeComputingTestCases.html#test-cases-for-delete-code-info">4. <strong>Test Cases for `/delete-code-info`</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="studentTestCases.html">Student Course Management API Unit Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="studentTestCases.html#test-cases-for-student-enrolled-course-student-overview">1. Test Cases for <cite>/student/enrolled_course/student-overview</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="studentTestCases.html#test-cases-for-student-enrolled-course">2. Test Cases for <cite>/student/enrolled_course/</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="studentTestCases.html#test-cases-for-student-courses-course-id">3. Test Cases for <cite>/student/courses/{course_id}</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="studentTestCases.html#test-cases-for-student-enroll">4. Test Cases for <cite>/student/enroll</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="studentTestCases.html#test-cases-for-student-enrolled-courses-student-id">5. Test Cases for <cite>/student/enrolled-courses/{student_id}</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instructorTestCases.html">Test Cases for Instructor Endpoints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-add-module">1. <strong>Test Cases for `/add_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-edit-module">2. <strong>Test Cases for `/edit_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-delete-module">3. <strong>Test Cases for `/delete_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-add-lecture">4. <strong>Test Cases for `/add_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-edit-lecture">5. <strong>Test Cases for `/edit_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-delete-lecture">6. <strong>Test Cases for `/delete_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-add-assignment">7. <strong>Test Cases for `/add_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-edit-assignment">8. <strong>Test Cases for `/edit_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#test-cases-for-delete-assignment">9. <strong>Test Cases for `/delete_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id1">10. <strong>Test Cases for `/add_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id2">12. <strong>Test Cases for `/edit_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id3">13. <strong>Test Cases for `/delete_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id4">14. <strong>Test Cases for `/add_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id5">15. <strong>Test Cases for `/edit_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id6">16. <strong>Test Cases for `/delete_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id7">17. <strong>Test Cases for `/add_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id8">18. <strong>Test Cases for `/edit_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="instructorTestCases.html#id9">19. <strong>Test Cases for `/delete_assignment`</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -94,7 +120,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="codeComputing.html" class="btn btn-neutral float-right" title="Code Computation Service Unit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="codeComputingTestCases.html" class="btn btn-neutral float-right" title="Code Computation Service Unit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

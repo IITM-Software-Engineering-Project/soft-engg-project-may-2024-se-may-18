@@ -173,7 +173,7 @@ def test_enroll_student_invalid_course_id(setup_test_data):
     assert response.status_code == 404
     assert response.json() == {"detail": "Student or Course not found"}
 
-def test_enroll_student_invalid_ids(setup_test_data):
+def test_enroll_student_invalid_ids(setup_test_data):#Not there
     response = client.post("/student/enroll", json={"student_id": 999, "course_id": 999})
     assert response.status_code == 404
     assert response.json() == {"detail": "Student or Course not found"}

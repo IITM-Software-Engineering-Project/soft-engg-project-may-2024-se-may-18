@@ -4,8 +4,10 @@ Code Computation Service Unit Tests
 This document provides details about the unit tests for the API endpoints related to code submissions. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
 
 
-1. **Test Case: `test_read_main`**
-------------------------------------------
+1. **Test Cases for `/`**
+------------------------------
+
+1.1 **Test Case: `test_read_main`**
    - **API being tested:** `/`
    - **Inputs:** None
    - **Expected Output:**
@@ -26,8 +28,11 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-2. **Test Case: `test_compute_code_python`**
-----------------------------------------------
+
+2. **Test Cases for `/compute`**
+-----------------------------------
+
+2.1 **Test Case: `test_compute_code_python`**
    - **API being tested:** `/compute`
    - **Inputs:**
 
@@ -64,8 +69,8 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-3. **Test Case: `test_compute_code_java`**
-----------------------------------------------
+
+2.2 **Test Case: `test_compute_code_java`**
    - **API being tested:** `/compute`
    - **Inputs:**
 
@@ -102,8 +107,8 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-4. **Test Case: `test_compute_code_invalid_python_code`**
-------------------------------------------------------------
+
+2.3 **Test Case: `test_compute_code_invalid_python_code`**
    - **API being tested:** `/compute`
    - **Inputs:**
 
@@ -140,8 +145,8 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-5. **Test Case: `test_compute_code_invalid_java_code`**
-----------------------------------------------------------
+
+2.4 **Test Case: `test_compute_code_invalid_java_code`**
    - **API being tested:** `/compute`
    - **Inputs:**
 
@@ -178,8 +183,8 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-6. **Test Case: `test_compute_code_no_problem_info`**
------------------------------------------------------
+
+2.5 **Test Case: `test_compute_code_no_problem_info`**
    - **API being tested:** `/compute`
    - **Inputs:**
 
@@ -210,8 +215,8 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-7. **Test Case: `test_compute_code_empty_problem_id`**
--------------------------------------------------------
+
+2.6 **Test Case: `test_compute_code_empty_problem_id`**
    - **API being tested:** `/compute`
    - **Inputs:**
 
@@ -242,8 +247,11 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-8. **Test Case: `test_add_code_info`**
------------------------------------------------
+
+3. **Test Cases for `/add-code-info`**
+------------------------------------------
+
+3.1 **Test Case: `test_add_code_info`**
    - **API being tested:** `/add-code-info`
    - **Inputs:**
 
@@ -275,8 +283,44 @@ This document provides details about the unit tests for the API endpoints relate
 
    - **Result:** Success
 
-9. **Test Case: `test_delete_code_info`**
------------------------------------------------
+
+3.2 **Test Case: `test_add_code_info_missing_problem_id`**
+   - **API being tested:** `/add-code-info`
+   - **Inputs:**
+
+     .. code-block:: json
+
+       {
+         "problem_id": "",
+         "total_test_cases": "1",
+         "test_cases": [
+           {"input": "hello", "expected_output": "hello"}
+         ]
+       }
+
+   - **Expected Output:**
+
+     .. code-block:: json
+
+       {
+         "detail": "Problem ID is required"
+       }
+
+   - **Actual Output:**
+
+     .. code-block:: json
+
+       {
+         "detail": "Problem ID is required"
+       }
+
+   - **Result:** Success
+
+
+4. **Test Cases for `/delete-code-info`**
+--------------------------------------------
+
+4.1 **Test Case: `test_delete_code_info`**
    - **API being tested:** `/delete-code-info`
    - **Inputs:**
 
@@ -300,6 +344,35 @@ This document provides details about the unit tests for the API endpoints relate
 
        {
          "message": "Code information deleted successfully"
+       }
+
+   - **Result:** Success
+
+
+4.2 **Test Case: `test_delete_code_info_not_found`**
+   - **API being tested:** `/delete-code-info`
+   - **Inputs:**
+
+     .. code-block:: json
+
+       {
+         "problem_id": "non_existing_problem_id"
+       }
+
+   - **Expected Output:**
+
+     .. code-block:: json
+
+       {
+         "detail": "Code information not found"
+       }
+
+   - **Actual Output:**
+
+     .. code-block:: json
+
+       {
+         "detail": "Code information not found"
        }
 
    - **Result:** Success

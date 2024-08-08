@@ -1,6 +1,8 @@
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 10
    :caption: Contents:
 
-   codeComputing
-   
+   codeComputingTestCases
+   studentTestCases
+   instructorTestCases
+

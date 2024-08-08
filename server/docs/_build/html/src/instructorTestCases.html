@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Cases for Instructor Endpoints &mdash; Seek - Next 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Student Course Management API Unit Tests" href="studentTestCases.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Seek - Next
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="codeComputingTestCases.html">Code Computation Service Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="studentTestCases.html">Student Course Management API Unit Tests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Test Cases for Instructor Endpoints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-add-module">1. <strong>Test Cases for `/add_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-edit-module">2. <strong>Test Cases for `/edit_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-delete-module">3. <strong>Test Cases for `/delete_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-add-lecture">4. <strong>Test Cases for `/add_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-edit-lecture">5. <strong>Test Cases for `/edit_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-delete-lecture">6. <strong>Test Cases for `/delete_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-add-assignment">7. <strong>Test Cases for `/add_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-edit-assignment">8. <strong>Test Cases for `/edit_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-for-delete-assignment">9. <strong>Test Cases for `/delete_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">10. <strong>Test Cases for `/add_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">12. <strong>Test Cases for `/edit_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">13. <strong>Test Cases for `/delete_module`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">14. <strong>Test Cases for `/add_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">15. <strong>Test Cases for `/edit_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">16. <strong>Test Cases for `/delete_lecture`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">17. <strong>Test Cases for `/add_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">18. <strong>Test Cases for `/edit_assignment`</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">19. <strong>Test Cases for `/delete_assignment`</strong></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Seek - Next</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Test Cases for Instructor Endpoints</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/instructorTestCases.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="test-cases-for-instructor-endpoints">
+<h1>Test Cases for Instructor Endpoints<a class="headerlink" href="#test-cases-for-instructor-endpoints" title="Link to this heading"></a></h1>
+<p>This document provides details about the unit tests for the API endpoints related to intructor course management. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.</p>
+<section id="test-cases-for-add-module">
+<h2>1. <strong>Test Cases for `/add_module`</strong><a class="headerlink" href="#test-cases-for-add-module" title="Link to this heading"></a></h2>
+<dl>
+<dt>1.1 <strong>Test Case: `test_add_module_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_module</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Module&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_lectures&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;course_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>1.2 <strong>Test Case: `test_add_module_invalid_courseid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_module</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Module&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_lectures&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;course_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Course not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Course not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-edit-module">
+<h2>2. <strong>Test Cases for `/edit_module`</strong><a class="headerlink" href="#test-cases-for-edit-module" title="Link to this heading"></a></h2>
+<dl>
+<dt>2.1 <strong>Test Case: `test_edit_module_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_module/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Module Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>2.2 <strong>Test Case: `test_edit_module_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_module/999</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Module Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Content not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Content not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-delete-module">
+<h2>3. <strong>Test Cases for `/delete_module`</strong><a class="headerlink" href="#test-cases-for-delete-module" title="Link to this heading"></a></h2>
+<dl>
+<dt>3.1 <strong>Test Case: `test_delete_module_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_module/1</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>3.2 <strong>Test Case: `test_delete_module_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_module/999</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-add-lecture">
+<h2>4. <strong>Test Cases for `/add_lecture`</strong><a class="headerlink" href="#test-cases-for-add-lecture" title="Link to this heading"></a></h2>
+<dl>
+<dt>4.1 <strong>Test Case: `test_add_lecture_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_lecture</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Lecture&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transcript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture Transcript&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>4.2 <strong>Test Case: `test_add_lecture_invalid_moduleid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_lecture</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Lecture&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">999</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transcript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture Transcript&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-edit-lecture">
+<h2>5. <strong>Test Cases for `/edit_lecture`</strong><a class="headerlink" href="#test-cases-for-edit-lecture" title="Link to this heading"></a></h2>
+<dl>
+<dt>5.1 <strong>Test Case: `test_edit_lecture_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_lecture/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Lecture Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>5.2 <strong>Test Case: `test_edit_lecture_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_lecture/999</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Lecture Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-delete-lecture">
+<h2>6. <strong>Test Cases for `/delete_lecture`</strong><a class="headerlink" href="#test-cases-for-delete-lecture" title="Link to this heading"></a></h2>
+<dl>
+<dt>6.1 <strong>Test Case: `test_delete_lecture_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_lecture/1</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>6.2 <strong>Test Case: `test_delete_lecture_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_lecture/999</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-add-assignment">
+<h2>7. <strong>Test Cases for `/add_assignment`</strong><a class="headerlink" href="#test-cases-for-add-assignment" title="Link to this heading"></a></h2>
+<dl>
+<dt>7.1 <strong>Test Case: `test_add_assignment_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_assignment</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Assignment&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homework&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;due_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-08-05 00:00:00&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>7.2 <strong>Test Case: `test_add_assignment_invalid_moduleid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_assignment</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Assignment&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">999</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homework&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;due_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-08-05 00:00:00&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-edit-assignment">
+<h2>8. <strong>Test Cases for `/edit_assignment`</strong><a class="headerlink" href="#test-cases-for-edit-assignment" title="Link to this heading"></a></h2>
+<dl>
+<dt>8.1 <strong>Test Case: `test_edit_assignment_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_assignment/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Assignment Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>8.2 <strong>Test Case: `test_edit_assignment_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_assignment/999</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Assignment Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>8.3 <strong>Test Case: `test_edit_assignment_invalid_moduleid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_assignment/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">999</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test-cases-for-delete-assignment">
+<h2>9. <strong>Test Cases for `/delete_assignment`</strong><a class="headerlink" href="#test-cases-for-delete-assignment" title="Link to this heading"></a></h2>
+<dl>
+<dt>9.1 <strong>Test Case: `test_delete_assignment_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_assignment/1</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>9.2 <strong>Test Case: `test_delete_assignment_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_assignment/999</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h2>10. <strong>Test Cases for `/add_module`</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl>
+<dt>10.1 <strong>Test Case: `test_add_module_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_module</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Module&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_lectures&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;course_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>10.2 <strong>Test Case: `test_add_module_invalid_courseid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_module</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Module&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_lectures&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;course_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Course not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Course not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>12. <strong>Test Cases for `/edit_module`</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<dl>
+<dt>12.1 <strong>Test Case: `test_edit_module_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_module/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Module Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>12.2 <strong>Test Case: `test_edit_module_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_module/999</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Module Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Content not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Content not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>13. <strong>Test Cases for `/delete_module`</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl>
+<dt>13.1 <strong>Test Case: `test_delete_module_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_module/1</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>13.2 <strong>Test Case: `test_delete_module_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_module/999</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>14. <strong>Test Cases for `/add_lecture`</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl>
+<dt>14.1 <strong>Test Case: `test_add_lecture_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_lecture</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Lecture&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transcript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture Transcript&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>14.2 <strong>Test Case: `test_add_lecture_invalid_moduleid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_lecture</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Lecture&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">999</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transcript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture Transcript&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>15. <strong>Test Cases for `/edit_lecture`</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl>
+<dt>15.1 <strong>Test Case: `test_edit_lecture_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_lecture/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Lecture Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>15.2 <strong>Test Case: `test_edit_lecture_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_lecture/999</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Lecture Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>16. <strong>Test Cases for `/delete_lecture`</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl>
+<dt>16.1 <strong>Test Case: `test_delete_lecture_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_lecture/1</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>16.2 <strong>Test Case: `test_delete_lecture_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_lecture/999</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lecture not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>17. <strong>Test Cases for `/add_assignment`</strong><a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<dl>
+<dt>17.1 <strong>Test Case: `test_add_assignment_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_assignment</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Assignment&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homework&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;due_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-08-05 00:00:00&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment added successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>17.2 <strong>Test Case: `test_add_assignment_invalid_moduleid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/add_assignment</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Assignment&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment Description&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">999</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homework&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;due_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-08-05 00:00:00&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>18. <strong>Test Cases for `/edit_assignment`</strong><a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<dl>
+<dt>18.1 <strong>Test Case: `test_edit_assignment_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_assignment/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Assignment Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment updated successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>18.2 <strong>Test Case: `test_edit_assignment_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_assignment/999</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Assignment Title&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>18.3 <strong>Test Case: `test_edit_assignment_invalid_moduleid`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/edit_assignment/1</cite></p></li>
+<li><p><strong>Inputs:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;module_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">999</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h2>19. <strong>Test Cases for `/delete_assignment`</strong><a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<dl>
+<dt>19.1 <strong>Test Case: `test_delete_assignment_success`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_assignment/1</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment deleted successfully&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+<dt>19.2 <strong>Test Case: `test_delete_assignment_not_found`</strong></dt><dd><ul>
+<li><p><strong>API being tested:</strong> <cite>/delete_assignment/999</cite></p></li>
+<li><p><strong>Inputs:</strong> None</p></li>
+<li><p><strong>Expected Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Actual Output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assignment not found&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Result:</strong> Success</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="studentTestCases.html" class="btn btn-neutral float-left" title="Student Course Management API Unit Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright May 2024 .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

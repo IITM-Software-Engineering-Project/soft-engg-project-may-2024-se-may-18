@@ -10,7 +10,6 @@ author = 'Team 18'
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
 
-
 # Extensions
 extensions = [
     'sphinx.ext.autodoc',

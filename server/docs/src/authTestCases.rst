@@ -1,164 +1,296 @@
-Authentication Test Cases
-==========================
+Authentication API Test Cases
+=============================
 
-This document provides details about the unit tests for the authentication-related API endpoints. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
+This document provides details about the unit tests for the authentication API endpoints. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
 
-1. **Test Cases for `/register`**
+**Test Cases for `/register`**
 --------------------------------------
 
-1.1 **Test Case: `test_register_success`**
-   - **API being tested:** `/register`
-   - **Inputs:**
+**Test Case: `test_register_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-     .. code-block:: json
+- **API being tested:** `/register`
 
-       {
-         "username": "testuser",
-         "email": "test@example.com",
-         "password": "testpassword",
-         "role": "student"
-       }
+- **Inputs:**
 
-   - **Expected Output:**
+  .. code-block:: json
 
-     .. code-block:: json
+    {
+      "username": "testuser",
+      "email": "testuser@example.com",
+      "password": "password123",
+      "role": "user"
+    }
 
-       {
-         "message": "User registered successfully"
-       }
+- **Expected Output:**
 
-   - **Actual Output:**
+  .. code-block:: json
 
-     .. code-block:: json
+    {
+      "message": "User registered successfully"
+    }
 
-       {
-         "message": "User registered successfully"
-       }
+- **Actual Output:**
 
-   - **Result:** Success
+  .. code-block:: json
 
-1.2 **Test Case: `test_register_user_already_exists`**
-   - **API being tested:** `/register`
-   - **Inputs:**
+    {
+      "message": "User registered successfully"
+    }
 
-     .. code-block:: json
+- **Result:** Success
 
-       {
-         "username": "testuser",
-         "email": "test@example.com",
-         "password": "testpassword",
-         "role": "student"
-       }
+**Test Case: `test_register_existing_user`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   - **Setup:** Ensure a user with `username: testuser` is already present in the database.
-   - **Expected Output:**
+- **API being tested:** `/register`
 
-     .. code-block:: json
+- **Inputs:**
 
-       {
-         "detail": "User already exists"
-       }
+  .. code-block:: json
 
-   - **Actual Output:**
+    {
+      "username": "testuser",
+      "email": "testuser@example.com",
+      "password": "password123",
+      "role": "user"
+    }
 
-     .. code-block:: json
+  .. code-block:: json
 
-       {
-         "detail": "User already exists"
-       }
+    {
+      "username": "testuser",
+      "email": "newemail@example.com",
+      "password": "newpassword123",
+      "role": "user"
+    }
 
-   - **Result:** Success
+- **Expected Output:**
 
-2. **Test Cases for `/login`**
+  .. code-block:: json
+
+    {
+      "detail": "User already exists"
+    }
+
+- **Actual Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "User already exists"
+    }
+
+- **Result:** Success
+
+**Test Case: `test_register_missing_fields`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **API being tested:** `/register`
+
+- **Inputs:**
+
+  .. code-block:: json
+
+    {
+      "username": "testuser",
+      "email": "testuser@example.com"
+    }
+
+- **Expected Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "Field required"
+    }
+
+- **Actual Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "Field required"
+    }
+
+- **Result:** Success
+
+**Test Cases for `/login`**
 -----------------------------------
 
-2.1 **Test Case: `test_login_success`**
-   - **API being tested:** `/login`
-   - **Inputs:**
+**Test Case: `test_login_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-     .. code-block:: json
+- **API being tested:** `/login`
 
-       {
-         "username": "testuser",
-         "password": "testpassword"
-       }
+- **Inputs:**
 
-   - **Setup:** Ensure a user with `username: testuser` is registered with the provided password.
-   - **Expected Output:**
+  .. code-block:: json
 
-     .. code-block:: json
+    {
+      "username": "testuser",
+      "password": "password123"
+    }
 
-       {
-         "access_token": "<token>",
-         "token_type": "bearer"
-       }
+- **Expected Output:**
 
-   - **Actual Output:**
+  .. code-block:: json
 
-     .. code-block:: json
+    {
+      "access_token": "string",
+      "username": "testuser",
+      "role": "user",
+      "email": "testuser@example.com"
+    }
 
-       {
-         "access_token": "<token>",
-         "token_type": "bearer"
-       }
+- **Actual Output:**
 
-   - **Result:** Success
+  .. code-block:: json
 
-2.2 **Test Case: `test_login_incorrect_password`**
-   - **API being tested:** `/login`
-   - **Inputs:**
+    {
+      "access_token": "string",
+      "username": "testuser",
+      "role": "user",
+      "email": "testuser@example.com"
+    }
 
-     .. code-block:: json
+- **Result:** Success
 
-       {
-         "username": "testuser",
-         "password": "wrongpassword"
-       }
+**Test Case: `test_login_incorrect_password`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   - **Setup:** Ensure a user with `username: testuser` is registered in the database.
-   - **Expected Output:**
+- **API being tested:** `/login`
 
-     .. code-block:: json
+- **Inputs:**
 
-       {
-         "detail": "Incorrect username or password"
-       }
+  .. code-block:: json
 
-   - **Actual Output:**
+    {
+      "username": "testuser",
+      "password": "wrongpassword"
+    }
 
-     .. code-block:: json
+- **Expected Output:**
 
-       {
-         "detail": "Incorrect username or password"
-       }
+  .. code-block:: json
 
-   - **Result:** Success
+    {
+      "detail": "Incorrect username or password"
+    }
 
-2.3 **Test Case: `test_login_user_not_found`**
-   - **API being tested:** `/login`
-   - **Inputs:**
+- **Actual Output:**
 
-     .. code-block:: json
+  .. code-block:: json
 
-       {
-         "username": "nonexistentuser",
-         "password": "testpassword"
-       }
+    {
+      "detail": "Incorrect username or password"
+    }
 
-   - **Expected Output:**
+- **Result:** Success
 
-     .. code-block:: json
+**Test Case: `test_login_non_existing_user`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-       {
-         "detail": "Incorrect username or password"
-       }
+- **API being tested:** `/login`
 
-   - **Actual Output:**
+- **Inputs:**
 
-     .. code-block:: json
+  .. code-block:: json
 
-       {
-         "detail": "Incorrect username or password"
-       }
+    {
+      "username": "nonexistentuser",
+      "password": "password123"
+    }
 
-   - **Result:** Success
+- **Expected Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "User does not exist"
+    }
+
+- **Actual Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "User does not exist"
+    }
+
+- **Result:** Success
+
+**Test Cases for `/verify-token`**
+-----------------------------------
+
+**Test Case: `test_verify_token_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **API being tested:** `/verify-token`
+
+- **Inputs:**
+
+  .. code-block:: json
+
+    {
+      "Authorization": "Bearer validtoken"
+    }
+
+- **Expected Output:**
+
+  .. code-block:: json
+
+    {
+      "username": "testuser",
+      "role": "user",
+      "email": "testuser@example.com"
+    }
+
+- **Actual Output:**
+
+  .. code-block:: json
+
+    {
+      "username": "testuser",
+      "role": "user",
+      "email": "testuser@example.com"
+    }
+
+- **Result:** Success
+
+**Test Case: `test_verify_token_invalid`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **API being tested:** `/verify-token`
+
+- **Inputs:**
+
+  .. code-block:: json
+
+    {
+      "Authorization": "Bearer invalidtoken"
+    }
+
+- **Expected Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "Invalid token"
+    }
+
+- **Actual Output:**
+
+  .. code-block:: json
+
+    {
+      "detail": "Invalid token"
+    }
+
+- **Result:** Success
+
+
+
+
+
+

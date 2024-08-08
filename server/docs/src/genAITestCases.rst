@@ -1,12 +1,13 @@
 AI Service Test Cases
-=====================
+=======================
 
 This document provides details about the unit tests for the AI-related API endpoints. Each test case includes information about the API being tested, the inputs, expected output, actual output, and the result.
 
-1. **Test Cases for `/ai-search-courses`**
+**Test Cases for `/ai-search-courses`**
 ---------------------------------------------
 
-1.1 **Test Case: `test_ai_search_courses_success`**
+**Test Case: `test_ai_search_courses_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-search-courses`
    - **Inputs:**
 
@@ -24,7 +25,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-1.2 **Test Case: `test_ai_search_courses_no_data`**
+**Test Case: `test_ai_search_courses_no_data`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-search-courses`
    - **Inputs:**
 
@@ -42,7 +44,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-1.3 **Test Case: `test_ai_search_courses_missing_prompt`**
+**Test Case: `test_ai_search_courses_missing_prompt`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-search-courses`
    - **Inputs:**
 
@@ -69,10 +72,11 @@ This document provides details about the unit tests for the AI-related API endpo
    - **Result:** Success
 
 
-2. **Test Cases for `/ai-explain-course`**
+**Test Cases for `/ai-explain-course`**
 ---------------------------------------------
 
-2.1 **Test Case: `test_ai_explain_course_success`**
+**Test Case: `test_ai_explain_course_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-explain-course`
    - **Inputs:**
 
@@ -90,7 +94,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-2.2 **Test Case: `test_ai_explain_course_no_data`**
+**Test Case: `test_ai_explain_course_no_data`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-explain-course`
    - **Inputs:**
 
@@ -108,7 +113,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-2.3 **Test Case: `test_ai_explain_course_missing_prompt`**
+**Test Case: `test_ai_explain_course_missing_prompt`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-explain-course`
    - **Inputs:**
 
@@ -135,10 +141,11 @@ This document provides details about the unit tests for the AI-related API endpo
    - **Result:** Success
 
 
-3. **Test Cases for `/ai-summarize-transcript`**
+**Test Cases for `/ai-summarize-transcript`**
 ------------------------------------------------------
 
-3.1 **Test Case: `test_ai_summarize_transcript_success`**
+**Test Case: `test_ai_summarize_transcript_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-summarize-transcript`
    - **Inputs:**
 
@@ -157,7 +164,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-3.2 **Test Case: `test_ai_summarize_transcript_no_data`**
+**Test Case: `test_ai_summarize_transcript_no_data`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-summarize-transcript`
    - **Inputs:**
 
@@ -175,7 +183,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-3.3 **Test Case: `test_ai_summarize_transcript_missing_prompt`**
+**Test Case: `test_ai_summarize_transcript_missing_prompt`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-summarize-transcript`
    - **Inputs:**
 
@@ -202,10 +211,11 @@ This document provides details about the unit tests for the AI-related API endpo
    - **Result:** Success
 
 
-4. **Test Cases for `/ai-programming-feedback`**
+**Test Cases for `/ai-programming-feedback`**
 ----------------------------------------------------
 
-4.1 **Test Case: `test_ai_programming_feedback_success`**
+**Test Case: `test_ai_programming_feedback_success`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-programming-feedback`
    - **Inputs:**
      - **Files:** 
@@ -238,7 +248,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-4.2 **Test Case: `test_ai_programming_feedback_missing_data`**
+**Test Case: `test_ai_programming_feedback_missing_data`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-programming-feedback`
    - **Inputs:**
      - **Files:** 
@@ -270,7 +281,8 @@ This document provides details about the unit tests for the AI-related API endpo
 
    - **Result:** Success
 
-4.3 **Test Case: `test_ai_programming_feedback_missing_prompt`**
+**Test Case: `test_ai_programming_feedback_missing_prompt`**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    - **API being tested:** `/ai-programming-feedback`
    - **Inputs:**
      - **Files:** 

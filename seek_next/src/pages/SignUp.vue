@@ -2,14 +2,21 @@
     <v-container fluid>
         <v-row class="root">
             <v-col cols="6" class="d-flex align-center">
-                <v-container class="register">
+                <v-container class="register align-content-center">
                     <v-row class="d-flex align-center justify-center">
                         <v-col cols="12" class="d-block">
+                            <!-- Username Field -->
+                            <v-text-field v-model="username" label="Username" outlined dense></v-text-field>
+                            <!-- Email Field -->
                             <v-text-field v-model="email" label="Email" outlined dense></v-text-field>
+                            <!-- Password Field -->
                             <v-text-field v-model="password" label="Password" outlined dense
                                 type="password"></v-text-field>
+                            <!-- Confirm Password Field -->
                             <v-text-field v-model="confirmPassword" label="Confirm Password" outlined dense
                                 type="password"></v-text-field>
+                            <!-- Role Dropdown -->
+                            <v-select v-model="role" :items="roles" label="Role" outlined dense></v-select>
                             <v-row class="d-flex justify-center py-5">
                                 <v-btn @click="register" color="primary" dark>
                                     Register
@@ -38,14 +45,16 @@
 </template>
 
 <script lang="ts">
-
 export default {
     name: 'SignUp',
     data() {
         return {
+            username: '', // Added username field
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            role: '', // Added role field
+            roles: ['Student', 'Instructor'], // Role options
         }
     },
     methods: {
@@ -54,7 +63,18 @@ export default {
                 console.error('Passwords do not match');
                 return;
             }
-            console.log(this.email, this.password);
+
+            if (!this.username || !this.role) {
+                console.error('Username and role must be provided');
+                return;
+            }
+
+            this.$store.dispatch('signIn', {
+                username: this.username,
+                email: this.email,
+                password: this.password,
+                role: this.role
+            });
         },
         goToSignIn() {
             this.$router.push('/sign-in');
@@ -73,7 +93,7 @@ export default {
 .register {
     background-color: rgb(228, 228, 228);
     width: 70%;
-    height: 70%;
+    height: 80%;
     /* Adjust height for additional fields */
     border-radius: 4%;
 }

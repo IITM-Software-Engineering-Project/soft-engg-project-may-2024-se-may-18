@@ -2,10 +2,12 @@
     <v-container fluid>
         <v-row class="root">
             <v-col cols="6" class="d-flex align-center">
-                <v-container class="sign-in">
+                <v-container class="sign-in align-content-center">
                     <v-row class="d-flex align-center justify-center">
                         <v-col cols="12" class="d-block">
-                            <v-text-field v-model="email" label="Email" outlined dense></v-text-field>
+                            <!-- Username Field -->
+                            <v-text-field v-model="username" label="Username" outlined dense></v-text-field>
+                            <!-- Password Field -->
                             <v-text-field v-model="password" label="Password" outlined dense
                                 type="password"></v-text-field>
                             <v-row class="d-flex justify-center py-5">
@@ -19,10 +21,6 @@
                                     Register
                                 </v-btn>
                             </v-row>
-
-                            <span>{{ count }}</span>
-                            <v-btn @click="add">Increment</v-btn>
-
                         </v-col>
                     </v-row>
                 </v-container>
@@ -40,29 +38,20 @@
 </template>
 
 <script lang="ts">
-import { mapGetters, mapMutations } from 'vuex';
-
-
 export default {
     name: 'SignIn',
     data() {
         return {
-            email: '',
+            username: '',  // Changed to username
             password: ''
         }
     },
-    computed: {
-        ...mapGetters({
-            count: 'doubleCount'
-        }),
-
-    },
     methods: {
-        ...mapMutations({
-            add: 'increment'
-        }),
         signIn() {
-            console.log(this.email);
+            this.$store.dispatch('signIn', {
+                username: this.username,
+                password: this.password
+            });
         },
         goToRegister() {
             this.$router.push('/sign-up');

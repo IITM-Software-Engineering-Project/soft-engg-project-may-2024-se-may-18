@@ -2,7 +2,8 @@
    :maxdepth: 10
    :caption: Contents:
 
-   codeComputingTestCases
+   authTestCases
    studentTestCases
    instructorTestCases
+   codeComputingTestCases
 

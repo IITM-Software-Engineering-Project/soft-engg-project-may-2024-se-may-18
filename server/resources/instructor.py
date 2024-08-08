@@ -254,7 +254,14 @@ async def delete_assignment(assignment_id: int, session: Session = Depends(get_d
 async def add_question(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     question = AssignmentQuestion(**data)
-
+    if("options" not in data.keys()):
+        raise HTTPException(status_code=400, detail=f"Missing fields in payload")
+    if ("answer" not in data.keys()):
+        raise HTTPException(status_code=400, detail=f"Missing fields in payload")
+    if ("assignment_id" not in data.keys()):
+        raise HTTPException(status_code=400, detail=f"Missing fields in payload")
+    
+    
     try:
         session.add(question)
         session.commit()
@@ -275,6 +282,8 @@ async def add_question(request: Request, session: Session = Depends(get_db)):
                        tags=["Assignment"])
 async def edit_question(request: Request, question_id: int, session: Session = Depends(get_db)):
     data = await request.json()
+    if(len(data)<1):
+        raise HTTPException(status_code = 422, detail="missing fields")
     question = session.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="question not found")
@@ -328,28 +337,11 @@ def get_enrolled_students(course_id: int, session: Session = Depends(get_db)):
     return [StudentEnrolled(id=student.id, username=student.username) for student in students]
 
 
-# @instructor_router.post("/instructor/create-assignment", tags=["Instructor"], description="Create an assignment for a module")
-# def create_assignment(request: CreateAssignmentRequest):
-#     module_id = request.module_id
-#     title = request.title
-#     description = request.description
-#     type = request.type
-#     due_date = request.due_date
-#     new_assignment = Assignment(
-#         module_id=module_id,
-#         title=title,
-#         description=description,
-#         type=type,
-#         due_date=due_date
-#     )
-#     session.add(new_assignment)
-#     session.commit()
-#     return {"message": "Assignment created successfully", "assignment_id": new_assignment.id}
-
-
 @instructor_router.post("/instructor/create-exam", tags=["Exam"], description="Create an exam for a course")
 def create_exam(course_id: int, exam_id: int, session: Session = Depends(get_db)):
     # Create an exam entry for each enrolled student
+    if(session.query(Course).filter_by(id=course_id).first() is None):
+        raise HTTPException(status_code=404, detail="course not found")
     enrollments = session.query(CourseEnrollment).filter(
         CourseEnrollment.course_id == course_id).all()
     for enrollment in enrollments:

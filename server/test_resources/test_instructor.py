@@ -6,7 +6,7 @@ from local_db import TestBase, test_engine, TestSessionLocal
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from main import app  # Import your FastAPI app
 from sqlalchemy.orm import Session
-from database.models import Course, CourseEnrollment, User, Module, Assignment, AssignmentMarks, Exam, Lecture
+from database.models import Course, CourseEnrollment, User, Module, Assignment, AssignmentMarks, Exam, Lecture, AssignmentQuestion
 from datetime import datetime
 from resources.instructor import get_db  # Adjust the import path as necessary
 from sqlite3 import IntegrityError
@@ -50,7 +50,11 @@ def setup_test_data():
         enrollment = CourseEnrollment(student_id=user.id, course_id=course.id, enrollment_date=datetime.now())
         test_db.add(enrollment)
         test_db.commit()
-        
+
+        assignmentQuestion = AssignmentQuestion(options={"a":1,"b":2,"c":3,"d":4}, answer="a", question="Who are you?", assignment_id="1")
+        test_db.add(assignmentQuestion)
+        test_db.commit()
+
         exam = Exam(id=1, course_id=course.id, student_id=user.id, exam_id=1, marks=90.0)
         test_db.add(exam)
         test_db.commit()
@@ -173,8 +177,149 @@ def test_delete_assignment_not_found(setup_test_data):
     assert response.status_code == 404
     assert response.json() == {"detail": "assignment not found"}
 
-# def test_add_exam_success(setup_test_data):
-#     data = {"course_id": 1, "student_id": 1, "exam_id": 2, "marks": 90.0}
-#     response = client.post("/add_exam", json=data)
-#     assert response.status_code == 200
-#     assert response.json() == {"message": "Exam added successfully"}
+def test_add_question_success(setup_test_data):
+    data = {"question": "What is the capital of France?", "assignment_id": 1, "options":{"1":"a","2":"b","3":"c","4":"d"},"answer":"1"}
+    response = client.post("/add_question", json=data)
+    assert response.status_code == 200
+    assert response.json() == {"message": "Question added successfully"}
+
+def test_add_question_failure_missing_fileds(setup_test_data):
+    data = {"question": "What is the capital of France?"}
+    response = client.post("/add_question", json=data)
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Missing fields in payload"}
+
+def test_edit_question_success(setup_test_data):
+    data = {"question_text": "Updated question text"}
+    response = client.put("/edit_question/1", json=data)
+    assert response.status_code == 200
+    assert response.json() == {"message": "question updated successfully"}
+
+def test_edit_question_not_found(setup_test_data):
+    data = {"question": "Updated question text"}
+    response = client.put("/edit_question/999", json=data)
+    
+    assert response.status_code == 404
+    assert response.json() == {"detail": "question not found"}
+
+def test_edit_question_invalid_data(setup_test_data):
+    # Assuming text is a required field
+    data = {}
+    response = client.put("/edit_question/1", json=data)
+    
+    assert response.status_code == 422
+    assert response.json().get("detail") is not None
+
+def test_delete_question_success(setup_test_data):
+    response = client.delete("/delete_question/1")
+    
+    assert response.status_code == 200
+    assert response.json() == {"message": "question deleted successfully"}
+
+    # Verify the deletion in the database
+    question = setup_test_data.query(AssignmentQuestion).filter(AssignmentQuestion.id == 1).first()
+    setup_test_data.commit()
+    assert question is None
+
+def test_delete_question_not_found(setup_test_data):
+    response = client.delete("/delete_question/999")
+    
+    assert response.status_code == 404
+    assert response.json() == {"detail": "question not found"}
+
+def test_get_enrolled_students_success(setup_test_data):
+    response = client.get("/instructor/enrolled-students/1")
+    
+    assert response.status_code == 200
+    assert response.json() == [
+        {"id": 1, "username": "testuser"},
+    ]
+
+def test_get_enrolled_students_no_students(setup_test_data):
+    # Remove all students from course_id 1
+    
+    response = client.get("/instructor/enrolled-students/999")
+    
+    assert response.status_code == 200
+    assert response.json() == []
+
+def test_get_enrolled_students_course_not_found(setup_test_data):
+    response = client.get("/instructor/enrolled-students/999")
+    
+    assert response.status_code == 200
+    assert response.json() == []
+
+def test_create_exam_success(setup_test_data):
+
+    response = client.post("/instructor/create-exam?course_id=1&exam_id=101")
+    
+    assert response.status_code == 200
+    assert response.json() == {"message": "Exam created successfully for all enrolled students"}
+    
+    # Verify exams are created
+    # Assuming there are 2 enrolled students
+
+def test_create_exam_invalid_course_id(setup_test_data):
+    response = client.post("/instructor/create-exam?course_id=101&exam_id=10")
+    
+    assert response.status_code == 404
+    assert response.json() == {"detail": "course not found"}
+
+
+def test_grade_exam_success(setup_test_data):
+    # Assume course_id=1, student_id=1, exam_id=101, and marks=85.0
+    response = client.put("/instructor/grade-exam", params={
+        "course_id": 1,
+        "student_id": 1,
+        "exam_id": 1,
+        "marks": 85.0
+    })
+    
+    assert response.status_code == 200
+    assert response.json() == {"message": "Exam graded successfully"}
+
+def test_grade_exam_not_found(setup_test_data):
+    # Assume course_id=1, student_id=1, exam_id=999, and marks=85.0 (exam_id=999 does not exist)
+    response = client.put("/instructor/grade-exam", params={
+        "course_id": 1,
+        "student_id": 1,
+        "exam_id": 999,
+        "marks": 85.0
+    })
+    
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Exam not found"}
+
+def test_get_course_progress_success(setup_test_data):
+    # Assume course_id=1 and student_id=1
+    response = client.get("/course-progress", params={
+        "course_id": 1,
+        "student_id": 1
+    })
+    
+    assert response.status_code == 200
+    
+    progress = response.json()
+    assert "assignment_progress" in progress
+    assert "exam_progress" in progress
+    assert "overall_progress" in progress
+    
+    # Verify that the values are within the expected range
+    assert 0 <= progress["assignment_progress"] <= 100
+    assert 0 <= progress["exam_progress"] <= 100
+    assert 0 <= progress["overall_progress"] <= 100
+
+
+def test_get_course_progress_no_assignments_or_exams(setup_test_data):
+    # Assume course_id=1 and student_id=1 where there are no assignments or exams
+    response = client.get("/course-progress", params={
+        "course_id": 1,
+        "student_id": 1
+    })
+    
+    assert response.status_code == 200
+    
+    progress = response.json()
+    assert progress["assignment_progress"] == 0
+    assert progress["exam_progress"] == 100
+    assert progress["overall_progress"] == 50

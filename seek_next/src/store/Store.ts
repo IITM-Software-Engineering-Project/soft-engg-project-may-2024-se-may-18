@@ -58,7 +58,7 @@ export const store = createStore<State>({
   actions: {
     async signIn({ commit }, credentials) {
       try {
-        const response = await axios.post(BASE_URL + '/login', credentials);
+        const response = await axios.post(BASE_URL + '/sign-in', credentials);
         // Handle success
         commit('setUser', {
           name: response.data.username, // Adjust based on your actual data structure
@@ -76,7 +76,7 @@ export const store = createStore<State>({
     },
     async signUp({ }, userData) {
       try {
-        const response = await axios.post(BASE_URL + '/register', userData);
+        const response = await axios.post(BASE_URL + '/sign-up', userData);
         console.log('Signed up:', response.data);
         router.push('/sign-in');
       } catch (error) {

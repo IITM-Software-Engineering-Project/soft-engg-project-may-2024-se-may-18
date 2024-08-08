@@ -14,7 +14,7 @@ ALGORITHM = "HS256"
 security = HTTPBearer()
 
 
-@auth_router.post("/register",
+@auth_router.post("/sign-up",
                   description="Register a new user to the portal",
                   response_description="Message indicating success or failure",
                   tags=["authentication"],
@@ -51,7 +51,7 @@ async def register(request: Request):
     return {"message": "User registered successfully"}
 
 
-@auth_router.post("/login",
+@auth_router.post("/sign-in",
                   description="Login to the application",
                   response_description="Access Token and Token Type",
                   tags=["authentication"],

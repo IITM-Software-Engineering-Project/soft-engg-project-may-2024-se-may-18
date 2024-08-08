@@ -73,15 +73,17 @@ async def gemini(request: Request):
                    description="Get feedback on programming code using generative AI",
                    response_description="Response from AI in the form of a JSON with a text message inside",
                    tags=["Gen AI"])
-async def gemini(request: Request, images: Optional[List[UploadFile]] = File(None)):
+async def gemini(request: Request, images: List[UploadFile] = File(...)):
+    print("Hi1")
     form_data = await request.form()
     prompt = form_data.get("prompt")
     data = form_data.get("data")
     language = form_data.get("language")
     question = form_data.get("question")
+    print("Hi")
     prompt = programming_feedback_prompt.format(question=question,
                                                 user_prompt=prompt, programming_language=language)
 
     response = call_gemini_vision(prompt, images, data, data_is_json=False)
-
+    print(response)
     return response

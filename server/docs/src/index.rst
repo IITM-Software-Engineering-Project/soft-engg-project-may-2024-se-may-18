@@ -6,4 +6,5 @@
    studentTestCases
    instructorTestCases
    codeComputingTestCases
+   genAITestCases
 

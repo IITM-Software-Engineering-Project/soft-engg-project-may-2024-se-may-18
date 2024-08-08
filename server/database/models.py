@@ -39,9 +39,8 @@ class CourseInstructor(Base):
 class CourseEnrollment(Base):
     __tablename__ = 'course_enrollments'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
+    student_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
+    course_id = Column(Integer, ForeignKey('courses.id'), primary_key=True)
     enrollment_date = Column(DateTime, nullable=False)
 
 

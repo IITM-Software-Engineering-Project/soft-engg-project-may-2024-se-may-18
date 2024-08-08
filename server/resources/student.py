@@ -100,11 +100,18 @@ def get_course_details(course_id: int,  session: Session = Depends(get_db)):
 def enroll_student(request: StudentCourseOverviewRequest,  session: Session = Depends(get_db)):
     student_id = request.student_id
     course_id = request.course_id
+    user = session.query(User).filter(User.id == student_id).first()
+    course = session.query(Course).filter(Course.id == course_id).first()
+    if user is None or course is None:
+        raise HTTPException(status_code=404, detail="Student or Course not found")
     enrollment = CourseEnrollment(
         student_id=student_id,
         course_id=course_id,
         enrollment_date=datetime.now()
     )
+    if session.query(CourseEnrollment).filter(CourseEnrollment.student_id == student_id,
+                                              CourseEnrollment.course_id == course_id).first():
+        raise HTTPException(status_code=400, detail="Student is already enrolled in the course")
     session.add(enrollment)
     session.commit()
     return EnrollmentResponse(message="Enrollment successful")
@@ -118,4 +125,5 @@ def get_enrolled_courses(student_id: int, session: Session = Depends(get_db)):
     course_ids = [enrollment.course_id for enrollment in enrollments]
     courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
     return [CourseEnrolled(id=course.id, title=course.title) for course in courses]
+
 

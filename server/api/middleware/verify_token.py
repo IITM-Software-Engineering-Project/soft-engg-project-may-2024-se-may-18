@@ -1,5 +1,5 @@
-
 from fastapi import Request
+from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi import HTTPException
 import jwt
@@ -17,18 +17,19 @@ class TokenAuthMiddleware(BaseHTTPMiddleware):
         # Token extraction and verification as shown earlier
         token = request.headers.get('Authorization')
         if token is None:
-            raise HTTPException(
-                status_code=401, detail="Authorization header missing")
+            return JSONResponse(
+                status_code=401, content={"detail": "Authorization header missing"})
 
         token = token.replace("Bearer ", "")
 
         try:
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            # request.state.user = payload['sub']
+            jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         except jwt.ExpiredSignatureError:
-            raise HTTPException(status_code=401, detail="Token has expired")
+            return JSONResponse(status_code=401, content={
+                                "detail": "Token has expired"})
         except jwt.InvalidTokenError:
-            raise HTTPException(status_code=401, detail="Invalid token")
+            return JSONResponse(status_code=401, content={
+                                "detail": "Invalid token"})
 
         response = await call_next(request)
         return response

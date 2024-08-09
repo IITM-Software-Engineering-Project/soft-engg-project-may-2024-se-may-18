@@ -92,7 +92,7 @@ async def login(request: Request):
         SECRET_KEY,
         algorithm=ALGORITHM
     )
-    return {"access_token": access_token, "role": role, "email": email, username: username}
+    return {"access_token": access_token, "role": role, "email": email, "username": username}
 
 
 @auth_router.get("/verify-token",

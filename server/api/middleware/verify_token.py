@@ -11,7 +11,7 @@ ALGORITHM = "HS256"
 class TokenAuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         # Exclude certain paths from token verification
-        if request.url.path in ["/sign-up", "/sign-in"]:
+        if request.url.path in ["/sign-up", "/sign-in", "/"]:
             return await call_next(request)
 
         # Token extraction and verification as shown earlier

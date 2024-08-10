@@ -14,10 +14,18 @@ export interface State {
   };
   accessToken: string | null;
   isLoggedIn: boolean;
+  enrolledCourses: Course[];
 }
 
 export interface ComponentCustomProperties {
   $store: Store<State>
+}
+
+interface Course {
+  id: string;
+  title: string;
+  instructor: string;
+  description: string;
 }
 
 // Define injection key
@@ -32,6 +40,7 @@ export const store = createStore<State>({
     },
     accessToken: null,
     isLoggedIn: false,
+    enrolledCourses: [],
   },
   mutations: {
     setUser(state, user) {
@@ -127,6 +136,26 @@ export const store = createStore<State>({
         commit('clearAuthData');
         router.push('/sign-in');
       }
-    }
+    },
+    async fetchEnrolledCourses({ commit }, studentId: string) {
+      try {
+        const response = await axios.get(`${BASE_URL}/student/enrolled-courses/${studentId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        commit('setEnrolledCourses', response.data);
+      } catch (error) {
+        console.error('Error fetching enrolled courses:', error);
+      }
+    },
+  },
+  getters: {
+    enrolledCourses(state) {
+      return state.enrolledCourses;
+    },
+    isAuthenticated(state) {
+      return state.isLoggedIn;
+    },
   },
 });

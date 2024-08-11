@@ -24,8 +24,6 @@ export interface ComponentCustomProperties {
 interface Course {
   id: string;
   title: string;
-  instructor: string;
-  description: string;
 }
 
 // Define injection key
@@ -40,7 +38,7 @@ export const store = createStore<State>({
     },
     accessToken: null,
     isLoggedIn: false,
-    enrolledCourses: [],
+    enrolledCourses: [] as Course[],
   },
   mutations: {
     setUser(state, user) {
@@ -62,6 +60,9 @@ export const store = createStore<State>({
       localStorage.removeItem('user');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('isLoggedIn');
+    },
+    setEnrolledCourses(state, courses) {
+      state.enrolledCourses = courses;
     }
   },
   actions: {
@@ -76,6 +77,9 @@ export const store = createStore<State>({
         });
         commit('setAccessToken', response.data.access_token);
         commit('setLoggedIn', true);
+        if (response.data.role == 'student') {
+          router.push('/student-home')
+        } else 
         router.push('/home');
       } catch (error) {
         // Handle error
@@ -125,6 +129,9 @@ export const store = createStore<State>({
           commit('setUser', user);
           commit('setAccessToken', token);
           commit('setLoggedIn', true);
+          if (user.role == 'student') {
+            router.push('/student-home')
+          } else 
           router.push('/home');
         } catch (error) {
           // If the token is invalid or expired, clear the auth data
@@ -144,6 +151,7 @@ export const store = createStore<State>({
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
+        console.log('Enrolled courses:', response.data);
         commit('setEnrolledCourses', response.data);
       } catch (error) {
         console.error('Error fetching enrolled courses:', error);

@@ -12,7 +12,7 @@
       </v-btn>
 
       <!-- Logout Button -->
-      <v-btn @click="logout" color="white" variant="outlined" append-icon="mdi-account-circle">
+      <v-btn @click="logout" color="white" variant="outlined">
         <v-icon>mdi-logout</v-icon>
         Logout
       </v-btn>

@@ -7,13 +7,13 @@
 
       <!-- View All Courses Button -->
       <v-btn @click="goToAllCourses" color="white">
-        <v-icon>mdi-book-open-page-variant</v-icon>
+        <!-- <v-icon>mdi-book-open-page-variant</v-icon> -->
         View All Courses
       </v-btn>
 
       <!-- Logout Button -->
       <v-btn @click="logout" color="white" variant="outlined">
-        <v-icon>mdi-logout</v-icon>
+        <!-- <v-icon left>mdi-logout</v-icon> -->
         Logout
       </v-btn>
     </v-app-bar>

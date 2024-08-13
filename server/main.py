@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 from resources.test import root_router
 from resources.auth import auth_router
@@ -8,8 +9,9 @@ from resources.instructor import instructor_router
 from resources.admin import admin_router
 from resources.code_computing import code_router
 import uvicorn
+from api.middleware.verify_token import TokenAuthMiddleware
 
-app = FastAPI()
+app = FastAPI(middleware=[Middleware(TokenAuthMiddleware)])
 
 # List of origins that should be allowed to make cross-origin requests
 origins = [

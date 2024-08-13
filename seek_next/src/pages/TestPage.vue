@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg: string }>()
-
-const count = ref(0)
-</script>
-
 <template>
   <h1>{{ msg }}</h1>
 
@@ -27,7 +19,29 @@ const count = ref(0)
     <a href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support" target="_blank">Vue Docs Scaling up Guide</a>.
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+
+  <v-btn @click="logout">Logout</v-btn>
 </template>
+
+
+<script lang="ts">
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const msg = ref('Hello Vite + Vue 3')
+    const count = ref(0)
+
+    return { msg, count }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('signOut')
+    }
+  }
+}
+
+</script>
 
 <style scoped>
 .read-the-docs {

@@ -14,10 +14,20 @@ export interface State {
   };
   accessToken: string | null;
   isLoggedIn: boolean;
+  enrolledCourses: Course[];
+  allCourses: Course[];
 }
 
 export interface ComponentCustomProperties {
   $store: Store<State>
+}
+
+interface Course {
+  id: string;
+  title: string;
+  description?: string;  // Optional field if description data is available
+  total_modules?: string;  // Optional field if data is available
+  price?: string;  // Optional field if data is available
 }
 
 // Define injection key
@@ -32,6 +42,15 @@ export const store = createStore<State>({
     },
     accessToken: null,
     isLoggedIn: false,
+    enrolledCourses: [] as Course[],
+    allCourses: [] as Course[],
+    // allCourses: [
+    //   { id: '1', title: 'Introduction to Python', description: 'Learn the basics of Python programming.' },
+    //   { id: '2', title: 'Advanced SQL', description: 'Master SQL for data analysis and management.' },
+    //   { id: '3', title: 'Web Development with Flask', description: 'Build web applications using Flask.' },
+    //   { id: '4', title: 'Data Science with R', description: 'Explore data science techniques using R.' },
+    //   { id: '5', title: 'Machine Learning Fundamentals', description: 'Get started with machine learning concepts.' }
+    // ],  // Dummy data for allCourses
   },
   mutations: {
     setUser(state, user) {
@@ -53,6 +72,18 @@ export const store = createStore<State>({
       localStorage.removeItem('user');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('isLoggedIn');
+    },
+    setEnrolledCourses(state, courses) {
+      state.enrolledCourses = courses;
+    },
+    setAllCourses(state, courses) {
+      state.allCourses = courses; 
+    },
+    addEnrolledCourse(state, courseId) {
+      const course = state.allCourses.find(course => course.id === courseId);
+      if (course) {
+        state.enrolledCourses.push(course);
+      }
     }
   },
   actions: {
@@ -67,6 +98,9 @@ export const store = createStore<State>({
         });
         commit('setAccessToken', response.data.access_token);
         commit('setLoggedIn', true);
+        if (response.data.role == 'student') {
+          router.push('/student-home')
+        } else 
         router.push('/home');
       } catch (error) {
         // Handle error
@@ -116,6 +150,9 @@ export const store = createStore<State>({
           commit('setUser', user);
           commit('setAccessToken', token);
           commit('setLoggedIn', true);
+          if (user.role == 'student') {
+            router.push('/student-home')
+          } else 
           router.push('/home');
         } catch (error) {
           // If the token is invalid or expired, clear the auth data
@@ -127,6 +164,60 @@ export const store = createStore<State>({
         commit('clearAuthData');
         router.push('/sign-in');
       }
-    }
+    },
+    async fetchEnrolledCourses({ commit }, studentId: string) {
+      try {
+        const response = await axios.get(`${BASE_URL}/student/enrolled-courses/${studentId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log('Enrolled courses:', response.data);
+        commit('setEnrolledCourses', response.data);
+      } catch (error) {
+        console.error('Error fetching enrolled courses:', error);
+      }
+    },
+    async fetchAllCourses({ commit }) {  // Action to fetch all courses
+      try {
+        const response = await axios.get(`${BASE_URL}/courses/list`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log('All courses:', response.data);
+        commit('setAllCourses', response.data);
+      } catch (error) {
+        console.error('Error fetching all courses:', error);
+      }
+    },
+    async enrollInCourse({ commit }, { studentId, courseId }) {
+      try {
+        const response = await axios.post(`${BASE_URL}/student/enroll`, {
+          student_id: studentId,
+          course_id: courseId,
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log(response.data.message);
+        commit('addEnrolledCourse', courseId);
+      } catch (error) {
+        console.error('Error enrolling in course:', error);
+        throw error;
+      }
+    },
+  },
+  getters: {
+    enrolledCourses(state) {
+      return state.enrolledCourses;
+    },
+    allCourses(state) {
+      return state.allCourses; 
+    },
+    isAuthenticated(state) {
+      return state.isLoggedIn;
+    },
   },
 });

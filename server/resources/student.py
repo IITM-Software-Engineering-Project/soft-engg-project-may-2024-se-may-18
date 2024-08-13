@@ -3,8 +3,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 from database.models import Course, CourseEnrollment, User, Module, Assignment, AssignmentMarks, Exam
 from database.db_sql import init_db
-from api.payload_schema.payloadschema import CourseOverview, ModuleDetails, CourseDetails, EnrollmentResponse, CourseEnrolled, StudentEnrolled\
-    , StudentCourseOverviewRequest, StudentModuleDetailsRequest
+from api.payload_schema.payloadschema import CourseOverview, ModuleDetails, CourseDetails, EnrollmentResponse, CourseEnrolled, StudentEnrolled, StudentCourseOverviewRequest, StudentModuleDetailsRequest
 from datetime import datetime
 from typing import List
 # Initialize the database and create a session
@@ -16,6 +15,8 @@ session = Session()
 student_router = APIRouter()
 
 # Student endpoints
+
+
 @student_router.get("/student/enrolled_course/student-overview", response_model=CourseOverview,
                     description="Get an overview of the student's course including assignments and exam marks.",
                     tags=["Student"])
@@ -24,13 +25,14 @@ def get_student_course_overview(course_id: int, student_id: int):
         CourseEnrollment.course_id == course_id,
         CourseEnrollment.student_id == student_id
     ).first()
-    
+
     if not enrollment:
         raise HTTPException(status_code=404, detail="Enrollment not found")
-    
+
     course = session.query(Course).filter(Course.id == course_id).first()
-    
-    assignments = session.query(Assignment).join(Module).filter(Module.course_id == course_id).all()
+
+    assignments = session.query(Assignment).join(
+        Module).filter(Module.course_id == course_id).all()
     assignment_marks = {}
     for assignment in assignments:
         marks = session.query(AssignmentMarks).filter(
@@ -38,31 +40,32 @@ def get_student_course_overview(course_id: int, student_id: int):
             AssignmentMarks.student_id == student_id
         ).first()
         assignment_marks[assignment.id] = marks.marks if marks else None
-    
+
     exams = session.query(Exam).filter(
         Exam.course_id == course_id,
         Exam.student_id == student_id
     ).all()
     exam_marks = {exam.exam_id: exam.marks for exam in exams}
-    
+
     return CourseOverview(
         course_description=course.description,
         assignment_marks=assignment_marks,
         exam_marks=exam_marks
     )
 
+
 @student_router.get("/student/enrolled_course/", response_model=ModuleDetails,
-                    tags = ["Student"],
+                    tags=["Student"],
                     description="Get details of a module of the course.")
-def get_module_details(course_id: int,module_id: int):
+def get_module_details(course_id: int, module_id: int):
     module = session.query(Module).filter(
         Module.course_id == course_id,
         Module.id == module_id
     ).first()
-    
+
     if not module:
         raise HTTPException(status_code=404, detail="Module not found")
-    
+
     return ModuleDetails(
         title=module.title,
         description=module.description,
@@ -70,12 +73,13 @@ def get_module_details(course_id: int,module_id: int):
         total_assignments=module.total_assignments
     )
 
+
 @student_router.get("/student/courses/{course_id}", response_model=CourseDetails,
-                    tags = ["Student"],
+                    tags=["Student"],
                     description="Get details of a course.")
 def get_course_details(course_id: int):
     course = session.query(Course).filter(Course.id == course_id).first()
-    
+
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
     return CourseDetails(
@@ -87,7 +91,7 @@ def get_course_details(course_id: int):
 
 
 @student_router.post("/student/enroll", response_model=EnrollmentResponse,
-                     tags = ["Student"],
+                     tags=["Student"],
                      description="Enroll a student in a course.")
 def enroll_student(request: StudentCourseOverviewRequest):
     student_id = request.student_id
@@ -103,10 +107,11 @@ def enroll_student(request: StudentCourseOverviewRequest):
 
 
 @student_router.get("/student/enrolled-courses/{student_id}", response_model=List[CourseEnrolled],
-                    tags = ["Student"],
+                    tags=["Student"],
                     description="Get the list of courses enrolled by a student.")
 def get_enrolled_courses(student_id: int):
-    enrollments = session.query(CourseEnrollment).filter(CourseEnrollment.student_id == student_id).all()
+    enrollments = session.query(CourseEnrollment).filter(
+        CourseEnrollment.student_id == student_id).all()
     course_ids = [enrollment.course_id for enrollment in enrollments]
     courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
     return [CourseEnrolled(id=course.id, title=course.title) for course in courses]
@@ -119,7 +124,7 @@ def get_enrolled_courses(student_id: int):
 #     enrollments = session.query(CourseEnrollment).filter(CourseEnrollment.course_id == course_id).all()
 #     student_ids = [enrollment.student_id for enrollment in enrollments]
 #     students = session.query(User).filter(User.id.in_(student_ids)).all()
-    
+
 #     return [StudentEnrolled(id=student.id, username=student.username) for student in students]
 
 # Additional endpoints that might be useful
@@ -177,7 +182,7 @@ def get_enrolled_courses(student_id: int):
 #     # Get total number of assignments and exams
 #     total_assignments = session.query(func.count(Assignment.id)).join(Module).filter(Module.course_id == course_id).scalar()
 #     total_exams = session.query(func.count(Exam.id)).filter(Exam.course_id == course_id, Exam.student_id == student_id).scalar()
-    
+
 #     # Get number of completed assignments and exams
 #     completed_assignments = session.query(func.count(AssignmentMarks.id)).join(Assignment).join(Module).filter(
 #         Module.course_id == course_id,
@@ -188,12 +193,12 @@ def get_enrolled_courses(student_id: int):
 #         Exam.student_id == student_id,
 #         Exam.marks != None
 #     ).scalar()
-    
+
 #     # Calculate progress percentages
 #     assignment_progress = (completed_assignments / total_assignments) * 100 if total_assignments > 0 else 0
 #     exam_progress = (completed_exams / total_exams) * 100 if total_exams > 0 else 0
 #     overall_progress = ((completed_assignments + completed_exams) / (total_assignments + total_exams)) * 100 if (total_assignments + total_exams) > 0 else 0
-    
+
 #     return {
 #         "assignment_progress": assignment_progress,
 #         "exam_progress": exam_progress,

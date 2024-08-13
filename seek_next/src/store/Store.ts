@@ -78,6 +78,12 @@ export const store = createStore<State>({
     },
     setAllCourses(state, courses) {
       state.allCourses = courses; 
+    },
+    addEnrolledCourse(state, courseId) {
+      const course = state.allCourses.find(course => course.id === courseId);
+      if (course) {
+        state.enrolledCourses.push(course);
+      }
     }
   },
   actions: {
@@ -183,6 +189,23 @@ export const store = createStore<State>({
         commit('setAllCourses', response.data);
       } catch (error) {
         console.error('Error fetching all courses:', error);
+      }
+    },
+    async enrollInCourse({ commit }, { studentId, courseId }) {
+      try {
+        const response = await axios.post(`${BASE_URL}/student/enroll`, {
+          student_id: studentId,
+          course_id: courseId,
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log(response.data.message);
+        commit('addEnrolledCourse', courseId);
+      } catch (error) {
+        console.error('Error enrolling in course:', error);
+        throw error;
       }
     },
   },

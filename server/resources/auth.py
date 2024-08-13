@@ -15,6 +15,7 @@ ALGORITHM = "HS256"
 
 security = HTTPBearer()
 
+
 def get_db():
     engine = init_db()
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -50,7 +51,6 @@ async def register(request: Request, session: Session = Depends(get_db)):
                     last_login=datetime.now()
                     )
 
-
     try:
         session.add(new_user)
         session.commit()
@@ -71,7 +71,6 @@ async def login(request: Request, session: Session = Depends(get_db)):
     password = data["password"]
 
     user = session.query(User).filter(User.username == username).first()
-    
 
     if not user:
         raise HTTPException(
@@ -84,14 +83,13 @@ async def login(request: Request, session: Session = Depends(get_db)):
 
     user.last_login = datetime.now()
 
-
+    user_id = user.id
     username = user.username
     role = user.role
     email = user.email
 
     session.add(user)
     session.commit()
-
 
     access_token_expires = timedelta(minutes=45)
     access_token = jwt.encode(
@@ -100,7 +98,7 @@ async def login(request: Request, session: Session = Depends(get_db)):
         SECRET_KEY,
         algorithm=ALGORITHM
     )
-    return {"access_token": access_token, "role": role, "email": email, "username": username}
+    return {"access_token": access_token, "id": user_id, "role": role, "email": email, "username": username}
 
 
 @auth_router.get("/verify-token",

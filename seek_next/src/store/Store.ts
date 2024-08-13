@@ -8,6 +8,7 @@ const BASE_URL = 'http://localhost:8000';
 // Define your typings for the store state
 export interface State {
   user: {
+    id: string
     name: string;
     email: string;
     role: string;
@@ -36,6 +37,7 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
   state: {
     user: {
+      id: '',
       name: '',
       email: '',
       role: '',
@@ -44,13 +46,6 @@ export const store = createStore<State>({
     isLoggedIn: false,
     enrolledCourses: [] as Course[],
     allCourses: [] as Course[],
-    // allCourses: [
-    //   { id: '1', title: 'Introduction to Python', description: 'Learn the basics of Python programming.' },
-    //   { id: '2', title: 'Advanced SQL', description: 'Master SQL for data analysis and management.' },
-    //   { id: '3', title: 'Web Development with Flask', description: 'Build web applications using Flask.' },
-    //   { id: '4', title: 'Data Science with R', description: 'Explore data science techniques using R.' },
-    //   { id: '5', title: 'Machine Learning Fundamentals', description: 'Get started with machine learning concepts.' }
-    // ],  // Dummy data for allCourses
   },
   mutations: {
     setUser(state, user) {

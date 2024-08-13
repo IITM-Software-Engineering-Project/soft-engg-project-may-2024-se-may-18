@@ -27,11 +27,7 @@
 
               <!-- List of All Courses -->
               <v-list two-line>
-                <v-list-item
-                  v-for="course in allCourses"
-                  :key="course.id"
-                  class="mt-3"
-                >
+                <v-list-item v-for="course in allCourses" :key="course.id" class="mt-3">
                   <v-row>
                     <v-col>
                       <v-list-item-title>{{ course.title }}</v-list-item-title>
@@ -48,21 +44,12 @@
                       </v-list-item-subtitle>
 
                       <!-- Enroll Button -->
-                       <!-- If enrolled then Go To Course Button -->
-                      <v-btn
-                        v-if="!isEnrolled(course.id)"
-                        color="success"
-                        @click="enroll(course.id)"
-                        size="x-small"
-                      >
+                      <!-- If enrolled then Go To Course Button -->
+                      <v-btn v-if="!isEnrolled(course.id)" color="success" @click="enroll(course.id)" size="x-small">
                         Enroll
                       </v-btn>
-                      <v-btn
-                        v-if="isEnrolled(course.id)"
-                        color="grey-darken-1"
-                        @click="goToCourse(course.id)"
-                        size="x-small"
-                      >
+                      <v-btn v-if="isEnrolled(course.id)" color="grey-darken-1" @click="goToCourse(course.id)"
+                        size="x-small">
                         Go to Course
                       </v-btn>
                     </v-col>
@@ -98,15 +85,13 @@ export default {
       console.log(`Navigating to course with ID: ${courseId}`);
     },
     async enroll(courseId: string) {
-      const studentId = "11"; // Hardcoded student ID - need to change 
-      // try {
-      //   await this.$store.dispatch('enrollInCourse', { studentId, courseId });
-      //   alert('Enrollment successful');
-      // } catch (error) {
-      //   console.error('Error enrolling in course:', error);
-      //   alert('Enrollment failed');
-      // }
-      console.log(courseId, studentId);
+      try {
+        await this.$store.dispatch('enrollInCourse', { userId: this.$store.state.user.id, courseId });
+        alert('Enrollment successful');
+      } catch (error) {
+        console.error('Error enrolling in course:', error);
+        alert('Enrollment failed');
+      }
     },
     goToDashboard() {
       this.$router.push('/student-home');
@@ -127,6 +112,7 @@ export default {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .font-weight-bold {
   font-weight: bold;
 }

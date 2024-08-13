@@ -29,11 +29,7 @@
 
               <!-- List of Enrolled Courses -->
               <v-list two-line>
-                <v-list-item
-                  v-for="course in enrolledCourses"
-                  :key="course['id']"
-                  class="mt-3"
-                >
+                <v-list-item v-for="course in enrolledCourses" :key="course['id']" class="mt-3">
                   <v-row justify="space-between">
                     <!-- Course Title -->
                     <v-col cols="8">
@@ -42,7 +38,7 @@
 
                     <!-- Go to Course Button -->
                     <v-col cols="4" class="text-right">
-                      <v-btn @click="goToCourse(course.id)" color="secondary" size="small" >
+                      <v-btn @click="goToCourse(course.id)" color="secondary" size="small">
                         Go to Course
                       </v-btn>
                     </v-col>
@@ -66,13 +62,8 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'student-home',
-  data() {
-    return {
-      studentId: '11',
-    };
-  },
   mounted() {
-    this.$store.dispatch('fetchEnrolledCourses', this.studentId);
+    this.$store.dispatch('fetchEnrolledCourses', this.$store.state.user.id);
   },
   computed: {
     ...mapGetters({
@@ -100,12 +91,15 @@ export default {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .v-list-item-title {
   font-weight: 500;
 }
+
 .v-card {
   padding: 20px;
 }
+
 .text-right {
   text-align: right;
 }

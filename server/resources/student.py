@@ -11,6 +11,7 @@ from typing import List
 # Session = sessionmaker(bind=engine)
 # session = Session()
 
+
 def get_db():
     engine = init_db()
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -19,6 +20,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 student_router = APIRouter()
 
@@ -62,11 +64,10 @@ def get_student_course_overview(course_id: int, student_id: int, session: Sessio
     )
 
 
-@student_router.get("/student/enrolled_course/", response_model=ModuleDetails,
+@student_router.get("/student/module-details", response_model=ModuleDetails,
                     tags=["Student"],
                     description="Get details of a module of the course.")
-
-def get_module_details(course_id: int,module_id: int,  session: Session = Depends(get_db)):
+def get_module_details(course_id: int, module_id: int,  session: Session = Depends(get_db)):
     module = session.query(Module).filter(
         Module.course_id == course_id,
         Module.id == module_id
@@ -108,7 +109,8 @@ def enroll_student(request: StudentCourseOverviewRequest,  session: Session = De
     user = session.query(User).filter(User.id == student_id).first()
     course = session.query(Course).filter(Course.id == course_id).first()
     if user is None or course is None:
-        raise HTTPException(status_code=404, detail="Student or Course not found")
+        raise HTTPException(
+            status_code=404, detail="Student or Course not found")
     enrollment = CourseEnrollment(
         student_id=student_id,
         course_id=course_id,
@@ -116,7 +118,8 @@ def enroll_student(request: StudentCourseOverviewRequest,  session: Session = De
     )
     if session.query(CourseEnrollment).filter(CourseEnrollment.student_id == student_id,
                                               CourseEnrollment.course_id == course_id).first():
-        raise HTTPException(status_code=400, detail="Student is already enrolled in the course")
+        raise HTTPException(
+            status_code=400, detail="Student is already enrolled in the course")
     session.add(enrollment)
     session.commit()
     return EnrollmentResponse(message="Enrollment successful")
@@ -125,9 +128,9 @@ def enroll_student(request: StudentCourseOverviewRequest,  session: Session = De
 @student_router.get("/student/enrolled-courses/{student_id}", response_model=List[CourseEnrolled],
                     tags=["Student"],
                     description="Get the list of courses enrolled by a student.")
-
 def get_enrolled_courses(student_id: int, session: Session = Depends(get_db)):
-    enrollments = session.query(CourseEnrollment).filter(CourseEnrollment.student_id == student_id).all()
+    enrollments = session.query(CourseEnrollment).filter(
+        CourseEnrollment.student_id == student_id).all()
     course_ids = [enrollment.course_id for enrollment in enrollments]
     courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
     return [CourseEnrolled(id=course.id, title=course.title) for course in courses]

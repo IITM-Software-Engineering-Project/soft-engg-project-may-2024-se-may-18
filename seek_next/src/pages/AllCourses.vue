@@ -30,15 +30,26 @@
               <v-list two-line>
                 <v-list-item
                   v-for="course in allCourses"
-                  :key="course['id']"
+                  :key="course.id"
                   class="mt-3"
                 >
                   <v-list-item-content>
-                    <v-list-item-title>{{ course['title'] }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ course['description'] }}</v-list-item-subtitle>
-                    <v-list-item-subtitle>
-                      Total Modules: {{ course['total_modules'] }} | Price: ₹{{ course['price'] }}
-                    </v-list-item-subtitle>
+                    <v-row>
+                      <v-col>
+                        <v-list-item-title>{{ course.title }}</v-list-item-title>
+                        <v-list-item-subtitle>
+                          {{ course['description'] }}
+                        </v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                          Total Modules: {{ course.total_modules }}
+                        </v-list-item-subtitle>
+                      </v-col>
+                      <v-col class="text-right">
+                        <v-list-item-subtitle class="font-weight-bold">
+                          ${{ course.price }}
+                        </v-list-item-subtitle>
+                      </v-col>
+                    </v-row>
                   </v-list-item-content>
                 </v-list-item>
 

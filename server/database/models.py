@@ -103,7 +103,7 @@ class AssignmentQuestion(Base):
         'assignments.id'), nullable=False)
     image = Column(String(255), nullable=True)
     question = Column(Text, nullable=False)
-    options = Column(JSON, nullable=False)
+    answer_choices = Column(JSON, nullable=False)
     answer = Column(String(100), nullable=False)
     # assignment = relationship("Assignment", back_populates="questions")
 
@@ -111,7 +111,8 @@ class AssignmentQuestion(Base):
 class AssignmentMarks(Base):
     __tablename__ = 'assignment_marks'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    assignment_id = Column(Integer, ForeignKey('assignments.id'), nullable=False)
+    assignment_id = Column(Integer, ForeignKey(
+        'assignments.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     marks = Column(Float, nullable=False)
     submitted_at = Column(DateTime, nullable=False)

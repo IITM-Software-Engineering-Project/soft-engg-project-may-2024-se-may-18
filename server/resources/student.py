@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker, Session
-from database.models import Course, CourseEnrollment, User, Module, Assignment, AssignmentMarks, Exam
+from database.models import AssignmentQuestion, Course, CourseEnrollment, Lecture, User, Module, Assignment, AssignmentMarks, Exam
 from database.db_sql import init_db
-from api.payload_schema.payloadschema import CourseOverview, ModuleDetails, CourseDetails, EnrollmentResponse, CourseEnrolled, StudentEnrolled, StudentCourseOverviewRequest, StudentModuleDetailsRequest
+from api.payload_schema.payloadschema import AssignmentDetails, AssignmentQuestionDetails, CourseOverview, LectureDetails, ModuleContentDetails, ModuleDetails, CourseDetails, EnrollmentResponse, CourseEnrolled, StudentEnrolled, StudentCourseOverviewRequest, StudentModuleDetailsRequest
 from datetime import datetime
 from typing import List
 # Initialize the database and create a session
@@ -134,6 +134,71 @@ def get_enrolled_courses(student_id: int, session: Session = Depends(get_db)):
     course_ids = [enrollment.course_id for enrollment in enrollments]
     courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
     return [CourseEnrolled(id=course.id, title=course.title) for course in courses]
+
+# enpoinrt to return modules in a course
+
+
+@student_router.get("/student/modules/{course_id}", response_model=List[ModuleDetails],
+                    tags=["Student"],
+                    description="Get the list of modules in a course.")
+def get_modules(course_id: int, session: Session = Depends(get_db)):
+    modules = session.query(Module).filter(Module.course_id == course_id).all()
+    return [ModuleDetails(
+        title=module.title,
+        description=module.description,
+        total_lectures=module.total_lectures,
+        total_assignments=module.total_assignments
+    ) for module in modules]
+
+
+@student_router.get("/student/module-content/{module_id}", response_model=ModuleContentDetails,
+                    tags=["Student"],
+                    description="Get lectures, assignments, and their questions for a module.")
+def get_module_content(module_id: int, session: Session = Depends(get_db)):
+    # Fetch lectures for the module
+    lectures = session.query(Lecture).filter(
+        Lecture.module_id == module_id).all()
+    lecture_details = [
+        LectureDetails(
+            title=lecture.title,
+            url=lecture.url,
+            transcript=lecture.transcript
+        ) for lecture in lectures
+    ]
+    print(lecture_details)
+
+    assignments = session.query(Assignment).filter(
+        Assignment.module_id == module_id).all()
+    assignment_details = []
+
+    print(assignments)
+
+    for assignment in assignments:
+        questions = session.query(AssignmentQuestion).filter(
+            AssignmentQuestion.assignment_id == assignment.id).all()
+
+        question_details = [
+            AssignmentQuestionDetails(
+                question=question.question,
+                answer_choices=question.answer_choices,
+                answer=question.answer,
+                image=question.image
+            ) for question in questions
+        ]
+        assignment_details.append(
+            AssignmentDetails(
+                title=assignment.title,
+                description=assignment.description,
+                type=assignment.type,
+                due_date=assignment.due_date.isoformat(),
+                questions=question_details
+            )
+        )
+
+    return ModuleContentDetails(
+        lectures=lecture_details,
+        assignments=assignment_details
+    )
 
 # Instructor endpoint
 # @student_router.get("/instructor/enrolled-students/{course_id}", response_model=List[StudentEnrolled],

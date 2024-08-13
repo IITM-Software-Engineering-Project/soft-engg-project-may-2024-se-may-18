@@ -1,6 +1,7 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from datetime import datetime
+
 
 class ComputeCodeRequest(BaseModel):
     code: str
@@ -61,11 +62,13 @@ class CourseOverview(BaseModel):
     assignment_marks: dict
     exam_marks: dict
 
+
 class ModuleDetails(BaseModel):
     title: str
     description: str
     total_lectures: int
     total_assignments: int
+
 
 class CourseDetails(BaseModel):
     title: str
@@ -73,31 +76,38 @@ class CourseDetails(BaseModel):
     total_modules: int
     price: float
 
+
 class EnrollmentResponse(BaseModel):
     message: str
+
 
 class CourseEnrolled(BaseModel):
     id: int
     title: str
 
+
 class StudentEnrolled(BaseModel):
     id: int
     username: str
+
 
 class StudentCourseOverviewRequest(BaseModel):
     course_id: int
     student_id: int
 
+
 class StudentModuleDetailsRequest(BaseModel):
     course_id: int
     module_id: int
 
+
 class CreateAssignmentRequest(BaseModel):
-    module_id: int 
-    title: str 
+    module_id: int
+    title: str
     description: str
-    type: str 
+    type: str
     due_date: datetime
+
 
 class CourseBase(BaseModel):
     title: str
@@ -105,14 +115,43 @@ class CourseBase(BaseModel):
     total_modules: int
     price: float
 
+
 class CourseCreate(CourseBase):
     pass
 
+
 class CourseUpdate(CourseBase):
     id: int
+
 
 class CourseResponse(CourseBase):
     id: int
 
     class Config:
         from_attributes = True
+
+
+class AssignmentQuestionDetails(BaseModel):
+    question: str
+    answer_choices: dict
+    answer: str
+    image: Optional[str] = None
+
+
+class AssignmentDetails(BaseModel):
+    title: str
+    description: Optional[str] = None
+    type: str
+    due_date: str
+    questions: List[AssignmentQuestionDetails]
+
+
+class LectureDetails(BaseModel):
+    title: str
+    url: str
+    transcript: Optional[str] = None
+
+
+class ModuleContentDetails(BaseModel):
+    lectures: List[LectureDetails]
+    assignments: List[AssignmentDetails]

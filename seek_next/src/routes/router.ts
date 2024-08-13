@@ -1,8 +1,12 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
-import TestPage from '../pages/TestPage.vue'
+import Loading from '../pages/Loading.vue'
+import SignIn from '../pages/SignIn.vue'
+import SignUp from '../pages/SignUp.vue'
 
 const routes = [
-    { path: '/', component: TestPage },
+    { path: '/', component: Loading },
+    { path: '/sign-in', component: SignIn },
+    { path: '/sign-up', component: SignUp },
 ]
 
 const router = createRouter({

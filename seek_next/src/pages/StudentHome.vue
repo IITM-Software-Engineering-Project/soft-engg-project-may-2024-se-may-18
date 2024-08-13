@@ -7,11 +7,13 @@
 
       <!-- View All Courses Button -->
       <v-btn @click="goToAllCourses" color="white">
+        <v-icon>mdi-book-open-page-variant</v-icon>
         View All Courses
       </v-btn>
 
       <!-- Logout Button -->
-      <v-btn @click="logout" color="white" outlined>
+      <v-btn @click="logout" color="white" variant="outlined" append-icon="mdi-account-circle">
+        <v-icon>mdi-logout</v-icon>
         Logout
       </v-btn>
     </v-app-bar>
@@ -32,23 +34,21 @@
                   :key="course['id']"
                   class="mt-3"
                 >
-                  <!-- Course Title and Go to Course Button -->
-                  <v-row justify="space-between" >
+                  <v-row justify="space-between">
                     <!-- Course Title -->
                     <v-col cols="8">
                       <v-list-item-title>{{ course['title'] }}</v-list-item-title>
                     </v-col>
 
                     <!-- Go to Course Button -->
-                    <v-col cols="4" >
-                      <v-btn @click="goToCourse(course.id)" color="secondary" size="small">
+                    <v-col cols="4" class="text-right">
+                      <v-btn @click="goToCourse(course.id)" color="secondary" size="small" >
                         Go to Course
                       </v-btn>
                     </v-col>
                   </v-row>
                 </v-list-item>
 
-                <!-- No Courses Message -->
                 <v-list-item v-if="enrolledCourses.length === 0">
                   <v-list-item-title>No courses enrolled</v-list-item-title>
                 </v-list-item>
@@ -65,7 +65,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'StudentHome',
+  name: 'student-home',
   data() {
     return {
       studentId: '11',
@@ -83,12 +83,12 @@ export default {
     goToAllCourses() {
       this.$router.push('/all-courses');
     },
+    goToCourse(courseId: string) {
+      // You can add navigation logic here
+      console.log(`Navigating to course with ID: ${courseId}`);
+    },
     logout() {
       this.$store.dispatch('signOut');
-    },
-    goToCourse(courseId: string) {
-      // Logic to go to the course page to be added
-      console.log(`Navigating to course with ID: ${courseId}`);
     },
   },
 };
@@ -105,5 +105,8 @@ export default {
 }
 .v-card {
   padding: 20px;
+}
+.text-right {
+  text-align: right;
 }
 </style>

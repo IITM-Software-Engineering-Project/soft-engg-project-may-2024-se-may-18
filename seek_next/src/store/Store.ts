@@ -26,6 +26,8 @@ interface Course {
   id: string;
   title: string;
   description?: string;  // Optional field if description data is available
+  total_modules?: string;  // Optional field if data is available
+  price?: string;  // Optional field if data is available
 }
 
 // Define injection key
@@ -41,13 +43,14 @@ export const store = createStore<State>({
     accessToken: null,
     isLoggedIn: false,
     enrolledCourses: [] as Course[],
-    allCourses: [
-      { id: '1', title: 'Introduction to Python', description: 'Learn the basics of Python programming.' },
-      { id: '2', title: 'Advanced SQL', description: 'Master SQL for data analysis and management.' },
-      { id: '3', title: 'Web Development with Flask', description: 'Build web applications using Flask.' },
-      { id: '4', title: 'Data Science with R', description: 'Explore data science techniques using R.' },
-      { id: '5', title: 'Machine Learning Fundamentals', description: 'Get started with machine learning concepts.' }
-    ],  // Dummy data for allCourses
+    allCourses: [] as Course[],
+    // allCourses: [
+    //   { id: '1', title: 'Introduction to Python', description: 'Learn the basics of Python programming.' },
+    //   { id: '2', title: 'Advanced SQL', description: 'Master SQL for data analysis and management.' },
+    //   { id: '3', title: 'Web Development with Flask', description: 'Build web applications using Flask.' },
+    //   { id: '4', title: 'Data Science with R', description: 'Explore data science techniques using R.' },
+    //   { id: '5', title: 'Machine Learning Fundamentals', description: 'Get started with machine learning concepts.' }
+    // ],  // Dummy data for allCourses
   },
   mutations: {
     setUser(state, user) {
@@ -167,6 +170,19 @@ export const store = createStore<State>({
         commit('setEnrolledCourses', response.data);
       } catch (error) {
         console.error('Error fetching enrolled courses:', error);
+      }
+    },
+    async fetchAllCourses({ commit }) {  // Action to fetch all courses
+      try {
+        const response = await axios.get(`${BASE_URL}/courses/list`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log('All courses:', response.data);
+        commit('setAllCourses', response.data);
+      } catch (error) {
+        console.error('Error fetching all courses:', error);
       }
     },
   },

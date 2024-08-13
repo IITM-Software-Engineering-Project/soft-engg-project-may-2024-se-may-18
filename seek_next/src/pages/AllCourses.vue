@@ -18,41 +18,43 @@
       </v-app-bar>
   
       <!-- Main Content -->
-      <v-main>
-        <v-container>
-          <v-row justify="center">
-            <v-col cols="12" md="8">
-              <v-card>
-                <v-card-title class="headline">All Available Courses</v-card-title>
-                <v-divider></v-divider>
-  
-                <!-- List of Available Courses -->
-                <v-list two-line>
-                  <v-list-item
-                    v-for="course in allCourses"
-                    :key="course['id']"
-                    class="mt-3"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>{{ course['title'] }}</v-list-item-title>
-                      <v-list-item-subtitle>{{ course['description'] }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-  
-                  <!-- No Courses Available Message -->
-                  <v-list-item v-if="allCourses.length === 0">
-                    <v-list-item-content>
-                      <v-list-item-title>No courses available</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-main>
-    </v-app>
-  </template>
+    <v-main>
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="12" md="8">
+            <v-card>
+              <v-card-title class="headline">Available Courses</v-card-title>
+              <v-divider></v-divider>
+
+              <!-- List of All Courses -->
+              <v-list two-line>
+                <v-list-item
+                  v-for="course in allCourses"
+                  :key="course['id']"
+                  class="mt-3"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>{{ course['title'] }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ course['description'] }}</v-list-item-subtitle>
+                    <v-list-item-subtitle>
+                      Total Modules: {{ course['total_modules'] }} | Price: ₹{{ course['price'] }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item v-if="allCourses.length === 0">
+                  <v-list-item-content>
+                    <v-list-item-title>No courses available</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
   
   <script lang="ts">
   import { mapGetters } from 'vuex';

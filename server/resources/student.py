@@ -1,16 +1,24 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 from database.models import Course, CourseEnrollment, User, Module, Assignment, AssignmentMarks, Exam
 from database.db_sql import init_db
 from api.payload_schema.payloadschema import CourseOverview, ModuleDetails, CourseDetails, EnrollmentResponse, CourseEnrolled, StudentEnrolled, StudentCourseOverviewRequest, StudentModuleDetailsRequest
 from datetime import datetime
 from typing import List
 # Initialize the database and create a session
-engine = init_db()
-Session = sessionmaker(bind=engine)
-session = Session()
+# engine = init_db()
+# Session = sessionmaker(bind=engine)
+# session = Session()
 
+def get_db():
+    engine = init_db()
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 student_router = APIRouter()
 
@@ -20,7 +28,7 @@ student_router = APIRouter()
 @student_router.get("/student/enrolled_course/student-overview", response_model=CourseOverview,
                     description="Get an overview of the student's course including assignments and exam marks.",
                     tags=["Student"])
-def get_student_course_overview(course_id: int, student_id: int):
+def get_student_course_overview(course_id: int, student_id: int, session: Session = Depends(get_db)):
     enrollment = session.query(CourseEnrollment).filter(
         CourseEnrollment.course_id == course_id,
         CourseEnrollment.student_id == student_id
@@ -57,7 +65,8 @@ def get_student_course_overview(course_id: int, student_id: int):
 @student_router.get("/student/enrolled_course/", response_model=ModuleDetails,
                     tags=["Student"],
                     description="Get details of a module of the course.")
-def get_module_details(course_id: int, module_id: int):
+
+def get_module_details(course_id: int,module_id: int,  session: Session = Depends(get_db)):
     module = session.query(Module).filter(
         Module.course_id == course_id,
         Module.id == module_id
@@ -77,7 +86,7 @@ def get_module_details(course_id: int, module_id: int):
 @student_router.get("/student/courses/{course_id}", response_model=CourseDetails,
                     tags=["Student"],
                     description="Get details of a course.")
-def get_course_details(course_id: int):
+def get_course_details(course_id: int,  session: Session = Depends(get_db)):
     course = session.query(Course).filter(Course.id == course_id).first()
 
     if not course:
@@ -93,14 +102,21 @@ def get_course_details(course_id: int):
 @student_router.post("/student/enroll", response_model=EnrollmentResponse,
                      tags=["Student"],
                      description="Enroll a student in a course.")
-def enroll_student(request: StudentCourseOverviewRequest):
+def enroll_student(request: StudentCourseOverviewRequest,  session: Session = Depends(get_db)):
     student_id = request.student_id
     course_id = request.course_id
+    user = session.query(User).filter(User.id == student_id).first()
+    course = session.query(Course).filter(Course.id == course_id).first()
+    if user is None or course is None:
+        raise HTTPException(status_code=404, detail="Student or Course not found")
     enrollment = CourseEnrollment(
         student_id=student_id,
         course_id=course_id,
         enrollment_date=datetime.now()
     )
+    if session.query(CourseEnrollment).filter(CourseEnrollment.student_id == student_id,
+                                              CourseEnrollment.course_id == course_id).first():
+        raise HTTPException(status_code=400, detail="Student is already enrolled in the course")
     session.add(enrollment)
     session.commit()
     return EnrollmentResponse(message="Enrollment successful")
@@ -109,9 +125,9 @@ def enroll_student(request: StudentCourseOverviewRequest):
 @student_router.get("/student/enrolled-courses/{student_id}", response_model=List[CourseEnrolled],
                     tags=["Student"],
                     description="Get the list of courses enrolled by a student.")
-def get_enrolled_courses(student_id: int):
-    enrollments = session.query(CourseEnrollment).filter(
-        CourseEnrollment.student_id == student_id).all()
+
+def get_enrolled_courses(student_id: int, session: Session = Depends(get_db)):
+    enrollments = session.query(CourseEnrollment).filter(CourseEnrollment.student_id == student_id).all()
     course_ids = [enrollment.course_id for enrollment in enrollments]
     courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
     return [CourseEnrolled(id=course.id, title=course.title) for course in courses]

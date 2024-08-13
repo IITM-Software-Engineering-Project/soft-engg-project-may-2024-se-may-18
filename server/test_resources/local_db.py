@@ -1,14 +1,22 @@
-from sqlalchemy import JSON, Column, Float, ForeignKey, Integer, String, DateTime, Text
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import declarative_base, sessionmaker
-from database.db_sql import init_db
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import Column, Integer, String, Float, DateTime, Text, JSON, ForeignKey
 
-Base = declarative_base()
+# Define the test database URL
+SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///./test.db"
 
+# Create the engine for the test database
+test_engine = create_engine(SQLALCHEMY_TEST_DATABASE_URL, connect_args={"check_same_thread": False})
 
-class User(Base):
+# Define the session local for the test database
+TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
+
+# Define the TestBase for the test database
+TestBase = declarative_base()
+
+# Define models (same as in your main db setup)
+class User(TestBase):
     __tablename__ = 'users'
-
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), nullable=False)
     role = Column(String(50), nullable=False)
@@ -17,7 +25,8 @@ class User(Base):
     password = Column(String(100), nullable=False)
 
 
-class Course(Base):
+
+class Course(TestBase):
     __tablename__ = 'courses'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -27,8 +36,7 @@ class Course(Base):
     price = Column(Float, nullable=False)
     # modules = relationship("Module", back_populates="course")
 
-
-class CourseInstructor(Base):
+class CourseInstructor(TestBase):
     __tablename__ = 'course_instructors'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -36,15 +44,16 @@ class CourseInstructor(Base):
     course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
 
 
-class CourseEnrollment(Base):
+class CourseEnrollment(TestBase):
     __tablename__ = 'course_enrollments'
 
-    student_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    course_id = Column(Integer, ForeignKey('courses.id'), primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
     enrollment_date = Column(DateTime, nullable=False)
 
 
-class Transaction(Base):
+class Transaction(TestBase):
     __tablename__ = 'transactions'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -56,7 +65,7 @@ class Transaction(Base):
     status = Column(String(50))
 
 
-class Module(Base):
+class Module(TestBase):
     __tablename__ = 'modules'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -69,8 +78,7 @@ class Module(Base):
     # assignments = relationship("Assignment", back_populates="module")
     # lectures = relationship("Lecture", back_populates="module")
 
-
-class Lecture(Base):
+class Lecture(TestBase):
     __tablename__ = 'lectures'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -81,7 +89,7 @@ class Lecture(Base):
     # module = relationship("Module", back_populates="lectures")
 
 
-class Assignment(Base):
+class Assignment(TestBase):
     __tablename__ = 'assignments'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -95,7 +103,7 @@ class Assignment(Base):
     # marks = relationship("AssignmentMarks", back_populates="assignment")
 
 
-class AssignmentQuestion(Base):
+class AssignmentQuestion(TestBase):
     __tablename__ = 'assignment_questions'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -107,9 +115,9 @@ class AssignmentQuestion(Base):
     answer = Column(String(100), nullable=False)
     # assignment = relationship("Assignment", back_populates="questions")
 
-
-class AssignmentMarks(Base):
+class AssignmentMarks(TestBase):
     __tablename__ = 'assignment_marks'
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     assignment_id = Column(Integer, ForeignKey('assignments.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
@@ -120,8 +128,7 @@ class AssignmentMarks(Base):
     # assignment = relationship("Assignment", back_populates="marks")
     # student = relationship("User")
 
-
-class Exam(Base):
+class Exam(TestBase):
     __tablename__ = 'exams'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -129,21 +136,24 @@ class Exam(Base):
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     exam_id = Column(Integer, nullable=False)
     marks = Column(Float, nullable=True)
+TestBase.metadata.create_all(bind=test_engine)
+# import pytest
+# from fastapi.testclient import TestClient
+# from unittest.mock import MagicMock
+# import os, sys
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# from main import app
+# from resources.student import get_db
+# mock_session = MagicMock()
 
+# def override_get_db():
+#     try:
+#         yield mock_session
+#     finally:
+#         pass
 
-engine = None
-# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-if not engine:
-    engine = init_db()
-    # Base.metadata.create_all(engine, checkfirst=True)
-    session = sessionmaker(bind=engine)
-    print("SQL Database connected Successfully.")
+# app.dependency_overrides[get_db] = override_get_db
 
-
-""" class Content(Base):
-    __tablename__ = 'contents'
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String(50), nullable=False)
-    week_no = Column(Integer, nullable=False)
-    link = Column(String(50), nullable=False) """
+# @pytest.fixture
+# def mock_db_session():
+#     return mock_session

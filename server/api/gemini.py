@@ -3,6 +3,7 @@ import google.generativeai as genai
 from PIL import Image
 import json
 import os
+import io
 from fastapi import UploadFile
 from typing import List
 

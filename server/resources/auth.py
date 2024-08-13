@@ -5,6 +5,8 @@ import bcrypt
 import jwt
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.exc import IntegrityError
+from database.db_sql import init_db
+from sqlalchemy.orm import sessionmaker, Session
 
 auth_router = APIRouter()
 
@@ -13,13 +15,22 @@ ALGORITHM = "HS256"
 
 security = HTTPBearer()
 
+def get_db():
+    engine = init_db()
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 @auth_router.post("/sign-up",
                   description="Register a new user to the portal",
                   response_description="Message indicating success or failure",
                   tags=["authentication"],
                   )
-async def register(request: Request):
+async def register(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     username = data["username"]
     email = data["email"]
@@ -27,10 +38,9 @@ async def register(request: Request):
     role = data["role"]
 
     # Check if user is already registered
-    with session.begin() as db:
-        user = db.query(User).filter(User.username == username).first()
-        if user:
-            raise HTTPException(status_code=400, detail="User already exists")
+    user = session.query(User).filter(User.username == username).first()
+    if user:
+        raise HTTPException(status_code=400, detail="User already exists")
 
     # Hash the password
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -40,11 +50,10 @@ async def register(request: Request):
                     last_login=datetime.now()
                     )
 
+
     try:
-        with session.begin() as db:
-            db.add(new_user)
-            db.commit()
-            db.close()
+        session.add(new_user)
+        session.commit()
     except IntegrityError:
         raise HTTPException(status_code=400, detail="Error registering user")
 
@@ -56,14 +65,13 @@ async def register(request: Request):
                   response_description="Access Token and Token Type",
                   tags=["authentication"],
                   )
-async def login(request: Request):
+async def login(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     username = data["username"]
     password = data["password"]
 
-    with session.begin() as db:
-        user = db.query(User).filter(User.username == username).first()
-        db.close()
+    user = session.query(User).filter(User.username == username).first()
+    
 
     if not user:
         raise HTTPException(
@@ -76,14 +84,14 @@ async def login(request: Request):
 
     user.last_login = datetime.now()
 
+
     username = user.username
     role = user.role
     email = user.email
 
-    with session.begin() as db:
-        db.add(user)
-        db.commit()
-        db.close()
+    session.add(user)
+    session.commit()
+
 
     access_token_expires = timedelta(minutes=45)
     access_token = jwt.encode(

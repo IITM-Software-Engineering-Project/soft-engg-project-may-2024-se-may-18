@@ -1,0 +1,142 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Authentication API Test Cases}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}\sphinxstylestrong {Test Cases for \textasciigrave {}/register\textasciigrave {}}}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_register\_success\textasciigrave {}}}{1}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_register\_existing\_user\textasciigrave {}}}{2}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_register\_missing\_fields\textasciigrave {}}}{2}{subsection.1.1.3}%
+\contentsline {section}{\numberline {1.2}\sphinxstylestrong {Test Cases for \textasciigrave {}/login\textasciigrave {}}}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_login\_success\textasciigrave {}}}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_login\_incorrect\_password\textasciigrave {}}}{3}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_login\_non\_existing\_user\textasciigrave {}}}{4}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}\sphinxstylestrong {Test Cases for \textasciigrave {}/verify\sphinxhyphen {}token\textasciigrave {}}}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_verify\_token\_success\textasciigrave {}}}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_verify\_token\_invalid\textasciigrave {}}}{5}{subsection.1.3.2}%
+\contentsline {chapter}{\numberline {2}Extended Course API Test Cases}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}\sphinxstylestrong {Test Cases for \textasciigrave {}/courses/create\textasciigrave {}}}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_create\_course\textasciigrave {}}}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_create\_course\_missing\_fields\textasciigrave {}}}{8}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_create\_course\_invalid\_data\_type\textasciigrave {}}}{8}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}\sphinxstylestrong {Test Cases for \textasciigrave {}/courses/update\textasciigrave {}}}{9}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_update\_course\textasciigrave {}}}{9}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_update\_non\_existent\_course\textasciigrave {}}}{9}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_update\_course\_invalid\_id\textasciigrave {}}}{10}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}\sphinxstylestrong {Test Cases for \textasciigrave {}/courses/delete\textasciigrave {}}}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_course\textasciigrave {}}}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_non\_existent\_course\textasciigrave {}}}{11}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}\sphinxstylestrong {Test Cases for \textasciigrave {}/courses/get\textasciigrave {}}}{11}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_course\textasciigrave {}}}{11}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_course\_invalid\_id\textasciigrave {}}}{12}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}\sphinxstylestrong {Test Cases for \textasciigrave {}/courses/list\textasciigrave {}}}{12}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_all\_courses\textasciigrave {}}}{12}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_all\_courses\_pagination\textasciigrave {}}}{13}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_all\_courses\_no\_data\textasciigrave {}}}{13}{subsection.2.5.3}%
+\contentsline {chapter}{\numberline {3}Student Course Management API Unit Tests}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}\sphinxstylestrong {Test Cases for \textasciigrave {}/student/enrolled\_course/student\sphinxhyphen {}overview\textasciigrave {}}}{15}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_student\_course\_overview\_success\textasciigrave {}}}{15}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_student\_course\_overview\_invalid\_course\_id\textasciigrave {}}}{16}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_student\_course\_overview\_invalid\_student\_id\textasciigrave {}}}{16}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_student\_course\_overview\_invalid\_ids\textasciigrave {}}}{17}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}\sphinxstylestrong {Test Cases for \textasciigrave {}/student/enrolled\_course/\textasciigrave {}}}{17}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_module\_details\_success\textasciigrave {}}}{17}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_module\_details\_invalid\_course\_id\textasciigrave {}}}{18}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_module\_details\_invalid\_module\_id\textasciigrave {}}}{18}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_module\_details\_invalid\_ids\textasciigrave {}}}{19}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}\sphinxstylestrong {Test Cases for \textasciigrave {}/student/courses/\{course\_id\}\textasciigrave {}}}{19}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_course\_details\_success\textasciigrave {}}}{19}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_course\_details\_invalid\_course\_id\textasciigrave {}}}{20}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}\sphinxstylestrong {Test Cases for \textasciigrave {}/student/enroll\textasciigrave {}}}{20}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_enroll\_student\_success\textasciigrave {}}}{20}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_enroll\_student\_invalid\_student\_id\textasciigrave {}}}{20}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_enroll\_student\_invalid\_course\_id\textasciigrave {}}}{21}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}\sphinxstylestrong {Test Cases for \textasciigrave {}/student/enrolled\sphinxhyphen {}courses/\{student\_id\}\textasciigrave {}}}{21}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_enrolled\_courses\_success\textasciigrave {}}}{21}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_enrolled\_courses\_invalid\_student\_id\textasciigrave {}}}{22}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_get\_enrolled\_courses\_no\_courses\textasciigrave {}}}{22}{subsection.3.5.3}%
+\contentsline {chapter}{\numberline {4}Instructor API Test Cases}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\_module\textasciigrave {}}}{23}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_module\_success\textasciigrave {}}}{23}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_module\_invalid\_courseid\textasciigrave {}}}{24}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}\sphinxstylestrong {Test Cases for \textasciigrave {}/edit\_module\textasciigrave {}}}{24}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_module\_success\textasciigrave {}}}{24}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_module\_not\_found\textasciigrave {}}}{25}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\_module\textasciigrave {}}}{25}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_module\_success\textasciigrave {}}}{25}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_module\_not\_found\textasciigrave {}}}{26}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\_lecture\textasciigrave {}}}{26}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_lecture\_success\textasciigrave {}}}{26}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_lecture\_invalid\_moduleid\textasciigrave {}}}{27}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}\sphinxstylestrong {Test Cases for \textasciigrave {}/edit\_lecture\textasciigrave {}}}{27}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_lecture\_success\textasciigrave {}}}{27}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_lecture\_not\_found\textasciigrave {}}}{28}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\_lecture\textasciigrave {}}}{28}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_lecture\_success\textasciigrave {}}}{28}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_lecture\_not\_found\textasciigrave {}}}{29}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\_assignment\textasciigrave {}}}{29}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_assignment\_success\textasciigrave {}}}{29}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_assignment\_invalid\_moduleid\textasciigrave {}}}{30}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}\sphinxstylestrong {Test Cases for \textasciigrave {}/edit\_assignment\textasciigrave {}}}{30}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_assignment\_success\textasciigrave {}}}{30}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_assignment\_not\_found\textasciigrave {}}}{31}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_assignment\_invalid\_moduleid\textasciigrave {}}}{31}{subsection.4.8.3}%
+\contentsline {section}{\numberline {4.9}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\_assignment\textasciigrave {}}}{32}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_assignment\_success\textasciigrave {}}}{32}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_assignment\_not\_found\textasciigrave {}}}{32}{subsection.4.9.2}%
+\contentsline {section}{\numberline {4.10}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\_module\textasciigrave {}}}{32}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_module\_success\textasciigrave {}}}{32}{subsection.4.10.1}%
+\contentsline {subsection}{\numberline {4.10.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_module\_invalid\_courseid\textasciigrave {}}}{33}{subsection.4.10.2}%
+\contentsline {section}{\numberline {4.11}\sphinxstylestrong {Test Cases for \textasciigrave {}/edit\_module\textasciigrave {}}}{34}{section.4.11}%
+\contentsline {subsection}{\numberline {4.11.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_module\_success\textasciigrave {}}}{34}{subsection.4.11.1}%
+\contentsline {subsection}{\numberline {4.11.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_module\_not\_found\textasciigrave {}}}{34}{subsection.4.11.2}%
+\contentsline {section}{\numberline {4.12}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\_module\textasciigrave {}}}{35}{section.4.12}%
+\contentsline {subsection}{\numberline {4.12.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_module\_success\textasciigrave {}}}{35}{subsection.4.12.1}%
+\contentsline {subsection}{\numberline {4.12.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_module\_not\_found\textasciigrave {}}}{35}{subsection.4.12.2}%
+\contentsline {section}{\numberline {4.13}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\_lecture\textasciigrave {}}}{35}{section.4.13}%
+\contentsline {subsection}{\numberline {4.13.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_lecture\_success\textasciigrave {}}}{35}{subsection.4.13.1}%
+\contentsline {subsection}{\numberline {4.13.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_lecture\_invalid\_moduleid\textasciigrave {}}}{36}{subsection.4.13.2}%
+\contentsline {section}{\numberline {4.14}\sphinxstylestrong {Test Cases for \textasciigrave {}/edit\_lecture\textasciigrave {}}}{37}{section.4.14}%
+\contentsline {subsection}{\numberline {4.14.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_lecture\_success\textasciigrave {}}}{37}{subsection.4.14.1}%
+\contentsline {subsection}{\numberline {4.14.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_lecture\_not\_found\textasciigrave {}}}{37}{subsection.4.14.2}%
+\contentsline {section}{\numberline {4.15}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\_lecture\textasciigrave {}}}{38}{section.4.15}%
+\contentsline {subsection}{\numberline {4.15.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_lecture\_success\textasciigrave {}}}{38}{subsection.4.15.1}%
+\contentsline {subsection}{\numberline {4.15.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_lecture\_not\_found\textasciigrave {}}}{38}{subsection.4.15.2}%
+\contentsline {section}{\numberline {4.16}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\_assignment\textasciigrave {}}}{38}{section.4.16}%
+\contentsline {subsection}{\numberline {4.16.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_assignment\_success\textasciigrave {}}}{38}{subsection.4.16.1}%
+\contentsline {subsection}{\numberline {4.16.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_assignment\_invalid\_moduleid\textasciigrave {}}}{39}{subsection.4.16.2}%
+\contentsline {section}{\numberline {4.17}\sphinxstylestrong {Test Cases for \textasciigrave {}/edit\_assignment\textasciigrave {}}}{40}{section.4.17}%
+\contentsline {subsection}{\numberline {4.17.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_assignment\_success\textasciigrave {}}}{40}{subsection.4.17.1}%
+\contentsline {subsection}{\numberline {4.17.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_assignment\_not\_found\textasciigrave {}}}{40}{subsection.4.17.2}%
+\contentsline {subsection}{\numberline {4.17.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_edit\_assignment\_invalid\_moduleid\textasciigrave {}}}{41}{subsection.4.17.3}%
+\contentsline {section}{\numberline {4.18}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\_assignment\textasciigrave {}}}{41}{section.4.18}%
+\contentsline {subsection}{\numberline {4.18.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_assignment\_success\textasciigrave {}}}{41}{subsection.4.18.1}%
+\contentsline {subsection}{\numberline {4.18.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_assignment\_not\_found\textasciigrave {}}}{42}{subsection.4.18.2}%
+\contentsline {chapter}{\numberline {5}Code Computation Service Test Cases}{43}{chapter.5}%
+\contentsline {section}{\numberline {5.1}\sphinxstylestrong {Test Cases for \textasciigrave {}/compute\textasciigrave {}}}{43}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_python\textasciigrave {}}}{43}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_java\textasciigrave {}}}{44}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_invalid\_python\_code\textasciigrave {}}}{45}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}\sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_invalid\_java\_code\textasciigrave {}}}{45}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}\sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_no\_problem\_info\textasciigrave {}}}{46}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {5.1.6}\sphinxstylestrong {Test Case: \textasciigrave {}test\_compute\_code\_empty\_problem\_id\textasciigrave {}}}{47}{subsection.5.1.6}%
+\contentsline {section}{\numberline {5.2}\sphinxstylestrong {Test Cases for \textasciigrave {}/add\sphinxhyphen {}code\sphinxhyphen {}info\textasciigrave {}}}{47}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_code\_info\textasciigrave {}}}{47}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_add\_code\_info\_missing\_problem\_id\textasciigrave {}}}{48}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}\sphinxstylestrong {Test Cases for \textasciigrave {}/delete\sphinxhyphen {}code\sphinxhyphen {}info\textasciigrave {}}}{48}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_code\_info\textasciigrave {}}}{48}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_delete\_code\_info\_not\_found\textasciigrave {}}}{49}{subsection.5.3.2}%
+\contentsline {chapter}{\numberline {6}AI Service Test Cases}{51}{chapter.6}%
+\contentsline {section}{\numberline {6.1}\sphinxstylestrong {Test Cases for \textasciigrave {}/ai\sphinxhyphen {}search\sphinxhyphen {}courses\textasciigrave {}}}{51}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_search\_courses\_success\textasciigrave {}}}{51}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_search\_courses\_no\_data\textasciigrave {}}}{51}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_search\_courses\_missing\_prompt\textasciigrave {}}}{52}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}\sphinxstylestrong {Test Cases for \textasciigrave {}/ai\sphinxhyphen {}explain\sphinxhyphen {}course\textasciigrave {}}}{52}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_explain\_course\_success\textasciigrave {}}}{52}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_explain\_course\_no\_data\textasciigrave {}}}{52}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_explain\_course\_missing\_prompt\textasciigrave {}}}{53}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}\sphinxstylestrong {Test Cases for \textasciigrave {}/ai\sphinxhyphen {}summarize\sphinxhyphen {}transcript\textasciigrave {}}}{53}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_summarize\_transcript\_success\textasciigrave {}}}{53}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_summarize\_transcript\_no\_data\textasciigrave {}}}{53}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_summarize\_transcript\_missing\_prompt\textasciigrave {}}}{54}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}\sphinxstylestrong {Test Cases for \textasciigrave {}/ai\sphinxhyphen {}programming\sphinxhyphen {}feedback\textasciigrave {}}}{54}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_programming\_feedback\_success\textasciigrave {}}}{54}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_programming\_feedback\_missing\_data\textasciigrave {}}}{55}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}\sphinxstylestrong {Test Case: \textasciigrave {}test\_ai\_programming\_feedback\_missing\_prompt\textasciigrave {}}}{55}{subsection.6.4.3}%

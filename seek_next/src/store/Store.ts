@@ -1,11 +1,8 @@
 import { InjectionKey } from 'vue';
 import { createStore, Store } from 'vuex';
-import axios from 'axios';
-import router from '../routes/router';
+import authActions from './actions/auth';
+import courseActions from './actions/course';
 
-const BASE_URL = 'http://localhost:8000';
-
-// Define your typings for the store state
 export interface State {
   user: {
     id: string
@@ -26,9 +23,9 @@ export interface ComponentCustomProperties {
 interface Course {
   id: string;
   title: string;
-  description?: string;  // Optional field if description data is available
-  total_modules?: string;  // Optional field if data is available
-  price?: string;  // Optional field if data is available
+  description?: string;
+  total_modules?: string;
+  price?: string;
 }
 
 // Define injection key
@@ -61,7 +58,7 @@ export const store = createStore<State>({
       localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
     },
     clearAuthData(state) {
-      state.user = { name: '', email: '', role: '' };
+      state.user = { id: '', name: '', email: '', role: '' };
       state.accessToken = null;
       state.isLoggedIn = false;
       localStorage.removeItem('user');
@@ -72,7 +69,7 @@ export const store = createStore<State>({
       state.enrolledCourses = courses;
     },
     setAllCourses(state, courses) {
-      state.allCourses = courses; 
+      state.allCourses = courses;
     },
     addEnrolledCourse(state, courseId) {
       const course = state.allCourses.find(course => course.id === courseId);
@@ -82,134 +79,15 @@ export const store = createStore<State>({
     }
   },
   actions: {
-    async signIn({ commit }, credentials) {
-      try {
-        const response = await axios.post(BASE_URL + '/sign-in', credentials);
-        // Handle success
-        commit('setUser', {
-          name: response.data.username, // Adjust based on your actual data structure
-          email: response.data.email,
-          role: response.data.role
-        });
-        commit('setAccessToken', response.data.access_token);
-        commit('setLoggedIn', true);
-        if (response.data.role == 'student') {
-          router.push('/student-home')
-        } else 
-        router.push('/home');
-      } catch (error) {
-        // Handle error
-        console.error(error);
-        router.push('/sign-in');
-      }
-    },
-    async signUp({ }, userData) {
-      try {
-        const response = await axios.post(BASE_URL + '/sign-up', userData);
-        console.log('Signed up:', response.data);
-        router.push('/sign-in');
-      } catch (error) {
-        // Handle error
-        console.error(error);
-      }
-    },
-    async signOut({ commit }) {
-      try {
-        // Call signout endpoint (IF ANY)
-        //await axios.post('/api/signout');
-        commit('clearAuthData');
-        console.log('Signed out');
-        router.push('/');
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async autoLogin({ commit }) {
-      // Load token from local storage
-      const token = localStorage.getItem('accessToken');
-      if (token) {
-        try {
-          // Call verify token endpoint
-          const response = await axios.get(BASE_URL + '/verify-token', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-
-          // Update the store with the response
-          const user = {
-            name: response.data.username,
-            email: response.data.email,
-            role: response.data.role
-          };
-          commit('setUser', user);
-          commit('setAccessToken', token);
-          commit('setLoggedIn', true);
-          if (user.role == 'student') {
-            router.push('/student-home')
-          } else 
-          router.push('/home');
-        } catch (error) {
-          // If the token is invalid or expired, clear the auth data
-          commit('clearAuthData');
-          console.error('Token verification failed:', error);
-          router.push('/sing-in');
-        }
-      } else {
-        commit('clearAuthData');
-        router.push('/sign-in');
-      }
-    },
-    async fetchEnrolledCourses({ commit }, studentId: string) {
-      try {
-        const response = await axios.get(`${BASE_URL}/student/enrolled-courses/${studentId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('Enrolled courses:', response.data);
-        commit('setEnrolledCourses', response.data);
-      } catch (error) {
-        console.error('Error fetching enrolled courses:', error);
-      }
-    },
-    async fetchAllCourses({ commit }) {  // Action to fetch all courses
-      try {
-        const response = await axios.get(`${BASE_URL}/courses/list`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('All courses:', response.data);
-        commit('setAllCourses', response.data);
-      } catch (error) {
-        console.error('Error fetching all courses:', error);
-      }
-    },
-    async enrollInCourse({ commit }, { studentId, courseId }) {
-      try {
-        const response = await axios.post(`${BASE_URL}/student/enroll`, {
-          student_id: studentId,
-          course_id: courseId,
-        }, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log(response.data.message);
-        commit('addEnrolledCourse', courseId);
-      } catch (error) {
-        console.error('Error enrolling in course:', error);
-        throw error;
-      }
-    },
+    ...authActions,
+    ...courseActions,
   },
   getters: {
     enrolledCourses(state) {
       return state.enrolledCourses;
     },
     allCourses(state) {
-      return state.allCourses; 
+      return state.allCourses;
     },
     isAuthenticated(state) {
       return state.isLoggedIn;

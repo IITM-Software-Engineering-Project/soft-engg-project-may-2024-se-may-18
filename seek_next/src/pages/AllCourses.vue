@@ -81,8 +81,7 @@ export default {
       return this.enrolledCourses.some((course: any) => course.id === courseId);
     },
     goToCourse(courseId: string) {
-      // You can add navigation logic here
-      console.log(`Navigating to course with ID: ${courseId}`);
+      this.$router.push(`/course-modules/${courseId}`);
     },
     async enroll(courseId: string) {
       try {

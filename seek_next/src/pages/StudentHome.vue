@@ -75,8 +75,7 @@ export default {
       this.$router.push('/all-courses');
     },
     goToCourse(courseId: string) {
-      // You can add navigation logic here
-      console.log(`Navigating to course with ID: ${courseId}`);
+      this.$router.push(`/course-modules/${courseId}`);
     },
     logout() {
       this.$store.dispatch('signOut');

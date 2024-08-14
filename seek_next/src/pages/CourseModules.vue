@@ -60,84 +60,83 @@
         </v-container>
       </v-main>
     </v-app>
-  </template>
+</template>
   
   
-  <script lang="ts">
-  import { ref, onMounted } from 'vue';
-  import { useRoute, useRouter } from 'vue-router';
-  import axios from 'axios';
-  
-  export default {
-    name: 'CourseModules',
-    methods: {
-      logout() {
-        this.$store.dispatch('signOut');
-      },
-      goToModule(moduleId: string) {
-        console.log('Go to module:', moduleId);
-        // this.$router.push(`/module/${moduleId}`);
-      },
+<script lang="ts">
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
+
+export default {
+name: 'CourseModules',
+methods: {
+    logout() {
+    this.$store.dispatch('signOut');
     },
-    setup() {
-      const route = useRoute();
-      const router = useRouter();
-      const courseId = route.params.courseId as string;
-      const courseTitle = ref('Course Title');
-      const courseModules = ref<any[]>([]);
-  
-      const fetchCourseDetails = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8000/student/courses/${courseId}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          });
-          const courseData = response.data;
-          courseTitle.value = courseData.title;
-
-          const modulesResponse = await axios.get(`http://localhost:8000/student/modules/${courseId}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          });
-          courseModules.value = modulesResponse.data;
-        } catch (error) {
-          console.error('Error fetching course details:', error);
-        }
-      };
-      
-      const goToDashboard = () => {
-        router.push('/student-home');
-      };
-
-      const goToCourses = () => {
-        router.push('/all-courses');
-      };
-
-      onMounted(() => {
-        fetchCourseDetails();
-      });
-  
-      return {
-        courseModules,
-        courseTitle,
-        goToDashboard,
-        goToCourses,
-      };
+    goToModule(moduleId: string) {
+    console.log('Go to module:', moduleId);
+    // this.$router.push(`/module/${moduleId}`);
     },
-  };
-  </script>
-  
-  <style scoped>
-  .headline {
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .font-weight-bold {
-    font-weight: bold;
-  }
-  </style>
-  
+},
+setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const courseId = route.params.courseId as string;
+    const courseTitle = ref('Course Title');
+    const courseModules = ref<any[]>([]);
+
+    const fetchCourseDetails = async () => {
+    try {
+        const response = await axios.get(`http://localhost:8000/student/courses/${courseId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        });
+        const courseData = response.data;
+        courseTitle.value = courseData.title;
+
+        const modulesResponse = await axios.get(`http://localhost:8000/student/modules/${courseId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        });
+        courseModules.value = modulesResponse.data;
+    } catch (error) {
+        console.error('Error fetching course details:', error);
+    }
+    };
+    
+    const goToDashboard = () => {
+    router.push('/student-home');
+    };
+
+    const goToCourses = () => {
+    router.push('/all-courses');
+    };
+
+    onMounted(() => {
+    fetchCourseDetails();
+    });
+
+    return {
+    courseModules,
+    courseTitle,
+    goToDashboard,
+    goToCourses,
+    };
+},
+};
+</script>
+
+<style scoped>
+.headline {
+font-family: 'Montserrat', sans-serif;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.font-weight-bold {
+font-weight: bold;
+}
+</style>

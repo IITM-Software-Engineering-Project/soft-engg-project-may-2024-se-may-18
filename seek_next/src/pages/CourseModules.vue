@@ -4,7 +4,12 @@
       <v-app-bar app color="primary" dark>
         <v-toolbar-title>Course Modules</v-toolbar-title>
         <v-spacer></v-spacer>
-  
+        
+        <!-- Back to Dashboard Button -->
+        <v-btn @click="goToDashboard" color="white">
+            Dashboard
+        </v-btn>
+
         <!-- Back to Courses Button -->
         <v-btn @click="goToCourses" color="white">
           All Courses
@@ -38,7 +43,7 @@
                       </v-col>
                       <v-col class="text-right">
                         <!-- Button to go to Module -->
-                        <v-btn @click="goToModule(module.id)" color="primary" size="small">
+                        <v-btn @click="goToModule(module.id)" color="#BA68C8" size="small">
                           Go to Module
                         </v-btn>
                       </v-col>

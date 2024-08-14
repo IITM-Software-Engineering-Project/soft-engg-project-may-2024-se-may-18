@@ -121,6 +121,12 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
             if not user:
                 raise HTTPException(
                     status_code=400, detail="User does not exist")
+            user_id = user.id
+            username = user.username
+            role = user.role
+            email = user.email
+            
+            return {"id": user_id, "role": role, "email": email, "username": username}
 
         return {"username": username, "role": role, "email": email}
 

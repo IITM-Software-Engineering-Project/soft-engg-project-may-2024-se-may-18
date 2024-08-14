@@ -5,6 +5,7 @@ import SignUp from '../pages/SignUp.vue'
 import Home from '../pages/TestPage.vue'
 import StudentHome from '../pages/StudentHome.vue'
 import AllCourses from '../pages/AllCourses.vue'
+import CourseModules from '../pages/CourseModules.vue'
 
 const routes = [
     { path: '/', component: Loading },
@@ -13,6 +14,7 @@ const routes = [
     { path: '/home', component: Home },
     { path: '/student-home', component: StudentHome },
     { path: '/all-courses', component: AllCourses },
+    { path: '/course-modules/:courseId', component: CourseModules },
 ]
 
 const router = createRouter({

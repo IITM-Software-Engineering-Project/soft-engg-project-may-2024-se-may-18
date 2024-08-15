@@ -204,8 +204,8 @@ export default {
 }
 
 .chat-response {
-  min-height: 200px; /* Adjust as needed */
-  max-height: 400px; /* Adjust as needed */
+  min-height: 200px; 
+  max-height: 400px; 
   overflow-y: auto;
   padding: 16px;
 }

@@ -36,7 +36,7 @@
                   dense
                 ></v-textarea>
                 <v-btn color="deep-purple-lighten-2" block class="mt-2" @click="searchCourses">
-                  Search
+                  Find Courses
                 </v-btn>
                 <v-divider class="my-4"></v-divider>
                 <div v-if="chatMessage" class="chat-response">

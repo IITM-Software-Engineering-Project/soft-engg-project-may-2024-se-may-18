@@ -43,7 +43,7 @@
                       </v-col>
                       <v-col class="text-right">
                         <!-- Button to go to Module -->
-                        <v-btn @click="goToModule(module.id)" color="#BA68C8" size="small">
+                        <v-btn @click="goToModule(module.id, module.title)" color="#BA68C8" size="small">
                           Go to Module
                         </v-btn>
                       </v-col>
@@ -68,16 +68,18 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
+const BASE_URL = 'http://localhost:8000';
+
 export default {
 name: 'CourseModules',
 methods: {
     logout() {
     this.$store.dispatch('signOut');
     },
-    goToModule(moduleId: string) {
-    console.log('Go to module:', moduleId);
-    // this.$router.push(`/module/${moduleId}`);
-    },
+    // goToModule(moduleId: string) {
+    // console.log('Go to module:', moduleId);
+    // this.$router.push(`/module-details/${useRoute().params.courseId}/${moduleId}`);
+    // },
 },
 setup() {
     const route = useRoute();
@@ -88,7 +90,7 @@ setup() {
 
     const fetchCourseDetails = async () => {
     try {
-        const response = await axios.get(`http://localhost:8000/student/courses/${courseId}`, {
+        const response = await axios.get(BASE_URL + `/student/courses/${courseId}`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -96,7 +98,7 @@ setup() {
         const courseData = response.data;
         courseTitle.value = courseData.title;
 
-        const modulesResponse = await axios.get(`http://localhost:8000/student/modules/${courseId}`, {
+        const modulesResponse = await axios.get(BASE_URL + `/student/modules/${courseId}`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -115,6 +117,10 @@ setup() {
     router.push('/all-courses');
     };
 
+    const goToModule = (moduleId: string, moduleTitle: string) => {
+    router.push(`/module-details/${courseId}/${moduleId}/${moduleTitle}`);
+    };
+
     onMounted(() => {
     fetchCourseDetails();
     });
@@ -124,6 +130,7 @@ setup() {
     courseTitle,
     goToDashboard,
     goToCourses,
+    goToModule,
     };
 },
 };

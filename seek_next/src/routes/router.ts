@@ -7,6 +7,7 @@ import StudentHome from '../pages/StudentHome.vue'
 import AllCourses from '../pages/AllCourses.vue'
 import CourseModules from '../pages/CourseModules.vue'
 import ModuleDetails from '../pages/ModuleDetails.vue'
+import InstructorHome from '../pages/InstructorHome.vue'
 
 const routes = [
     { path: '/', component: Loading },
@@ -17,6 +18,7 @@ const routes = [
     { path: '/all-courses', component: AllCourses },
     { path: '/course-modules/:courseId', component: CourseModules },
     { path: '/module-details/:courseId/:moduleId/:moduleTitle', component: ModuleDetails },
+    { path: '/instructor-home', component: InstructorHome },
 ]
 
 const router = createRouter({

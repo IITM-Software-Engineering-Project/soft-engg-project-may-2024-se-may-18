@@ -152,54 +152,123 @@ def get_modules(course_id: int, session: Session = Depends(get_db)):
     ) for module in modules]
 
 
-@student_router.get("/student/module-content/{module_id}", response_model=ModuleContentDetails,
-                    tags=["Student"],
-                    description="Get lectures, assignments, and their questions for a module.")
+# @student_router.get("/student/module-content/{module_id}", response_model=ModuleContentDetails,
+#                     tags=["Student"],
+#                     description="Get lectures, assignments, and their questions for a module.")
+# def get_module_content(module_id: int, session: Session = Depends(get_db)):
+#     # Fetch lectures for the module
+#     lectures = session.query(Lecture).filter(
+#         Lecture.module_id == module_id).all()
+#     lecture_details = [
+#         LectureDetails(
+#             title=lecture.title,
+#             url=lecture.url,
+#             transcript=lecture.transcript
+#         ) for lecture in lectures
+#     ]
+#     print(lecture_details)
+
+#     assignments = session.query(Assignment).filter(
+#         Assignment.module_id == module_id).all()
+#     assignment_details = []
+
+#     print(assignments)
+
+#     for assignment in assignments:
+#         questions = session.query(AssignmentQuestion).filter(
+#             AssignmentQuestion.assignment_id == assignment.id).all()
+
+#         question_details = [
+#             AssignmentQuestionDetails(
+#                 question=question.question,
+#                 answer_choices=question.answer_choices,
+#                 answer=question.answer,
+#                 image=question.image
+#             ) for question in questions
+#         ]
+#         assignment_details.append(
+#             AssignmentDetails(
+#                 title=assignment.title,
+#                 description=assignment.description,
+#                 type=assignment.type,
+#                 due_date=assignment.due_date.isoformat(),
+#                 questions=question_details
+#             )
+#         )
+
+#     return ModuleContentDetails(
+#         lectures=lecture_details,
+#         assignments=assignment_details
+#     )
+
+@student_router.get("/student/module-content/{module_id}", tags=["Student"], 
+                    description="Get the content of a module i.e lectures and assignemnts.")
 def get_module_content(module_id: int, session: Session = Depends(get_db)):
-    # Fetch lectures for the module
-    lectures = session.query(Lecture).filter(
-        Lecture.module_id == module_id).all()
-    lecture_details = [
-        LectureDetails(
-            title=lecture.title,
-            url=lecture.url,
-            transcript=lecture.transcript
-        ) for lecture in lectures
-    ]
-    print(lecture_details)
-
-    assignments = session.query(Assignment).filter(
-        Assignment.module_id == module_id).all()
-    assignment_details = []
-
-    print(assignments)
-
+    module = session.query(Module).filter(Module.id == module_id).first()
+    if not module:
+        raise HTTPException(status_code=404, detail="Module not found")
+    lectures = session.query(Lecture).filter(Lecture.module_id == module_id).all()
+    assignments = session.query(Assignment).filter(Assignment.module_id == module_id).all()
+    response = {}
+    response["lectures"] = []
+    response["assignments"] = []
+    for lecture in lectures:
+        x={}
+        x["id"] = lecture.id
+        x["title"] = lecture.title
+        x["module_id"] = lecture.module_id
+        x["url"] = lecture.url
+        x["transcript"] = lecture.transcript
+        response["lectures"].append(x) 
     for assignment in assignments:
-        questions = session.query(AssignmentQuestion).filter(
-            AssignmentQuestion.assignment_id == assignment.id).all()
+        y={}
+        y["id"]=assignment.id
+        y["title"]=assignment.title
+        y["module_id"]=assignment.module_id
+        y["description"]=assignment.description
+        y["type"]=assignment.type
+        y["due_date"]=assignment.due_date
+        response["assignments"].append(y)
+    return response
 
-        question_details = [
-            AssignmentQuestionDetails(
-                question=question.question,
-                answer_choices=question.answer_choices,
-                answer=question.answer,
-                image=question.image
-            ) for question in questions
-        ]
-        assignment_details.append(
-            AssignmentDetails(
-                title=assignment.title,
-                description=assignment.description,
-                type=assignment.type,
-                due_date=assignment.due_date.isoformat(),
-                questions=question_details
-            )
-        )
 
-    return ModuleContentDetails(
-        lectures=lecture_details,
-        assignments=assignment_details
-    )
+@student_router.get("/student/course-content/{course_id}", tags=["Student"],
+                        description="Get the content of a course i.e modules, lectures and assignemnts.")
+def get_course_content(course_id: int, session: Session = Depends(get_db)):
+    modules = session.query(Module).filter(Module.course_id == course_id).all()
+    response = {}
+    response["modules"] = []
+    for module in modules:
+        x={}
+        x["id"] = module.id
+        x["title"] = module.title
+        x["total_lectures"] = module.total_lectures
+        x["total_assignments"] = module.total_assignments
+        x["description"] = module.description
+        x["lectures"] = []
+        x["assignments"] = []
+        lectures = session.query(Lecture).filter(Lecture.module_id == module.id).all()
+        assignments = session.query(Assignment).filter(Assignment.module_id == module.id).all()
+        for lecture in lectures:
+            y={}
+            y["id"] = lecture.id
+            y["title"] = lecture.title
+            y["module_id"] = lecture.module_id
+            y["url"] = lecture.url
+            y["transcript"] = lecture.transcript
+            x["lectures"].append(y) 
+        for assignment in assignments:
+            y={}
+            y["id"]=assignment.id
+            y["title"]=assignment.title
+            y["module_id"]=assignment.module_id
+            y["description"]=assignment.description
+            y["type"]=assignment.type
+            y["due_date"]=assignment.due_date
+            x["assignments"].append(y)
+
+        response["modules"].append(x)
+    return response
 
 # Instructor endpoint
 # @student_router.get("/instructor/enrolled-students/{course_id}", response_model=List[StudentEnrolled],

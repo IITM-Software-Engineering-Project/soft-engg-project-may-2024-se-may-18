@@ -144,6 +144,7 @@ def get_enrolled_courses(student_id: int, session: Session = Depends(get_db)):
 def get_modules(course_id: int, session: Session = Depends(get_db)):
     modules = session.query(Module).filter(Module.course_id == course_id).all()
     return [ModuleDetails(
+        id=module.id,
         title=module.title,
         description=module.description,
         total_lectures=module.total_lectures,

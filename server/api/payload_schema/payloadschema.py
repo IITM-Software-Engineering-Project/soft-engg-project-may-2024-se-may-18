@@ -64,6 +64,7 @@ class CourseOverview(BaseModel):
 
 
 class ModuleDetails(BaseModel):
+    id: int
     title: str
     description: str
     total_lectures: int

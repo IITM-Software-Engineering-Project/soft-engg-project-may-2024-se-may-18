@@ -18,14 +18,51 @@
 
     <!-- Main Content -->
     <v-main>
-      <v-container>
-        <v-row justify="center">
+      <v-container fluid>
+        <v-row dense>
+
+          <!-- Chat Feature -->
+          <v-col cols="12" md="3">
+            <v-card outlined class="chat-card">
+              <v-card-title class="headline">
+                Course Helper Chatbot
+              </v-card-title>
+              <v-card-text>
+                <v-textarea
+                  label="Ask about courses"
+                  v-model="prompt"
+                  rows="4"
+                  outlined
+                  dense
+                ></v-textarea>
+                <v-btn color="deep-purple-lighten-2" block class="mt-2" @click="searchCourses">
+                  Find Courses
+                </v-btn>
+                <v-divider class="my-4"></v-divider>
+                <div v-if="chatMessage" class="chat-response">
+                  <strong>{{ chatMessage }}</strong>
+                </div>
+                <v-list v-if="chatCourses.length > 0">
+                  <v-list-item v-for="course in chatCourses" :key="course.course_id" class="chat-course-item">
+                    <v-list-item-content>
+                      <v-list-item-title>{{ course.course_title }}</v-list-item-title>
+                      <v-list-item-subtitle>{{ course.course_description }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+                <div v-if="chatCourses.length === 0 && chatMessage" class="no-courses">
+                  No courses found
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <!-- Available Courses List -->
           <v-col cols="12" md="8">
-            <v-card>
+            <v-card outlined class="courses-card">
               <v-card-title class="headline">Available Courses</v-card-title>
               <v-divider></v-divider>
 
-              <!-- List of All Courses -->
               <v-list two-line>
                 <v-list-item v-for="course in allCourses" :key="course.id" class="mt-3">
                   <v-row>
@@ -68,11 +105,24 @@
   </v-app>
 </template>
 
+
+
+
 <script lang="ts">
 import { mapGetters } from 'vuex';
+import axios from 'axios';
+
+const BASE_URL = 'http://localhost:8000';
 
 export default {
   name: 'AllCourses',
+  data() {
+    return {
+      prompt: '',
+      chatMessage: '',
+      chatCourses: [] as Array<{ course_id: number, course_title: string, course_description: string }>,
+    };
+  },
   computed: {
     ...mapGetters(['allCourses', 'enrolledCourses']),
   },
@@ -98,6 +148,25 @@ export default {
     logout() {
       this.$store.dispatch('signOut');
     },
+    async searchCourses() {
+      if (this.prompt.trim() === '') {
+        alert('Please enter a prompt');
+        return;
+      }
+
+      try {
+        const response = await axios.post(BASE_URL + '/ai-search-courses', { prompt: this.prompt },
+          { headers: { 
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}` 
+          },
+        });
+        this.chatMessage = response.data.message;
+        this.chatCourses = response.data.data;
+      } catch (error) {
+        console.error('Error searching courses:', error);
+        alert('Failed to search courses');
+      }
+    },
   },
   mounted() {
     this.$store.dispatch('fetchAllCourses');
@@ -115,4 +184,34 @@ export default {
 .font-weight-bold {
   font-weight: bold;
 }
+
+.chat-card {
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.courses-card {
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-response {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.chat-course-item {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.no-courses {
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
 </style>
+

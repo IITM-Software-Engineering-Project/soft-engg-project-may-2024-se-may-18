@@ -76,7 +76,7 @@ async def gemini(request: Request, session: Session = Depends(get_db)):
                    response_description="Response from AI in the form of a json with a text message inside",
                    tags=["Gen AI"],
                    )
-async def gemini(request: Request, session: Session = Depends(get_db)):
+async def gemini(request: Request, course_id: int, session: Session = Depends(get_db)):
     data = await request.json()
     if "prompt" not in data.keys():
         raise HTTPException(status_code=422, detail="Prompt is required")
@@ -86,15 +86,17 @@ async def gemini(request: Request, session: Session = Depends(get_db)):
         data = data["data"]
     except Exception:
         # data = None
-        x  = session.query(Course).all()
+        course  = session.query(Course).filter(Course.id == course_id).first()
+        if not course:
+            raise HTTPException(status_code=404, detail="Course not found")
 
         data = []
-        for i in x:
-            data.append({
-                "course_id": i.id,
-                "course_title": i.title,
-                "course_description": i.description
-            })
+        # for i in x:
+        data.append({
+            "course_id": course.id,
+            "course_title": course.title,
+            "course_description": course.description
+        })
 
     response = call_gemini(prompt, data)
     return response

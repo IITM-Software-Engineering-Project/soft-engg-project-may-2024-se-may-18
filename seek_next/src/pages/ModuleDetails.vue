@@ -31,12 +31,36 @@
                 <v-list-item v-for="lecture in lectures" :key="lecture.id" class="mt-3">
                   <v-row>
                     <v-col>
-                      <v-list-item-title>{{ lecture.title }}</v-list-item-title>
+                      <!-- Increased font size for lecture title -->
+                      <v-list-item-title class="lecture-title">{{ lecture.title }}</v-list-item-title>
+                      <br/>
+                      <!-- Embed YouTube player -->
                       <v-list-item-subtitle>
-                        <a :href="lecture.url" target="_blank">Watch Lecture</a>
+                        <div v-if="isYouTubeUrl(lecture.url)">
+                          <iframe
+                            :src="getYouTubeEmbedUrl(lecture.url)"
+                            width="100%"
+                            height="315"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                          ></iframe>
+                        </div>
+                        <a v-else :href="lecture.url" target="_blank" class="watch-lecture-link">Watch Lecture</a>
                       </v-list-item-subtitle>
+                      <!-- Summarize Transcript Button -->
+                      <v-btn @click="summarizeTranscript(lecture.id)" color="teal-darken-2" class="mt-2" elevation="2">
+                        Summarize Transcript
+                      </v-btn>
+                      <!-- Summary Response Display -->
+                      <v-card v-if="summaryResponse[lecture.id]" class="mt-3 summary-card" elevation="2">
+                        <v-card-title>Transcript Summary using GenAI</v-card-title>
+                        <v-card-text v-html="summaryResponse[lecture.id]" class="summary-text"></v-card-text>
+                      </v-card>
                     </v-col>
                   </v-row>
+                  <!-- Separator after each lecture -->
+                  <v-divider class="my-3"></v-divider>
                 </v-list-item>
 
                 <v-list-item v-if="lectures.length === 0">
@@ -56,6 +80,8 @@
                       <v-list-item-subtitle>Due Date: {{ formatDueDate(assignment.due_date) }}</v-list-item-subtitle>
                     </v-col>
                   </v-row>
+                  <!-- Separator after each assignment -->
+                  <v-divider class="my-3"></v-divider>
                 </v-list-item>
 
                 <v-list-item v-if="assignments.length === 0">
@@ -91,6 +117,7 @@ export default defineComponent({
         type: string;
         due_date: string;
       }>,
+      summaryResponse: {} as Record<number, string>, // To store summary responses by lecture ID
     };
   },
   setup() {
@@ -127,6 +154,44 @@ export default defineComponent({
     logout() {
       this.$store.dispatch('signOut');
     },
+    async summarizeTranscript(lectureId: number) {
+      try {
+        const response = await fetch(`/transcript_data/${lectureId}.txt`);
+        if (response.ok) {
+          const transcriptData = await response.text();
+          if (transcriptData.includes('<!doctype html>')) {
+            this.summaryResponse[lectureId] = 'Transcript data not available for this module';
+          } else {
+            const summaryResponse = await axios.post(BASE_URL + '/ai-summarize-transcript', {
+              prompt: 'Summarize the following transcript:',
+              data: transcriptData,
+            }, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                'Content-Type': 'application/json',
+              },
+            });
+            console.log('Summary response:', summaryResponse.data);
+            this.summaryResponse[lectureId] = this.formatMessage(summaryResponse.data.message);
+          }
+        } else {
+          this.summaryResponse[lectureId] = 'Transcript data not available for this module';
+        }
+      } catch (error) {
+        console.error('Error summarizing transcript:', error);
+        this.summaryResponse[lectureId] = 'Transcript data not available for this module';
+      }
+    },
+    formatMessage(message: string): string {
+      return message.replace(/\n/g, '<br>');
+    },
+    isYouTubeUrl(url: string): boolean {
+      return /youtube\.com\/watch\?v=/.test(url) || /youtu\.be/.test(url);
+    },
+    getYouTubeEmbedUrl(url: string): string {
+      const videoId = url.split(/v=|\/videos\/|youtu\.be\//).pop()?.split('&')[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    },
   },
   async mounted() {
     const moduleId = Array.isArray(this.$route.params.moduleId)
@@ -146,7 +211,41 @@ export default defineComponent({
   text-align: center;
 }
 
-.v-list-item-subtitle {
-  word-break: break-word; /* Ensures long words wrap to the next line */
+.v-list-item-title {
+  font-size: 1.5rem; /* Increased font size for lecture title */
+  font-weight: bold;
+}
+
+.watch-lecture-link {
+  font-size: 1rem; /* Font size for link */
+  color: #1E88E5;
+  text-decoration: underline;
+}
+
+.summary-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.summary-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.lecture-title {
+  text-decoration: underline;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+iframe {
+  border-radius: 8px;
+}
+
+.v-divider {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

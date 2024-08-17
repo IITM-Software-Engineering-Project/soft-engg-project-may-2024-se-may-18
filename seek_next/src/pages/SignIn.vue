@@ -27,8 +27,9 @@
                 </v-container>
             </v-col>
             <v-col cols="6" class="d-block align-self-center">
-                <v-container class="justify-centre align-centre flex-column">
-                    <v-img src="/src/assets/study_icon.png" width="300"></v-img>
+                <!-- Centered image container -->
+                <v-container class="d-flex justify-center">
+                    <v-img src="/src/assets/study_icon.png" width="300" height="300" />
                 </v-container>
                 <v-container class="banner text-h1">
                     Seek-Next
@@ -81,5 +82,6 @@ export default {
 .banner {
     background-color: rgb(255, 255, 255);
     font-family: "Montserrat", sans-serif;
+    text-align: center;
 }
 </style>

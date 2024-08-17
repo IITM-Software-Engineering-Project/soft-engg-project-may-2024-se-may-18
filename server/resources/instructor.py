@@ -6,7 +6,7 @@ from database.models import AssignmentMarks, AssignmentQuestion, CourseEnrollmen
 from api.payload_schema.payloadschema import CreateAssignmentRequest, StudentCourseOverviewRequest, StudentEnrolled
 from database.db_sql import init_db
 from sqlalchemy.orm import sessionmaker, Session
-from database.models import Module, Lecture, Assignment, AssignmentQuestion, CourseEnrollment, Exam, User
+from database.models import Module, Lecture, Assignment, AssignmentQuestion, CourseEnrollment, Exam, User, CourseInstructor
 from datetime import datetime
 instructor_router = APIRouter()
 
@@ -22,6 +22,61 @@ def get_db():
 
 '''Add, Edit, Delete Modules'''
 
+@instructor_router.get("/instructor/courses/{instructor_id}", tags=["Student"],
+                        description="Get the content of a course i.e modules, lectures and assignemnts.")
+def get_course_content(instructor_id: int, session: Session = Depends(get_db)):
+    # courses = session.query(Course).filter(Course.instructor_id == instructor_id).all()
+    instructor = session.query(User).filter(User.id == instructor_id).first()
+    if not instructor:
+        raise HTTPException(status_code=404, detail="Instructor not found")
+    courses_of_instructor= session.query(CourseInstructor).filter(CourseInstructor.instructor_id == instructor_id).all()
+    courses = []
+    for course in courses_of_instructor:
+        x = session.query(Course).filter(Course.id == course.course_id).first()
+        courses.append(x)
+    response = []
+    for course in courses:
+        t={}
+        course_id = course.id
+        course_ = session.query(Course).filter(Course.id == course_id).first()
+        t["course_id"] = course_id
+        t["course_name"] = course_.title
+        t["description"] = course_.description
+        t["price"] = course_.price
+        modules = session.query(Module).filter(Module.course_id == course_id).all()
+        t["modules"] = []
+        for module in modules:
+            x={}
+            x["id"] = module.id
+            x["title"] = module.title
+            x["total_lectures"] = module.total_lectures
+            x["total_assignments"] = module.total_assignments
+            x["description"] = module.description
+            x["lectures"] = []
+            x["assignments"] = []
+            lectures = session.query(Lecture).filter(Lecture.module_id == module.id).all()
+            assignments = session.query(Assignment).filter(Assignment.module_id == module.id).all()
+            for lecture in lectures:
+                y={}
+                y["id"] = lecture.id
+                y["title"] = lecture.title
+                y["module_id"] = lecture.module_id
+                y["url"] = lecture.url
+                y["transcript"] = lecture.transcript
+                x["lectures"].append(y) 
+            for assignment in assignments:
+                y={}
+                y["id"]=assignment.id
+                y["title"]=assignment.title
+                y["module_id"]=assignment.module_id
+                y["description"]=assignment.description
+                y["type"]=assignment.type
+                y["due_date"]=assignment.due_date
+                x["assignments"].append(y)
+
+            t["modules"].append(x)
+        response.append(t)
+    return response
 
 @instructor_router.post('/add_module',
                         description="Add new module to course",

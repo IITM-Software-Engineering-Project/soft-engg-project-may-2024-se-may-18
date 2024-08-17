@@ -5,6 +5,7 @@
                 <v-container class="sign-in align-content-center">
                     <v-row class="d-flex align-center justify-center">
                         <v-col cols="12" class="d-block">
+                            <v-card-text class="text-h4 text-center">Welcome Back!</v-card-text>
                             <!-- Username Field -->
                             <v-text-field v-model="username" label="Username" outlined dense></v-text-field>
                             <!-- Password Field -->
@@ -26,6 +27,9 @@
                 </v-container>
             </v-col>
             <v-col cols="6" class="d-block align-self-center">
+                <v-container class="justify-centre align-centre flex-column">
+                    <v-img src="/src/assets/study_icon.png" width="300"></v-img>
+                </v-container>
                 <v-container class="banner text-h1">
                     Seek-Next
                 </v-container>

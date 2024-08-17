@@ -31,10 +31,35 @@
                 <v-list-item v-for="lecture in lectures" :key="lecture.id" class="mt-3">
                   <v-row>
                     <v-col>
-                      <v-list-item-title>{{ lecture.title }}</v-list-item-title>
-                      <v-list-item-subtitle>
+                      <v-list-item-title class="text-h5">{{ lecture.title }}</v-list-item-title>
+                      <!-- Embedded YouTube Video -->
+                      <v-responsive class="my-3">
+                        <iframe
+                          width="100%"
+                          height="315"
+                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                        ></iframe>
+                      </v-responsive>
+                      <!-- <v-list-item-subtitle>
                         <a :href="lecture.url" target="_blank">Watch Lecture</a>
-                      </v-list-item-subtitle>
+                      </v-list-item-subtitle> -->
+                      <!-- Summarize Transcript Button -->
+                      <v-btn @click="summarizeTranscript(lecture.id)" color="teal-darken-2" class="mt-2">
+                        Summarize Transcript
+                      </v-btn>
+                      <!-- Ask Question Button -->
+                      <v-btn @click="openQuestionDialog(lecture.id)" color="secondary" class="mt-2">
+                        Ask Question
+                      </v-btn>
+                      <!-- Response Section -->
+                      <v-card v-if="responseTitle[lecture.id]" class="mt-3">
+                        <v-card-title>{{ responseTitle[lecture.id] }}</v-card-title>
+                        <v-card-text v-html="formatMessage(summaryResponse[lecture.id])"></v-card-text>
+                      </v-card>
+                      <br/>
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -66,6 +91,22 @@
           </v-col>
         </v-row>
       </v-container>
+
+      <!-- Question Dialog -->
+      <v-dialog v-model="questionDialog" max-width="500px">
+        <v-card>
+          <v-card-title class="headline">Ask a Question</v-card-title>
+          <v-card-subtitle>Enter your question related to the transcript:</v-card-subtitle>
+          <v-card-text>
+            <v-textarea v-model="question" outlined rows="4"></v-textarea>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click="submitQuestion" color="primary">Submit</v-btn>
+            <v-btn @click="questionDialog = false" color="grey">Cancel</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-main>
   </v-app>
 </template>
@@ -91,6 +132,11 @@ export default defineComponent({
         type: string;
         due_date: string;
       }>,
+      summaryResponse: {} as Record<number, string>, // To store summary responses by lecture ID
+      responseTitle: {} as Record<number, string>, // To store the title for the response section
+      questionDialog: false, // Controls the visibility of the question dialog
+      question: '', // Stores the question entered by the user
+      selectedLectureId: null as number | null, // Stores the selected lecture ID for the question dialog
     };
   },
   setup() {
@@ -127,26 +173,139 @@ export default defineComponent({
     logout() {
       this.$store.dispatch('signOut');
     },
+    async summarizeTranscript(lectureId: number) {
+      try {
+        const response = await fetch(`/transcript_data/${lectureId}.txt`);
+        if (response.ok) {
+          const transcriptData = await response.text();
+          if (transcriptData.includes('<!doctype html>')) {
+            this.summaryResponse[lectureId] = 'Transcript data not available for this module';
+            this.responseTitle[lectureId] = 'Transcript Summary';
+          } else {
+            const summaryResponse = await axios.post(BASE_URL + '/ai-summarize-transcript', {
+              prompt: 'Summarize the following transcript:',
+              data: transcriptData,
+            }, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                'Content-Type': 'application/json',
+              },
+            });
+            this.summaryResponse[lectureId] = this.formatMessage(summaryResponse.data.message);
+            this.responseTitle[lectureId] = 'Transcript Summary';
+          }
+        } else {
+          this.summaryResponse[lectureId] = 'Transcript data not available for this module';
+          this.responseTitle[lectureId] = 'Transcript Summary';
+        }
+      } catch (error) {
+        console.error('Error summarizing transcript:', error);
+        this.summaryResponse[lectureId] = 'Transcript data not available for this module';
+        this.responseTitle[lectureId] = 'Transcript Summary';
+      }
+    },
+    openQuestionDialog(lectureId: number) {
+      this.selectedLectureId = lectureId;
+      this.questionDialog = true;
+    },
+    async submitQuestion() {
+      if (this.selectedLectureId !== null) {
+        try {
+          const response = await fetch(`/transcript_data/${this.selectedLectureId}.txt`);
+          if (response.ok) {
+            const transcriptData = await response.text();
+            if (transcriptData.includes('<!doctype html>')) {
+              this.summaryResponse[this.selectedLectureId] = 'Transcript data not available for this module';
+              this.responseTitle[this.selectedLectureId] = 'GenAI Response';
+            } else {
+              const aiResponse = await axios.post(BASE_URL + '/ai-summarize-transcript', {
+                prompt: this.question,
+                data: transcriptData,
+              }, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                  'Content-Type': 'application/json',
+                },
+              });
+              this.summaryResponse[this.selectedLectureId] = this.formatMessage(aiResponse.data.message);
+              this.responseTitle[this.selectedLectureId] = 'GenAI Response';
+            }
+          } else {
+            this.summaryResponse[this.selectedLectureId] = 'Transcript data not available for this module';
+            this.responseTitle[this.selectedLectureId] = 'GenAI Response';
+          }
+        } catch (error) {
+          console.error('Error asking question:', error);
+          this.summaryResponse[this.selectedLectureId] = 'Transcript data not available for this module';
+          this.responseTitle[this.selectedLectureId] = 'GenAI Response';
+        }
+      }
+      this.questionDialog = false;
+    },
+    formatMessage(message: string): string {
+      return message.replace(/\n/g, '<br>');
+    },
+    getYouTubeVideoId(url: string): string {
+      const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=|\/)([a-zA-Z0-9_-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : '';
+    },
   },
-  async mounted() {
-    const moduleId = Array.isArray(this.$route.params.moduleId)
-      ? this.$route.params.moduleId[0]
-      : this.$route.params.moduleId;
-
-    await this.fetchModuleContent(moduleId as string);
-    this.moduleTitle = this.$route.params.moduleTitle as string;
+  mounted() {
+    this.fetchModuleContent(this.moduleId.toString());
   },
 });
 </script>
 
 <style scoped>
-.headline {
-  font-family: 'Montserrat', sans-serif;
-  margin-bottom: 20px;
-  text-align: center;
+/* Styles for the ModuleDetails page */
+.v-list-item {
+  border-bottom: 1px solid #ddd;
 }
 
-.v-list-item-subtitle {
-  word-break: break-word; /* Ensures long words wrap to the next line */
+.v-card {
+  margin-bottom: 16px;
+}
+
+.v-btn {
+  margin-right: 8px;
+}
+
+.v-dialog .v-card {
+  min-width: 400px;
+}
+
+.v-card-subtitle {
+  font-weight: bold;
+}
+
+.text-h5 {
+  font-size: 1.25rem;
+}
+
+.text-h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.text-h4 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.v-responsive {
+  margin: 0;
+}
+
+.v-img {
+  margin: 0 auto;
+}
+
+.v-dialog .v-card {
+  min-width: 400px;
+}
+
+.v-btn {
+  margin-top: 16px;
 }
 </style>

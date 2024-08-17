@@ -253,6 +253,7 @@ export default defineComponent({
   },
   mounted() {
     this.fetchModuleContent(this.moduleId.toString());
+    this.moduleTitle = this.$route.params.moduleTitle as string;
   },
 });
 </script>

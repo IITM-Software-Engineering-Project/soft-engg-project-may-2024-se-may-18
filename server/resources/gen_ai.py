@@ -1,6 +1,6 @@
 from typing import List, Optional
 from fastapi import APIRouter, File, Request, UploadFile, Depends
-from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt
+from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt, summary_transcript_prompt
 from dotenv import load_dotenv
 from api.gemini import call_gemini, call_gemini_vision
 from fastapi import HTTPException
@@ -112,12 +112,13 @@ async def gemini(request: Request):
     if "prompt" not in data.keys():
         raise HTTPException(status_code=422, detail="Prompt is required")
     prompt = data["prompt"]
+    prompt = summary_transcript_prompt.format(user_prompt=prompt)
     try:
         data = data["data"]
     except Exception:
         data = None
 
-    response = call_gemini(prompt, data, data_is_json=False)
+    response = call_gemini(prompt, data)
     return response
 
 

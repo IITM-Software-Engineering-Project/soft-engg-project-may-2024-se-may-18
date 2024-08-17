@@ -80,6 +80,12 @@
                       <v-list-item-subtitle>{{ assignment.description }}</v-list-item-subtitle>
                       <v-list-item-subtitle>Due Date: {{ formatDueDate(assignment.due_date) }}</v-list-item-subtitle>
                     </v-col>
+                    <v-col class="text-right">
+                      <!-- Button to go to Module -->
+                      <v-btn @click="goToAssignments(assignment.id, assignment.type)" color="#BA68C8" size="small">
+                        Go to Assignment
+                      </v-btn>
+                    </v-col>
                   </v-row>
                 </v-list-item>
 
@@ -126,7 +132,7 @@ export default defineComponent({
       moduleTitle: '',
       lectures: [] as Array<{ id: number; title: string; url: string; transcript: string }>,
       assignments: [] as Array<{
-        id: number;
+        id: string;
         title: string;
         description: string;
         type: string;
@@ -166,6 +172,10 @@ export default defineComponent({
     },
     goBackToModules() {
       this.$router.push(`/course-modules/${this.courseId}`);
+    },
+    goToAssignments(assignmentId: string, assignmentType: string) {
+      // this.$router.push(`/assignment-details/${assignmentId}`);
+      console.log('Go to module:', assignmentId, assignmentType);
     },
     formatDueDate(dueDate: string): string {
       return new Date(dueDate).toLocaleDateString();

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
 
@@ -132,27 +132,6 @@ class CourseResponse(CourseBase):
         from_attributes = True
 
 
-class AssignmentQuestionDetails(BaseModel):
-    question: str
-    answer_choices: dict
-    answer: str
-    image: Optional[str] = None
-
-
-class AssignmentDetails(BaseModel):
-    title: str
-    description: Optional[str] = None
-    type: str
-    due_date: str
-    questions: List[AssignmentQuestionDetails]
-
-
-class LectureDetails(BaseModel):
-    title: str
-    url: str
-    transcript: Optional[str] = None
-
-
-class ModuleContentDetails(BaseModel):
-    lectures: List[LectureDetails]
-    assignments: List[AssignmentDetails]
+class AssignmentSubmission(BaseModel):
+    student_id: int
+    answers: dict

@@ -91,12 +91,13 @@ async def gemini(request: Request):
     if "prompt" not in data.keys():
         raise HTTPException(status_code=422, detail="Prompt is required")
     prompt = data["prompt"]
+    prompt = summary_transcript_prompt.format(user_prompt=prompt)
     try:
         data = data["data"]
     except Exception:
         data = None
 
-    response = call_gemini(prompt, data, data_is_json=False)
+    response = call_gemini(prompt, data)
     return response
 
 

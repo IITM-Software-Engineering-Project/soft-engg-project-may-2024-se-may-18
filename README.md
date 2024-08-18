@@ -14,7 +14,7 @@ Welcome to Seek-Next, an AI-powered education platform that provides students wi
   - [Create a Virtual Environment](#create-a-virtual-environment)
   - [Activate the Virtual Environment](#activate-the-virtual-environment)
   - [Install Python Requirements](#install-python-requirements)
-  - [Install Ollama](#install-ollama)
+  - [Set Environment Variables](#install-ollama)
   - [Start FastAPI](#start-fastapi)
 - [Note](#Note)
 
@@ -71,8 +71,10 @@ To run the full application:
 ### Install Vue CLI and Vue Router
 
 ```sh
-npm install -g @vue/cli
+# npm 7+, extra double-dash is needed:
+npm create vite@latest seek-next -- --template vue
 npm install vue-router
+npm install vuex@next --save
 ```
 
 ### Install Additional Packages
@@ -88,7 +90,7 @@ npm install
 To start the development server, run:
 
 ```sh
-npm run serve
+npm start
 ```
 
 ## Backend Setup
@@ -96,7 +98,8 @@ npm run serve
 
 To create a virtual environment, run:
 ```sh
-python3 -m virtualenv venv
+pip install virtualenv
+virtualenv -p 3.12 .venv
 ```
 
 ### Activate the Virtual Environment
@@ -104,11 +107,11 @@ python3 -m virtualenv venv
 For Linux and macOS:
 
 ```sh
-source venv/bin/activate
+source .venv/bin/activate
 ```
 For Windows:
 ```sh
-venv\Scripts\activate
+.venv\Scripts\activate
 ```
 Install Python Requirements
 
@@ -117,29 +120,22 @@ To install the required Python packages, run:
 pip install -r requirements.txt
 ```
 
-### Install Ollama
-For Linux:
-```sh
-curl -fsSL https://ollama.com/install.sh | sh
+### Set Environment Variables
+Create a .env file with the following variables:
 ```
-For Windows:
-
-Refer to the [Ollama Installation Guide](https://ollama.com/download/windows) for detailed instructions.
-
-Inistall codellama:7b
-```sh
-ollama run codellama
+DATABASE_SQL_URL
+GEMINI_API_KEY
+MONGO_CONNECTION_URI
 ```
 
 ### Start FastAPI: 
 ```sh
-fastapi run main.py
+fastapi dev main.py
 ```
 To refer to the API docs hit the url:
 ```
 localhost:8000/docs
 ```
-## Note
-For executing code, docker is used in the backend that uses a java container for compilation. It is higly recommended that you have it locally.
+
 
 

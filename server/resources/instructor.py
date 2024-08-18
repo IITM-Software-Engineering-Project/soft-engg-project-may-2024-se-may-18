@@ -10,6 +10,7 @@ from database.models import Module, Lecture, Assignment, AssignmentQuestion, Cou
 from datetime import datetime
 instructor_router = APIRouter()
 
+
 def get_db():
     engine = init_db()
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -30,7 +31,7 @@ def get_db():
 async def add_module(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     module = Module(**data)
-    if(not session.query(Course).filter(Course.id == module.course_id).first()):
+    if (not session.query(Course).filter(Course.id == module.course_id).first()):
         raise HTTPException(status_code=404, detail="Course not found")
 
     try:
@@ -103,7 +104,7 @@ async def delete_module(module_id: int, session: Session = Depends(get_db)):
 async def add_lecture(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     lecture = Lecture(**data)
-    if(not session.query(Module).filter(Module.id == lecture.module_id).first()):
+    if (not session.query(Module).filter(Module.id == lecture.module_id).first()):
         raise HTTPException(status_code=404, detail="Module not found")
     try:
         session.add(lecture)
@@ -177,8 +178,8 @@ async def add_assignment(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     data['due_date'] = datetime.strptime(data['due_date'], "%Y-%m-%d %H:%M:%S")
     assignment = Assignment(**data)
-    
-    if(not session.query(Module).filter(Module.id == assignment.module_id).first()):
+
+    if (not session.query(Module).filter(Module.id == assignment.module_id).first()):
         raise HTTPException(status_code=404, detail="Module not found")
     try:
         session.add(assignment)
@@ -199,10 +200,11 @@ async def add_assignment(request: Request, session: Session = Depends(get_db)):
                        tags=["Module", "Assignment"])
 async def edit_assignment(request: Request, assignment_id: int, session: Session = Depends(get_db)):
     data = await request.json()
-    assignment = session.query(Assignment).filter(Assignment.id == assignment_id).first()
+    assignment = session.query(Assignment).filter(
+        Assignment.id == assignment_id).first()
     if not assignment:
         raise HTTPException(status_code=404, detail="assignment not found")
-    if "module_id" in data.keys() and session.query(Module).filter_by(id = data["module_id"]).first() is None:
+    if "module_id" in data.keys() and session.query(Module).filter_by(id=data["module_id"]).first() is None:
         raise HTTPException(status_code=404, detail="Module not found")
 
     for key, value in data.items():
@@ -227,10 +229,11 @@ async def edit_assignment(request: Request, assignment_id: int, session: Session
                           response_description="Message indicating success or failure",
                           tags=["Assignment", "Module"])
 async def delete_assignment(assignment_id: int, session: Session = Depends(get_db)):
-    assignment = session.query(Assignment).filter(Assignment.id == assignment_id).first()
+    assignment = session.query(Assignment).filter(
+        Assignment.id == assignment_id).first()
     if not assignment:
         raise HTTPException(status_code=404, detail="assignment not found")
-    
+
     try:
         session.delete(assignment)
         session.commit()
@@ -253,15 +256,24 @@ async def delete_assignment(assignment_id: int, session: Session = Depends(get_d
                         tags=["Assignment"])
 async def add_question(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
-    question = AssignmentQuestion(**data)
-    if("options" not in data.keys()):
-        raise HTTPException(status_code=400, detail=f"Missing fields in payload")
+    question = AssignmentQuestion(
+        assignment_id=data["assignment_id"],
+        image=data["image"],
+        question=data["question"],
+        answer_choices=data["answer_choices"],
+        answer=data["answer"]
+
+    )
+    if ("answer_choices" not in data.keys()):
+        raise HTTPException(
+            status_code=400, detail=f"Missing fields in payload")
     if ("answer" not in data.keys()):
-        raise HTTPException(status_code=400, detail=f"Missing fields in payload")
+        raise HTTPException(
+            status_code=400, detail=f"Missing fields in payload")
     if ("assignment_id" not in data.keys()):
-        raise HTTPException(status_code=400, detail=f"Missing fields in payload")
-    
-    
+        raise HTTPException(
+            status_code=400, detail=f"Missing fields in payload")
+
     try:
         session.add(question)
         session.commit()
@@ -282,9 +294,10 @@ async def add_question(request: Request, session: Session = Depends(get_db)):
                        tags=["Assignment"])
 async def edit_question(request: Request, question_id: int, session: Session = Depends(get_db)):
     data = await request.json()
-    if(len(data)<1):
-        raise HTTPException(status_code = 422, detail="missing fields")
-    question = session.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
+    if (len(data) < 1):
+        raise HTTPException(status_code=422, detail="missing fields")
+    question = session.query(AssignmentQuestion).filter(
+        AssignmentQuestion.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="question not found")
 
@@ -309,7 +322,8 @@ async def edit_question(request: Request, question_id: int, session: Session = D
                           response_description="Message indicating success or failure",
                           tags=["Assignment"])
 async def delete_question(question_id: int, session: Session = Depends(get_db)):
-    question = session.query(AssignmentQuestion).filter(AssignmentQuestion.id == question_id).first()
+    question = session.query(AssignmentQuestion).filter(
+        AssignmentQuestion.id == question_id).first()
     if not question:
         raise HTTPException(status_code=404, detail="question not found")
 
@@ -326,7 +340,7 @@ async def delete_question(question_id: int, session: Session = Depends(get_db)):
 
 
 @instructor_router.get("/instructor/enrolled-students/{course_id}", response_model=List[StudentEnrolled],
-                       tags=["Instructor","Admin"],
+                       tags=["Instructor", "Admin"],
                        description="Get the list of students enrolled in a course.")
 def get_enrolled_students(course_id: int, session: Session = Depends(get_db)):
     enrollments = session.query(CourseEnrollment).filter(
@@ -340,7 +354,7 @@ def get_enrolled_students(course_id: int, session: Session = Depends(get_db)):
 @instructor_router.post("/instructor/create-exam", tags=["Exam"], description="Create an exam for a course")
 def create_exam(course_id: int, exam_id: int, session: Session = Depends(get_db)):
     # Create an exam entry for each enrolled student
-    if(session.query(Course).filter_by(id=course_id).first() is None):
+    if (session.query(Course).filter_by(id=course_id).first() is None):
         raise HTTPException(status_code=404, detail="course not found")
     enrollments = session.query(CourseEnrollment).filter(
         CourseEnrollment.course_id == course_id).all()

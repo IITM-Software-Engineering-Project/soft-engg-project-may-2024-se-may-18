@@ -1,5 +1,4 @@
 from sqlalchemy import JSON, Column, Float, ForeignKey, Integer, String, DateTime, Text
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declarative_base, sessionmaker
 from database.db_sql import init_db
 
@@ -25,7 +24,6 @@ class Course(Base):
     description = Column(String(500), nullable=False)
     total_modules = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
-    # modules = relationship("Module", back_populates="course")
 
 
 class CourseInstructor(Base):
@@ -65,9 +63,6 @@ class Module(Base):
     total_assignments = Column(Integer, nullable=False)
     description = Column(String(500), nullable=True)
     course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
-    # course = relationship("Course", back_populates="modules")
-    # assignments = relationship("Assignment", back_populates="module")
-    # lectures = relationship("Lecture", back_populates="module")
 
 
 class Lecture(Base):

@@ -20,4 +20,22 @@ export default {
         console.error('Error fetching enrolled courses:', error);
       }
     },
+    async fetchAssignmentAnswers(
+        { commit }: ActionContext<State, State>,
+        assignmentId: number
+      ) {
+        try {
+          const response = await axios.get(`${BASE_URL}/get-assignment-answers`, {
+            params: {
+              assignment_id: assignmentId,
+            },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          });
+          commit('setAssignmentAnswers', response.data);
+        } catch (error) {
+          console.error('Error fetching assignment answers:', error);
+        }
+      },
   };

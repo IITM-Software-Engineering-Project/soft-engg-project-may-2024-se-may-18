@@ -1,5 +1,4 @@
 from sqlalchemy import JSON, Column, Float, ForeignKey, Integer, String, DateTime, Text
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declarative_base, sessionmaker
 from database.db_sql import init_db
 
@@ -25,7 +24,6 @@ class Course(Base):
     description = Column(String(500), nullable=False)
     total_modules = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
-    # modules = relationship("Module", back_populates="course")
 
 
 class CourseInstructor(Base):
@@ -104,7 +102,7 @@ class AssignmentQuestion(Base):
     image = Column(String(255), nullable=True)
     question = Column(Text, nullable=False)
     answer_choices = Column(JSON, nullable=False)
-    answer = Column(String(100), nullable=False)
+    answer = Column(Text, nullable=True)
     # assignment = relationship("Assignment", back_populates="questions")
 
 
@@ -114,6 +112,7 @@ class AssignmentMarks(Base):
     assignment_id = Column(Integer, ForeignKey(
         'assignments.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    assignment_answer = Column(Text, nullable = True)
     marks = Column(Float, nullable=False)
     submitted_at = Column(DateTime, nullable=False)
     graded_at = Column(DateTime, nullable=True)
@@ -148,3 +147,4 @@ if not engine:
     title = Column(String(50), nullable=False)
     week_no = Column(Integer, nullable=False)
     link = Column(String(50), nullable=False) """
+

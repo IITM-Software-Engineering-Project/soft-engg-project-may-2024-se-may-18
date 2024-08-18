@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     viewCourse(courseId: number) {
-      this.$router.push(`/course-modules/${courseId}`);
+      this.$router.push(`/instructor/course-modules/${courseId}`);
     },
     editCourse(courseId: number) {
       this.$router.push(`/edit-course/${courseId}`);

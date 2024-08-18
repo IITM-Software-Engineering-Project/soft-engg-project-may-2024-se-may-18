@@ -82,6 +82,9 @@
                     </v-col>
                     <v-col class="text-right">
                       <!-- Button to go to Module -->
+                      <v-btn @click="gradeAssignment(assignment.id, assignment.type)" color="#BA68C8" size="small">
+                        Grade
+                      </v-btn>
                       <v-btn @click="goToAssignments(assignment.id, assignment.type)" color="#BA68C8" size="small">
                         Go to Assignment
                       </v-btn>
@@ -126,7 +129,7 @@ import { useRoute, useRouter } from 'vue-router';
 const BASE_URL = 'http://localhost:8000';
 
 export default defineComponent({
-  name: 'ModuleDetails',
+  name: 'InstructorModuleDetails',
   data() {
     return {
       moduleTitle: '',
@@ -171,10 +174,14 @@ export default defineComponent({
       }
     },
     goBackToModules() {
-      this.$router.push(`/course-modules/${this.courseId}`);
+      this.$router.push(`/instructor/course-modules/${this.courseId}`);
     },
     goToAssignments(assignmentId: string, assignmentType: string) {
       // this.$router.push(`/assignment-details/${assignmentId}`);
+      console.log('Go to module:', assignmentId, assignmentType);
+    },
+    gradeAssignment(assignmentId: string, assignmentType: string) {
+      this.$router.push(`/instructor/grade-assignment/${assignmentId}`);
       console.log('Go to module:', assignmentId, assignmentType);
     },
     formatDueDate(dueDate: string): string {

@@ -99,7 +99,7 @@ class AssignmentQuestion(Base):
     image = Column(String(255), nullable=True)
     question = Column(Text, nullable=False)
     answer_choices = Column(JSON, nullable=False)
-    answer = Column(String(100), nullable=False)
+    answer = Column(Text, nullable=True)
     # assignment = relationship("Assignment", back_populates="questions")
 
 
@@ -109,6 +109,7 @@ class AssignmentMarks(Base):
     assignment_id = Column(Integer, ForeignKey(
         'assignments.id'), nullable=False)
     student_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    assignment_answer = Column(Text, nullable = True)
     marks = Column(Float, nullable=False)
     submitted_at = Column(DateTime, nullable=False)
     graded_at = Column(DateTime, nullable=True)
@@ -143,3 +144,4 @@ if not engine:
     title = Column(String(50), nullable=False)
     week_no = Column(Integer, nullable=False)
     link = Column(String(50), nullable=False) """
+

@@ -19,6 +19,8 @@ export default {
             commit('setLoggedIn', true);
             if (response.data.role === 'student') {
                 router.push('/student-home');
+            } else if (response.data.role === 'instructor') {
+                router.push('/instructor-home');
             } else {
                 router.push('/home');
             }
@@ -70,6 +72,8 @@ export default {
                 commit('setLoggedIn', true);
                 if (user.role === 'student') {
                     router.push('/student-home');
+                } else if (user.role === 'instructor') {
+                    router.push('/instructor-home');
                 } else {
                     router.push('/home');
                 }

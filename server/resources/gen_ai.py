@@ -1,6 +1,6 @@
 from typing import List, Optional
 from fastapi import APIRouter, File, Request, UploadFile, Depends
-from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt, summary_transcript_prompt
+from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt, textual_answer_grading_prompt
 from dotenv import load_dotenv
 from api.gemini import call_gemini, call_gemini_vision
 from fastapi import HTTPException
@@ -12,6 +12,7 @@ from database.db_sql import init_db
 load_dotenv()
 
 genai_router = APIRouter()
+
 
 def get_db():
     engine = init_db()
@@ -37,8 +38,7 @@ async def gemini(request: Request, session: Session = Depends(get_db)):
     try:
         data = data["data"]
     except Exception:
-        # data = None
-        x  = session.query(Course).all()
+        x = session.query(Course).all()
 
         data = []
         for i in x:
@@ -51,25 +51,6 @@ async def gemini(request: Request, session: Session = Depends(get_db)):
     response = call_gemini(prompt, data)
     return response
 
-
-# @genai_router.post("/ai-explain-course",
-#                    description="Answer queston for a single course using generative AI",
-#                    response_description="Response from AI in the form of a json with a text message inside",
-#                    tags=["Gen AI"],
-#                    )
-# async def gemini(request: Request):
-#     data = await request.json()
-#     if "prompt" not in data.keys():
-#         raise HTTPException(status_code=422, detail="Prompt is required")
-#     prompt = data["prompt"]
-#     prompt = explain_courses_prompt.format(user_prompt=prompt)
-#     try:
-#         data = data["data"]
-#     except Exception:
-#         data = None
-
-#     response = call_gemini(prompt, data)
-#     return response
 
 @genai_router.post("/ai-explain-course",
                    description="Answer queston for a single course using generative AI",
@@ -85,13 +66,11 @@ async def gemini(request: Request, course_id: int, session: Session = Depends(ge
     try:
         data = data["data"]
     except Exception:
-        # data = None
-        course  = session.query(Course).filter(Course.id == course_id).first()
+        course = session.query(Course).filter(Course.id == course_id).first()
         if not course:
             raise HTTPException(status_code=404, detail="Course not found")
 
         data = []
-        # for i in x:
         data.append({
             "course_id": course.id,
             "course_title": course.title,
@@ -112,13 +91,12 @@ async def gemini(request: Request):
     if "prompt" not in data.keys():
         raise HTTPException(status_code=422, detail="Prompt is required")
     prompt = data["prompt"]
-    prompt = summary_transcript_prompt.format(user_prompt=prompt)
     try:
         data = data["data"]
     except Exception:
         data = None
 
-    response = call_gemini(prompt, data)
+    response = call_gemini(prompt, data, data_is_json=False)
     return response
 
 
@@ -127,16 +105,38 @@ async def gemini(request: Request):
                    response_description="Response from AI in the form of a JSON with a text message inside",
                    tags=["Gen AI"])
 async def gemini(request: Request, images: List[UploadFile] = File(...)):
-    print("Hi1")
     form_data = await request.form()
     prompt = form_data.get("prompt")
     data = form_data.get("data")
     language = form_data.get("language")
     question = form_data.get("question")
-    print("Hi")
     prompt = programming_feedback_prompt.format(question=question,
                                                 user_prompt=prompt, programming_language=language)
 
     response = call_gemini_vision(prompt, images, data, data_is_json=False)
     print(response)
+    return response
+
+
+@genai_router.post("/grade-text-question",
+                   description="Grade a textual answer based on the question using generative AI",
+                   response_description="Response from AI in the form of a JSON with score and description",
+                   tags=["Grading AI"])
+async def grade_text_question(request: Request):
+    data = await request.json()
+
+    if "question" not in data.keys() or "answer" not in data.keys():
+        raise HTTPException(
+            status_code=422, detail="Both 'question' and 'answer' are required")
+
+    question = data["question"]
+    answer = data["answer"]
+
+    # Format the prompt with the question and answer
+    prompt = textual_answer_grading_prompt.format(
+        question=question, answer=answer)
+
+    # Call the generative AI to grade the answer
+    response = call_gemini(prompt)
+
     return response

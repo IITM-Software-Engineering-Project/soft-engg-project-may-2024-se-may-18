@@ -259,6 +259,7 @@ def submit_assignment(assignment_id: int, submission: AssignmentSubmission, db: 
     assignment_marks = AssignmentMarks(
         assignment_id=assignment_id,
         student_id=submission.student_id,
+        assignment_answer=submission.assignment_answer,
         marks=score,
         submitted_at=datetime.now(),
         graded_at=datetime.now(),

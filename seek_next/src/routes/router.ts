@@ -7,6 +7,7 @@ import StudentHome from '../pages/StudentHome.vue'
 import AllCourses from '../pages/AllCourses.vue'
 import CourseModules from '../pages/CourseModules.vue'
 import ModuleDetails from '../pages/ModuleDetails.vue'
+import CodeAssignment from '../pages/CodeAssignment.vue'
 import InstructorHome from '../pages/InstructorHome.vue'
 import InstructorCourseModules from '../pages/InstructorCourseModules.vue'
 import InstructorModuleDetails from '../pages/InstructorModuleDetails.vue'
@@ -20,6 +21,7 @@ const routes = [
     { path: '/student-home', component: StudentHome },
     { path: '/all-courses', component: AllCourses },
     { path: '/course-modules/:courseId', component: CourseModules },
+    { path: '/code-assignment/:problemId', component: CodeAssignment },
     { path: '/module-details/:courseId/:moduleId/:moduleTitle', component: ModuleDetails },
     { path: '/instructor-home', component: InstructorHome },
     { path: '/instructor/course-modules/:courseId', component: InstructorCourseModules },

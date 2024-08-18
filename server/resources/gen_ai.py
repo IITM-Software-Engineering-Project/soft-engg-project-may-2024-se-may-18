@@ -1,6 +1,6 @@
-from typing import List, Optional
-from fastapi import APIRouter, File, Request, UploadFile, Depends
-from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt, textual_answer_grading_prompt
+from typing import List, Optional, Annotated
+from fastapi import APIRouter, File, Request, UploadFile, Depends, Form
+from constants.prompts import search_courses_prompt, explain_courses_prompt, programming_feedback_prompt, summary_transcript_prompt, textual_answer_grading_prompt
 from dotenv import load_dotenv
 from api.gemini import call_gemini, call_gemini_vision
 from fastapi import HTTPException
@@ -104,16 +104,11 @@ async def gemini(request: Request):
                    description="Get feedback on programming code using generative AI",
                    response_description="Response from AI in the form of a JSON with a text message inside",
                    tags=["Gen AI"])
-async def gemini(request: Request, images: List[UploadFile] = File(...)):
-    form_data = await request.form()
-    prompt = form_data.get("prompt")
-    data = form_data.get("data")
-    language = form_data.get("language")
-    question = form_data.get("question")
+async def gemini(prompt: Annotated[str, Form()], data: Annotated[str, Form()], language: Annotated[str, Form()], question: Annotated[str, Form()]):
     prompt = programming_feedback_prompt.format(question=question,
                                                 user_prompt=prompt, programming_language=language)
 
-    response = call_gemini_vision(prompt, images, data, data_is_json=False)
+    response = call_gemini(prompt, data, data_is_json=True)
     print(response)
     return response
 

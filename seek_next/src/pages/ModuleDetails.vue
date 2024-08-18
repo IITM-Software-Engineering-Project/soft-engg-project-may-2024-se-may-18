@@ -34,14 +34,10 @@
                       <v-list-item-title class="text-h5">{{ lecture.title }}</v-list-item-title>
                       <!-- Embedded YouTube Video -->
                       <v-responsive class="my-3">
-                        <iframe
-                          width="100%"
-                          height="315"
-                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`"
-                          frameborder="0"
+                        <iframe width="100%" height="315"
+                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`" frameborder="0"
                           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen
-                        ></iframe>
+                          allowfullscreen></iframe>
                       </v-responsive>
                       <!-- <v-list-item-subtitle>
                         <a :href="lecture.url" target="_blank">Watch Lecture</a>
@@ -59,7 +55,7 @@
                         <v-card-title>{{ responseTitle[lecture.id] }}</v-card-title>
                         <v-card-text v-html="formatMessage(summaryResponse[lecture.id])"></v-card-text>
                       </v-card>
-                      <br/>
+                      <br />
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -83,6 +79,30 @@
                     <v-col class="text-right">
                       <!-- Button to go to Module -->
                       <v-btn @click="goToAssignments(assignment.id, assignment.type)" color="#BA68C8" size="small">
+                        Go to Assignment
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-list-item>
+
+                <v-list-item v-if="assignments.length === 0">
+                  <v-list-item-title>No assignments available</v-list-item-title>
+                </v-list-item>
+              </v-list>
+
+              <!-- Code Assignment Section -->
+              <v-divider class="my-4"></v-divider>
+              <v-card-subtitle class="mb-2">Coding Assignments</v-card-subtitle>
+              <v-list two-line>
+                <v-list-item v-for="assignment in codeAssignments" :key="assignment['problem_id']" class="mt-3">
+                  <v-row>
+                    <v-col>
+                      <v-list-item-title>Problem Statements</v-list-item-title>
+                      <v-list-item-subtitle>{{ assignment['problem_statement'] }}</v-list-item-subtitle>
+                    </v-col>
+                    <v-col class="text-right">
+                      <!-- Button to go to Module -->
+                      <v-btn @click="goToCodeAssignment(assignment['problem_id'])" color="#BA68C8" size="small">
                         Go to Assignment
                       </v-btn>
                     </v-col>
@@ -122,6 +142,8 @@ import { defineComponent } from 'vue';
 import axios from 'axios';
 import { mapState } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
+import CodeAssignment from './CodeAssignment.vue';
+import { ca } from 'vuetify/locale';
 
 const BASE_URL = 'http://localhost:8000';
 
@@ -138,6 +160,7 @@ export default defineComponent({
         type: string;
         due_date: string;
       }>,
+      codeAssignments: [],
       summaryResponse: {} as Record<number, string>, // To store summary responses by lecture ID
       responseTitle: {} as Record<number, string>, // To store the title for the response section
       questionDialog: false, // Controls the visibility of the question dialog
@@ -164,10 +187,24 @@ export default defineComponent({
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
+
         this.lectures = response.data.lectures;
         this.assignments = response.data.assignments;
+
       } catch (error) {
         console.error('Error fetching module content:', error);
+      }
+
+      try {
+        const responseCodeAssignments = await axios.get(BASE_URL + `/get-code-problems/${moduleId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        this.codeAssignments = responseCodeAssignments.data;
+      }
+      catch (error) {
+        console.error('Error fetching code assignments:', error);
       }
     },
     goBackToModules() {
@@ -176,6 +213,9 @@ export default defineComponent({
     goToAssignments(assignmentId: string, assignmentType: string) {
       // this.$router.push(`/assignment-details/${assignmentId}`);
       console.log('Go to module:', assignmentId, assignmentType);
+    },
+    goToCodeAssignment(problemId: string) {
+      this.$router.push(`/code-assignment/${problemId}`);
     },
     formatDueDate(dueDate: string): string {
       return new Date(dueDate).toLocaleDateString();

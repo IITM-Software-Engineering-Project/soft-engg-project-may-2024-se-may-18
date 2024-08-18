@@ -73,7 +73,6 @@ class Lecture(Base):
     module_id = Column(Integer, ForeignKey('modules.id'), nullable=False)
     url = Column(String(255), nullable=False)
     transcript = Column(Text, nullable=True)
-    # module = relationship("Module", back_populates="lectures")
 
 
 class Assignment(Base):
@@ -85,9 +84,6 @@ class Assignment(Base):
     description = Column(String(500), nullable=True)
     type = Column(String(50), nullable=False)
     due_date = Column(DateTime, nullable=False)
-    # module = relationship("Module", back_populates="assignments")
-    # questions = relationship("AssignmentQuestion", back_populates="assignment")
-    # marks = relationship("AssignmentMarks", back_populates="assignment")
 
 
 class AssignmentQuestion(Base):
@@ -99,9 +95,7 @@ class AssignmentQuestion(Base):
     image = Column(String(255), nullable=True)
     question = Column(Text, nullable=False)
     answer_choices = Column(JSON, nullable=False)
-    answer = Column(Text, nullable=True)
-    # assignment = relationship("Assignment", back_populates="questions")
-
+    answer = Column(String(100), nullable=False)
 
 class AssignmentMarks(Base):
     __tablename__ = 'assignment_marks'
@@ -114,8 +108,6 @@ class AssignmentMarks(Base):
     submitted_at = Column(DateTime, nullable=False)
     graded_at = Column(DateTime, nullable=True)
     feedback = Column(Text, nullable=True)
-    # assignment = relationship("Assignment", back_populates="marks")
-    # student = relationship("User")
 
 
 class Exam(Base):

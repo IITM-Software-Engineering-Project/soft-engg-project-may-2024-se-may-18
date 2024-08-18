@@ -10,13 +10,14 @@ import ModuleDetails from '../pages/ModuleDetails.vue'
 import CodeAssignment from '../pages/CodeAssignment.vue'
 
 const routes = [
-    { path: '/', component: CodeAssignment },
+    { path: '/', component: Loading },
     { path: '/sign-in', component: SignIn },
     { path: '/sign-up', component: SignUp },
     { path: '/home', component: Home },
     { path: '/student-home', component: StudentHome },
     { path: '/all-courses', component: AllCourses },
     { path: '/course-modules/:courseId', component: CourseModules },
+    { path: '/code-assignment/:problemId', component: CodeAssignment },
     { path: '/module-details/:courseId/:moduleId/:moduleTitle', component: ModuleDetails },
 ]
 

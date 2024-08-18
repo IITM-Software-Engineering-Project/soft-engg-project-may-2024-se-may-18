@@ -8,6 +8,7 @@ from resources.student import student_router
 from resources.instructor import instructor_router
 from resources.admin import admin_router
 from resources.code_computing import code_router
+from resources.code_runner import code_runner_router
 import uvicorn
 from api.middleware.verify_token import TokenAuthMiddleware
 
@@ -34,6 +35,7 @@ app.include_router(instructor_router)
 app.include_router(code_router)
 app.include_router(student_router)
 app.include_router(admin_router)
+app.include_router(code_runner_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, debug=True)

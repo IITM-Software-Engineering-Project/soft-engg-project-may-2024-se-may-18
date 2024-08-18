@@ -126,6 +126,8 @@ Create a .env file with the following variables:
 DATABASE_SQL_URL
 GEMINI_API_KEY
 MONGO_CONNECTION_URI
+JDOODLE_CLIENT_ID
+JDOODLE_CLIENT_SECRET
 ```
 
 ### Start FastAPI: 

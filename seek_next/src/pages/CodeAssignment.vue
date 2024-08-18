@@ -1,82 +1,66 @@
 <template>
     <div class="assignment-container">
-        <h1>Two Sum Problem</h1>
-        <p class="problem-description">
-            Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they
-            add up to `target`.
-        </p>
-
         <div class="section">
             <h2>Problem Statement</h2>
-            <p>
-                You may assume that each input would have exactly one solution, and you may not use the same element
-                twice.
-            </p>
+            <p>{{ problemStatement }}</p>
         </div>
 
         <div class="section">
-            <h2>Constraints</h2>
-            <ul>
-                <li>2 ≤ nums.length ≤ 10<sup>4</sup></li>
-                <li>-10<sup>9</sup> ≤ nums[i] ≤ 10<sup>9</sup></li>
-                <li>-10<sup>9</sup> ≤ target ≤ 10<sup>9</sup></li>
-                <li>Only one valid answer exists.</li>
-            </ul>
+            <h2>Total Test Cases</h2>
+            <p>{{ totalTestCases }}</p>
         </div>
 
         <div class="section">
-            <h2>Examples</h2>
-            <div class="example">
-                <p><strong>Example 1:</strong></p>
+            <h2>Test Cases</h2>
+            <div v-for="(testCase, index) in testCases" :key="index" class="example">
+                <p><strong>Test Case {{ index + 1 }}:</strong></p>
                 <pre><code>
-Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-        </code></pre>
-            </div>
-            <div class="example">
-                <p><strong>Example 2:</strong></p>
-                <pre><code>
-Input: nums = [3,2,4], target = 6
-Output: [1,2]
-Explanation: Because nums[1] + nums[2] == 6, we return [1, 2].
-        </code></pre>
-            </div>
-            <div class="example">
-                <p><strong>Example 3:</strong></p>
-                <pre><code>
-Input: nums = [3,3], target = 6
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 6, we return [0, 1].
-        </code></pre>
+                    Input: {{ testCase.input }}
+                    Expected Output: {{ testCase.expected_output }}
+                </code></pre>
             </div>
         </div>
 
         <div class="editor-container">
             <h2>Code Editor</h2>
             <label for="language-select">Select Language:</label>
-            <select id="language-select" v-model="selectedLanguage" @change="updateEditorMode">
-                <option value="javascript">JavaScript</option>
-                <option value="python">Python</option>
+            <select id="language-select" v-model="selectedLanguage" @change="updateEditorMode" class="dropdown mb-3">
+                <option value="nodejs">JavaScript</option>
+                <option value="python3">Python</option>
                 <option value="java">Java</option>
                 <option value="cpp">C++</option>
             </select>
             <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome" style="height: 300px"
                 @init="editorInit" />
+
             <div class="button-container">
                 <button class="px-3" @click="runCode">Run Code</button>
                 <button @click="submitCode">Submit</button>
             </div>
+
+            <!-- Input box for stdin -->
+            <div class="stdin-container">
+                <label for="stdin-input">Enter Input:</label>
+                <textarea id="stdin-input" v-model="stdin" rows="4"
+                    placeholder="Enter standard input here..."></textarea>
+            </div>
         </div>
 
-        <div v-if="output" class="output-container">
+        <div v-if="output.results && output.results.length" class="output-container">
             <h2>Output</h2>
-            <pre>{{ output }}</pre>
+            <div v-for="(result, index) in output.results" :key="index" class="example">
+                <p><strong>Test Case {{ index + 1 }}:</strong></p>
+                <pre><code>
+                    Expected Output: {{ result.expected_output }}
+                    Actual Output: {{ result.actual_output }}
+                    Passed: {{ result.passed }}
+                </code></pre>
+            </div>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
 import { VAceEditor } from 'vue3-ace-editor';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -84,48 +68,99 @@ import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-chrome';
+import { useRoute } from 'vue-router';
 
 const BASE_URL = 'http://localhost:8000';
 
 export default {
+    setup() {
+        const route = useRoute();
+        const problemId = route.params.problemId as string;
+
+        return {
+            problemId
+        };
+    },
+    mounted() {
+        // call at end point /get-code-problem/{problemId}
+        axios.get(BASE_URL + '/get-code-problem/' + this.problemId, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+        })
+            .then(response => {
+                const problemData = response.data;
+                this.problemStatement = problemData.problem_statement;
+                this.totalTestCases = problemData.total_test_cases;
+                this.testCases = problemData.test_cases;
+            })
+            .catch(error => {
+                console.error("There was an error fetching the problem!", error);
+            });
+    },
     components: {
         VAceEditor,
     },
     data() {
         return {
-            code: 'function twoSum(nums, target) { }',
-            selectedLanguage: 'javascript',
+            selectedLanguage: 'nodejs',
+            code: this.getDefaultCode('nodejs'),
             output: '',
+            stdin: '',
+            editor: '',
+            selectedVersion: '0',
+            problemStatement: '',
+            totalTestCases: '',
+            testCases: [],
         };
     },
     methods: {
-        editorInit(editor) {
+        editorInit(editor: string) {
             this.editor = editor;
         },
         updateEditorMode() {
-            // The `lang` prop on `v-ace-editor` will handle changing modes automatically
+            this.code = this.getDefaultCode(this.selectedLanguage);
+        },
+        getDefaultCode(language: string) {
+            switch (language) {
+                case 'nodejs':
+                    return 'console.log("Hello, World!");';
+                case 'python3':
+                    return 'print("Hello, World!")';
+                case 'java':
+                    return 'public class Main { public static void main(String[] args) { System.out.println("Hello, World!"); } }';
+                case 'cpp':
+                    return '#include <iostream>\nint main() { std::cout << "Hello, World!"; return 0; }';
+                default:
+                    return '';
+            }
         },
         runCode() {
             const code = this.code;
             const language = this.selectedLanguage;
             const versionIndex = this.selectedVersion;
+            const stdin = this.stdin;
 
-            axios.post(BASE_URL + '/execute_code', {
+            axios.post(BASE_URL + '/execute-code', {
+                problemId: this.problemId,
                 code: code,
                 language: language,
-                versionIndex: versionIndex
+                versionIndex: versionIndex,
+                stdin: stdin,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
             })
                 .then(response => {
-                    this.output = response.data.output;
+                    this.output = response.data;
                 })
                 .catch(error => {
                     console.error("There was an error running the code!", error);
                 });
         },
         submitCode() {
-            // Handle code submission
             console.log("Code submitted:", this.code);
-            // Add functionality to send the code to a server for validation
         },
     },
 };
@@ -215,5 +250,26 @@ label {
     background-color: #f1f1f1;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stdin-container {
+    margin-top: 20px;
+}
+
+#stdin-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.dropdown {
+    padding: 8px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
 }
 </style>

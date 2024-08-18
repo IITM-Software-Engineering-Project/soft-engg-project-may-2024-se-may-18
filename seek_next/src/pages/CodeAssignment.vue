@@ -57,6 +57,23 @@
                 </code></pre>
             </div>
         </div>
+
+        <!-- Prompt input for AI programming feedback -->
+        <div class="feedback-container">
+            <h2>Get AI Programming Feedback</h2>
+            <label for="ai-prompt">Enter your prompt:</label>
+            <textarea id="ai-prompt" v-model="aiPrompt" rows="4" placeholder="Enter your prompt here..."></textarea>
+
+            <div class="button-container">
+                <button @click="getAIProgrammingFeedback">Get Feedback</button>
+            </div>
+
+            <!-- Display AI feedback -->
+            <div v-if="aiFeedback" class="ai-feedback">
+                <h3>AI Feedback</h3>
+                <p>{{ aiFeedback }}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -112,6 +129,8 @@ export default {
             problemStatement: '',
             totalTestCases: '',
             testCases: [],
+            aiPrompt: '', // For the AI feedback prompt
+            aiFeedback: '', // To store the AI feedback response
         };
     },
     methods: {
@@ -161,6 +180,27 @@ export default {
         },
         submitCode() {
             console.log("Code submitted:", this.code);
+        },
+        async getAIProgrammingFeedback() {
+            try {
+                const formData = new FormData();
+                formData.append('prompt', this.aiPrompt);
+                formData.append('data', this.code);
+                formData.append('language', this.selectedLanguage);
+                formData.append('question', this.problemStatement);
+
+                const response = await axios.post(`${BASE_URL}/ai-programming-feedback`, formData, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                this.aiFeedback = response.data.message; // Assuming the AI feedback is returned in a field called 'message'
+            } catch (error) {
+                console.error("There was an error fetching the AI feedback!", error);
+                this.aiFeedback = "There was an error fetching the feedback.";
+            }
         },
     },
 };

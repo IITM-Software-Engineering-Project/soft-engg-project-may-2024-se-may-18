@@ -60,22 +60,32 @@ Explanation: Because nums[0] + nums[1] == 6, we return [0, 1].
                 <option value="python">Python</option>
                 <option value="java">Java</option>
                 <option value="cpp">C++</option>
-                <!-- Add more languages as needed -->
             </select>
             <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome" style="height: 300px"
                 @init="editorInit" />
-            <button @click="submitCode">Submit</button>
+            <div class="button-container">
+                <button class="px-3" @click="runCode">Run Code</button>
+                <button @click="submitCode">Submit</button>
+            </div>
+        </div>
+
+        <div v-if="output" class="output-container">
+            <h2>Output</h2>
+            <pre>{{ output }}</pre>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { VAceEditor } from 'vue3-ace-editor';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-chrome';
+
+const BASE_URL = 'http://localhost:8000';
 
 export default {
     components: {
@@ -85,20 +95,37 @@ export default {
         return {
             code: 'function twoSum(nums, target) { }',
             selectedLanguage: 'javascript',
+            output: '',
         };
     },
     methods: {
         editorInit(editor) {
             this.editor = editor;
-            // Optionally, you can do something with the editor instance here
         },
         updateEditorMode() {
             // The `lang` prop on `v-ace-editor` will handle changing modes automatically
         },
+        runCode() {
+            const code = this.code;
+            const language = this.selectedLanguage;
+            const versionIndex = this.selectedVersion;
+
+            axios.post(BASE_URL + '/execute_code', {
+                code: code,
+                language: language,
+                versionIndex: versionIndex
+            })
+                .then(response => {
+                    this.output = response.data.output;
+                })
+                .catch(error => {
+                    console.error("There was an error running the code!", error);
+                });
+        },
         submitCode() {
             // Handle code submission
             console.log("Code submitted:", this.code);
-            // You can add functionality here to handle the code, e.g., send it to a server for validation
+            // Add functionality to send the code to a server for validation
         },
     },
 };
@@ -157,6 +184,10 @@ pre {
     margin-top: 30px;
 }
 
+.button-container {
+    margin-top: 10px;
+}
+
 button {
     padding: 10px 15px;
     font-size: 16px;
@@ -165,6 +196,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 button:hover {
@@ -175,5 +207,13 @@ label {
     display: block;
     margin-bottom: 5px;
     font-size: 16px;
+}
+
+.output-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 </style>

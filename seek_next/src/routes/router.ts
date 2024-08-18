@@ -7,9 +7,10 @@ import StudentHome from '../pages/StudentHome.vue'
 import AllCourses from '../pages/AllCourses.vue'
 import CourseModules from '../pages/CourseModules.vue'
 import ModuleDetails from '../pages/ModuleDetails.vue'
+import CodeAssignment from '../pages/CodeAssignment.vue'
 
 const routes = [
-    { path: '/', component: Loading },
+    { path: '/', component: CodeAssignment },
     { path: '/sign-in', component: SignIn },
     { path: '/sign-up', component: SignUp },
     { path: '/home', component: Home },

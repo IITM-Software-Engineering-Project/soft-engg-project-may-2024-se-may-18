@@ -13,6 +13,7 @@ load_dotenv()
 
 genai_router = APIRouter()
 
+
 def get_db():
     engine = init_db()
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -38,7 +39,7 @@ async def gemini(request: Request, session: Session = Depends(get_db)):
         data = data["data"]
     except Exception:
         # data = None
-        x  = session.query(Course).all()
+        x = session.query(Course).all()
 
         data = []
         for i in x:
@@ -86,7 +87,7 @@ async def gemini(request: Request, course_id: int, session: Session = Depends(ge
         data = data["data"]
     except Exception:
         # data = None
-        course  = session.query(Course).filter(Course.id == course_id).first()
+        course = session.query(Course).filter(Course.id == course_id).first()
         if not course:
             raise HTTPException(status_code=404, detail="Course not found")
 
@@ -127,13 +128,11 @@ async def gemini(request: Request):
                    response_description="Response from AI in the form of a JSON with a text message inside",
                    tags=["Gen AI"])
 async def gemini(request: Request, images: List[UploadFile] = File(...)):
-    print("Hi1")
     form_data = await request.form()
     prompt = form_data.get("prompt")
     data = form_data.get("data")
     language = form_data.get("language")
     question = form_data.get("question")
-    print("Hi")
     prompt = programming_feedback_prompt.format(question=question,
                                                 user_prompt=prompt, programming_language=language)
 

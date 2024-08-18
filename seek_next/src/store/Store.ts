@@ -1,11 +1,12 @@
-import { InjectionKey } from 'vue';
-import { createStore, Store } from 'vuex';
-import authActions from './actions/auth';
-import courseActions from './actions/course';
+import { InjectionKey } from "vue";
+import { createStore, Store } from "vuex";
+import authActions from "./actions/auth";
+import courseActions from "./actions/course";
+import instructorActions from "./actions/instructor";
 
 export interface State {
   user: {
-    id: string
+    id: string;
     name: string;
     email: string;
     role: string;
@@ -14,10 +15,11 @@ export interface State {
   isLoggedIn: boolean;
   enrolledCourses: Course[];
   allCourses: Course[];
+  instructorCourses: Course[]; // <-- Added for instructor courses
 }
 
 export interface ComponentCustomProperties {
-  $store: Store<State>
+  $store: Store<State>;
 }
 
 interface Course {
@@ -34,36 +36,37 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export const store = createStore<State>({
   state: {
     user: {
-      id: '',
-      name: '',
-      email: '',
-      role: '',
+      id: "",
+      name: "",
+      email: "",
+      role: "",
     },
     accessToken: null,
     isLoggedIn: false,
     enrolledCourses: [] as Course[],
     allCourses: [] as Course[],
+    instructorCourses: [] as Course[],
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
     },
     setAccessToken(state, accessToken) {
       state.accessToken = accessToken;
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem("accessToken", accessToken);
     },
     setLoggedIn(state, isLoggedIn) {
       state.isLoggedIn = isLoggedIn;
-      localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+      localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
     },
     clearAuthData(state) {
-      state.user = { id: '', name: '', email: '', role: '' };
+      state.user = { id: "", name: "", email: "", role: "" };
       state.accessToken = null;
       state.isLoggedIn = false;
-      localStorage.removeItem('user');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("isLoggedIn");
     },
     setEnrolledCourses(state, courses) {
       state.enrolledCourses = courses;
@@ -72,15 +75,19 @@ export const store = createStore<State>({
       state.allCourses = courses;
     },
     addEnrolledCourse(state, courseId) {
-      const course = state.allCourses.find(course => course.id === courseId);
+      const course = state.allCourses.find((course) => course.id === courseId);
       if (course) {
         state.enrolledCourses.push(course);
       }
-    }
+    },
+    setInstructorCourses(state, courses) {
+      state.instructorCourses = courses;
+    },
   },
   actions: {
     ...authActions,
     ...courseActions,
+    ...instructorActions,
   },
   getters: {
     enrolledCourses(state) {
@@ -88,6 +95,9 @@ export const store = createStore<State>({
     },
     allCourses(state) {
       return state.allCourses;
+    },
+    instructorCourses(state) {
+      return state.instructorCourses;
     },
     isAuthenticated(state) {
       return state.isLoggedIn;

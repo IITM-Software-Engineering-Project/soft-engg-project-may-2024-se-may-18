@@ -135,3 +135,4 @@ class CourseResponse(CourseBase):
 class AssignmentSubmission(BaseModel):
     student_id: int
     answers: dict
+    assignment_answer:str

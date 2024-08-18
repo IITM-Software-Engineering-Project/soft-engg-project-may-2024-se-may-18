@@ -188,6 +188,8 @@ export default {
                 formData.append('data', this.code);
                 formData.append('language', this.selectedLanguage);
                 formData.append('question', this.problemStatement);
+                // image to be null for now
+
 
                 const response = await axios.post(`${BASE_URL}/ai-programming-feedback`, formData, {
                     headers: {
@@ -311,5 +313,38 @@ label {
     border-radius: 4px;
     background-color: #fff;
     font-size: 16px;
+}
+
+.feedback-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#ai-prompt {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: monospace;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.ai-feedback {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e6f7ff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ai-feedback p {
+    white-space: pre-wrap;
+    /* Preserves formatting */
+    font-family: monospace;
+    font-size: 14px;
 }
 </style>

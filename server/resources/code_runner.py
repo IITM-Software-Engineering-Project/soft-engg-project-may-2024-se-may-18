@@ -18,13 +18,12 @@ class CodeExecutionRequest(BaseModel):
 @code_runner_router.post("/execute-code")
 async def execute_code(request: Request):
     data = await request.json()
-    print(request)
     execution_data = {
         "clientId": CLIENT_ID,
         "clientSecret": CLIENT_SECRET,
         "script": data["code"],
-        "language":   data["language"],
-        "versionIndex":     data["versionIndex"]
+        "language": data["language"],
+        "versionIndex": data["versionIndex"]
     }
 
     response = requests.post(

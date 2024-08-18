@@ -129,6 +129,7 @@ async def add_module(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
     module = Module(**data)
     if not session.query(Course).filter(Course.id == module.course_id).first():
+
         raise HTTPException(status_code=404, detail="Course not found")
 
     try:
@@ -316,6 +317,7 @@ async def edit_assignment(
         "module_id" in data.keys()
         and session.query(Module).filter_by(id=data["module_id"]).first() is None
     ):
+
         raise HTTPException(status_code=404, detail="Module not found")
 
     for key, value in data.items():
@@ -367,7 +369,6 @@ async def delete_assignment(assignment_id: int, session: Session = Depends(get_d
 )
 async def add_question(request: Request, session: Session = Depends(get_db)):
     data = await request.json()
-
     question = AssignmentQuestion(
         assignment_id=data["assignment_id"],
         image=data["image"],
@@ -436,11 +437,13 @@ async def edit_question(
     tags=["Assignment"],
 )
 async def delete_question(question_id: int, session: Session = Depends(get_db)):
+
     question = (
         session.query(AssignmentQuestion)
         .filter(AssignmentQuestion.id == question_id)
         .first()
     )
+
     if not question:
         raise HTTPException(status_code=404, detail="question not found")
 
@@ -452,6 +455,7 @@ async def delete_question(question_id: int, session: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Error deleting question")
 
     return {"message": "question deleted successfully"}
+
 
 
 @instructor_router.get(
@@ -480,7 +484,8 @@ def get_enrolled_students(course_id: int, session: Session = Depends(get_db)):
 )
 def create_exam(course_id: int, exam_id: int, session: Session = Depends(get_db)):
     # Create an exam entry for each enrolled student
-    if session.query(Course).filter_by(id=course_id).first() is None:
+
+    if (session.query(Course).filter_by(id=course_id).first() is None):
         raise HTTPException(status_code=404, detail="course not found")
     enrollments = (
         session.query(CourseEnrollment)

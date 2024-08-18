@@ -63,9 +63,6 @@ class Module(Base):
     total_assignments = Column(Integer, nullable=False)
     description = Column(String(500), nullable=True)
     course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
-    # course = relationship("Course", back_populates="modules")
-    # assignments = relationship("Assignment", back_populates="module")
-    # lectures = relationship("Lecture", back_populates="module")
 
 
 class Lecture(Base):

@@ -1,4 +1,22 @@
 <template>
+    <v-app>
+    <!-- Navigation Bar -->
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>All Courses</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <!-- Back to Dashboard Button -->
+      <v-btn @click="goToDashboard" color="white">
+        Dashboard
+      </v-btn>
+
+      <!-- Logout Button -->
+      <v-btn @click="logout" color="white" variant="outlined">
+        Logout
+      </v-btn>
+    </v-app-bar>
+    </v-app>
+
     <div class="assignment-container">
         <div class="section">
             <h2>Problem Statement</h2>
@@ -203,6 +221,12 @@ export default {
                 console.error("There was an error fetching the AI feedback!", error);
                 this.aiFeedback = "There was an error fetching the feedback.";
             }
+        },
+        goToDashboard() {
+            this.$router.push('/student-home');
+        },
+        logout() {
+            this.$store.dispatch('signOut');
         },
     },
 };

@@ -1,109 +1,112 @@
 <template>
     <v-app>
-    <!-- Navigation Bar -->
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>All Courses</v-toolbar-title>
-      <v-spacer></v-spacer>
+        <!-- Navigation Bar -->
+        <v-app-bar app color="primary" dark>
+            <v-toolbar-title>All Courses</v-toolbar-title>
+            <v-spacer></v-spacer>
 
-      <!-- Back to Dashboard Button -->
-      <v-btn @click="goToDashboard" color="white">
-        Dashboard
-      </v-btn>
+            <!-- Back to Dashboard Button -->
+            <v-btn @click="goToDashboard" color="white">
+                Dashboard
+            </v-btn>
 
-      <!-- Logout Button -->
-      <v-btn @click="logout" color="white" variant="outlined">
-        Logout
-      </v-btn>
-    </v-app-bar>
-    </v-app>
+            <!-- Logout Button -->
+            <v-btn @click="logout" color="white" variant="outlined">
+                Logout
+            </v-btn>
+        </v-app-bar>
 
-    <div class="assignment-container">
-        <div class="section">
-            <h2>Problem Statement</h2>
-            <p>{{ problemStatement }}</p>
-        </div>
+        <v-main>
+            <div class="assignment-container">
+                <div class="section">
+                    <h2>Problem Statement</h2>
+                    <p>{{ problemStatement }}</p>
+                </div>
 
-        <div class="section">
-            <h2>Total Test Cases</h2>
-            <p>{{ totalTestCases }}</p>
-        </div>
+                <div class="section">
+                    <h2>Total Test Cases</h2>
+                    <p>{{ totalTestCases }}</p>
+                </div>
 
-        <div class="section">
-            <h2>Test Cases</h2>
-            <div v-for="(testCase, index) in testCases" :key="index" class="example">
-                <p><strong>Test Case {{ index + 1 }}:</strong></p>
-                <pre><code>
-                    Input: {{ testCase.input }}
-                    Expected Output: {{ testCase.expected_output }}
+                <div class="section">
+                    <h2>Test Cases</h2>
+                    <div v-for="(testCase, index) in testCases" :key="index" class="example">
+                        <p><strong>Test Case {{ index + 1 }}:</strong></p>
+                        <pre><code>
+                    Input: {{ testCase['input'] }}
+                    Expected Output: {{ testCase['expected_output'] }}
                 </code></pre>
-            </div>
-        </div>
+                    </div>
+                </div>
 
-        <div class="editor-container">
-            <h2>Code Editor</h2>
-            <label for="language-select">Select Language:</label>
-            <select id="language-select" v-model="selectedLanguage" @change="updateEditorMode" class="dropdown mb-3">
-                <option value="nodejs">JavaScript</option>
-                <option value="python3">Python</option>
-                <option value="java">Java</option>
-                <option value="cpp">C++</option>
-            </select>
-            <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome" style="height: 300px"
-                @init="editorInit" />
+                <div class="editor-container">
+                    <h2>Code Editor</h2>
+                    <v-select v-model="selectedLanguage" :items="languages" item-value="value" item-title="text"
+                        label="Select Language" class="dropdown mb-3" @update:model-value="updateEditorMode"></v-select>
 
-            <div class="button-container">
-                <button class="px-3" @click="runCode">Run Code</button>
-                <button @click="submitCode">Submit</button>
-            </div>
 
-            <!-- Input box for stdin -->
-            <div class="stdin-container">
-                <label for="stdin-input">Enter Input:</label>
-                <textarea id="stdin-input" v-model="stdin" rows="4"
-                    placeholder="Enter standard input here..."></textarea>
-            </div>
-        </div>
+                    <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome" style="height: 300px"
+                        @init="editorInit" />
 
-        <div v-if="output.results && output.results.length" class="output-container">
-            <h2>Output</h2>
-            <div v-for="(result, index) in output.results" :key="index" class="example">
-                <p><strong>Test Case {{ index + 1 }}:</strong></p>
-                <pre><code>
+                    <div class="button-container">
+                        <button class="px-3" @click="runCode">Run Code</button>
+                        <button @click="submitCode">Submit</button>
+                    </div>
+
+                    <!-- Input box for stdin -->
+                    <div class="stdin-container">
+                        <label for="stdin-input">Enter Input:</label>
+                        <textarea id="stdin-input" v-model="stdin" rows="4"
+                            placeholder="Enter standard input here..."></textarea>
+                    </div>
+                </div>
+
+                <div v-if="output.results && output.results.length" class="output-container">
+                    <h2>Output</h2>
+                    <div v-for="(result, index) in output.results" :key="index" class="example">
+                        <p><strong>Test Case {{ index + 1 }}:</strong></p>
+                        <pre><code>
                     Expected Output: {{ result.expected_output }}
                     Actual Output: {{ result.actual_output }}
                     Passed: {{ result.passed }}
                 </code></pre>
-            </div>
-        </div>
+                    </div>
+                </div>
 
-        <!-- Prompt input for AI programming feedback -->
-        <div class="feedback-container">
-            <h2>Get AI Programming Feedback</h2>
-            <label for="ai-prompt">Enter your prompt:</label>
-            <textarea id="ai-prompt" v-model="aiPrompt" rows="4" placeholder="Enter your prompt here..."></textarea>
+                <!-- Prompt input for AI programming feedback -->
+                <div class="feedback-container">
+                    <h2>Get AI Programming Feedback</h2>
+                    <label for="ai-prompt">Enter your prompt:</label>
+                    <textarea id="ai-prompt" v-model="aiPrompt" rows="4"
+                        placeholder="Enter your prompt here..."></textarea>
 
-            <div class="button-container">
-                <button @click="getAIProgrammingFeedback">Get Feedback</button>
-            </div>
+                    <div class="button-container">
+                        <button @click="getAIProgrammingFeedback">Get Feedback</button>
+                    </div>
 
-            <!-- Display AI feedback -->
-            <div v-if="aiFeedback" class="ai-feedback">
-                <h3>AI Feedback</h3>
-                <p>{{ aiFeedback }}</p>
+                    <!-- Display AI feedback -->
+                    <div v-if="aiFeedback" class="ai-feedback">
+                        <h3>AI Feedback</h3>
+                        <p v-html="aiFeedback"></p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </v-main>
+    </v-app>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
-import { VAceEditor } from 'vue3-ace-editor';
+import { config } from "ace-builds";
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-chrome';
+import { VAceEditor } from 'vue3-ace-editor';
 import { useRoute } from 'vue-router';
+
+config.set('basePath', '/node_modules/ace-builds/src-min-noconflict');
 
 const BASE_URL = 'http://localhost:8000';
 
@@ -117,7 +120,6 @@ export default {
         };
     },
     mounted() {
-        // call at end point /get-code-problem/{problemId}
         axios.get(BASE_URL + '/get-code-problem/' + this.problemId, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -139,8 +141,14 @@ export default {
     data() {
         return {
             selectedLanguage: 'nodejs',
+            languages: [
+                { text: "JavaScript", value: "nodejs" },
+                { text: "Python", value: "python3" },
+                { text: "Java", value: "java" },
+                { text: "C++", value: "cpp" },
+            ],
             code: this.getDefaultCode('nodejs'),
-            output: '',
+            output: '' as any,
             stdin: '',
             editor: '',
             selectedVersion: '0',
@@ -161,17 +169,18 @@ export default {
         getDefaultCode(language: string) {
             switch (language) {
                 case 'nodejs':
-                    return 'console.log("Hello, World!");';
+                    return 'console.log("Hello, World!");\n';
                 case 'python3':
-                    return 'print("Hello, World!")';
+                    return 'print("Hello, World!")\n';
                 case 'java':
-                    return 'public class Main { public static void main(String[] args) { System.out.println("Hello, World!"); } }';
+                    return 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}\n';
                 case 'cpp':
-                    return '#include <iostream>\nint main() { std::cout << "Hello, World!"; return 0; }';
+                    return '#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!";\n    return 0;\n}\n';
                 default:
                     return '';
             }
-        },
+        }
+        ,
         runCode() {
             const code = this.code;
             const language = this.selectedLanguage;
@@ -206,8 +215,6 @@ export default {
                 formData.append('data', this.code);
                 formData.append('language', this.selectedLanguage);
                 formData.append('question', this.problemStatement);
-                // image to be null for now
-
 
                 const response = await axios.post(`${BASE_URL}/ai-programming-feedback`, formData, {
                     headers: {
@@ -216,7 +223,7 @@ export default {
                     },
                 });
 
-                this.aiFeedback = response.data.message; // Assuming the AI feedback is returned in a field called 'message'
+                this.aiFeedback = response.data.message;
             } catch (error) {
                 console.error("There was an error fetching the AI feedback!", error);
                 this.aiFeedback = "There was an error fetching the feedback.";

@@ -15,7 +15,7 @@ export interface State {
   isLoggedIn: boolean;
   enrolledCourses: Course[];
   allCourses: Course[];
-  instructorCourses: Course[]; // <-- Added for instructor courses
+  instructorCourses: Course[];
 }
 
 export interface ComponentCustomProperties {
@@ -30,7 +30,6 @@ interface Course {
   price?: string;
 }
 
-// Define injection key
 export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({

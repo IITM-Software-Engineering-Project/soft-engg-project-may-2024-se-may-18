@@ -32,30 +32,41 @@ def get_db():
                   tags=["authentication"],
                   )
 async def register(request: Request, session: Session = Depends(get_db)):
+    # Parse JSON body
     data = await request.json()
-    username = data["username"]
-    email = data["email"]
-    password = data["password"]
-    role = data["role"]
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
+    role = data.get("role")
 
-    # Check if user is already registered
-    user = session.query(User).filter(User.username == username).first()
-    if user:
-        raise HTTPException(status_code=400, detail="User already exists")
+    # Validate input fields
+    if not username or not email or not password or not role:
+        raise HTTPException(
+            status_code=400, detail="All fields (username, email, password, role) are required")
+
+    # Check if user already exists by username or email
+    existing_user = session.query(User).filter(
+        (User.username == username) | (User.email == email)
+    ).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=400, detail="Username or email already registered")
 
     # Hash the password
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-    new_user = User(username=username, email=email,
-                    password=hashed_password.decode('utf-8'), role=role,
-                    last_login=datetime.now()
-                    )
+    # Create a new user instance
+    new_user = User(
+        username=username,
+        email=email,
+        password=hashed_password.decode('utf-8'),
+        role=role,
+        last_login=datetime.now()  # Or None, depending on your design
+    )
 
-    try:
-        session.add(new_user)
-        session.commit()
-    except IntegrityError:
-        raise HTTPException(status_code=400, detail="Error registering user")
+    # Add the new user to the database
+    session.add(new_user)
+    session.commit()
 
     return {"message": "User registered successfully"}
 
@@ -66,31 +77,48 @@ async def register(request: Request, session: Session = Depends(get_db)):
                   tags=["authentication"],
                   )
 async def login(request: Request, session: Session = Depends(get_db)):
+    # Parse JSON body
     data = await request.json()
-    username = data["username"]
-    password = data["password"]
+    username = data.get("username")
+    password = data.get("password")
 
+    # Check if both username and password are provided
+    if not username or not password:
+        raise HTTPException(
+            status_code=400, detail="Username and password are required")
+
+    # Fetch user from the database
     user = session.query(User).filter(User.username == username).first()
 
+    # Check if the user exists
     if not user:
         raise HTTPException(
-            status_code=400, detail="User does not exist")
+            status_code=400, detail="User is not registered")
 
     # Verify the password
     if not bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
         raise HTTPException(
             status_code=400, detail="Incorrect username or password")
 
+    # Check if the user is active (if you have an active/inactive user state)
+    if not user.is_active:
+        raise HTTPException(
+            status_code=400, detail="User account is inactive. Please contact support.")
+
+    # Update the last login time
     user.last_login = datetime.now()
 
+    # User data for the token
     user_id = user.id
     username = user.username
     role = user.role
     email = user.email
 
+    # Save the updated user data
     session.add(user)
     session.commit()
 
+    # Create JWT access token
     access_token_expires = timedelta(minutes=45)
     access_token = jwt.encode(
         {"username": username, "exp": datetime.now() + access_token_expires,
@@ -98,7 +126,16 @@ async def login(request: Request, session: Session = Depends(get_db)):
         SECRET_KEY,
         algorithm=ALGORITHM
     )
-    return {"access_token": access_token, "id": user_id, "role": role, "email": email, "username": username}
+
+    # Return token and user information
+    return {
+        "access_token": access_token,
+        "id": user_id,
+        "role": role,
+        "email": email,
+        "username": username,
+        "detail": "Login successful"
+    }
 
 
 @auth_router.get("/verify-token",
@@ -125,7 +162,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
             username = user.username
             role = user.role
             email = user.email
-            
+
             return {"id": user_id, "role": role, "email": email, "username": username}
 
         return {"username": username, "role": role, "email": email}

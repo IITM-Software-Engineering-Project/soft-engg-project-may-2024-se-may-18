@@ -47,13 +47,13 @@ export default {
     name: 'SignIn',
     data() {
         return {
-            username: '',  // Changed to username
+            username: '',
             password: ''
         }
     },
     methods: {
         signIn() {
-            this.$store.dispatch('signIn', {
+            this.$store.dispatch('auth/signIn', {
                 username: this.username,
                 password: this.password
             });

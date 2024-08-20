@@ -34,14 +34,10 @@
                       <v-list-item-title class="text-h5">{{ lecture.title }}</v-list-item-title>
                       <!-- Embedded YouTube Video -->
                       <v-responsive class="my-3">
-                        <iframe
-                          width="100%"
-                          height="315"
-                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`"
-                          frameborder="0"
+                        <iframe width="100%" height="315"
+                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`" frameborder="0"
                           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen
-                        ></iframe>
+                          allowfullscreen></iframe>
                       </v-responsive>
                       <!-- <v-list-item-subtitle>
                         <a :href="lecture.url" target="_blank">Watch Lecture</a>
@@ -59,7 +55,7 @@
                         <v-card-title>{{ responseTitle[lecture.id] }}</v-card-title>
                         <v-card-text v-html="formatMessage(summaryResponse[lecture.id])"></v-card-text>
                       </v-card>
-                      <br/>
+                      <br />
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -188,7 +184,7 @@ export default defineComponent({
       return new Date(dueDate).toLocaleDateString();
     },
     logout() {
-      this.$store.dispatch('signOut');
+      this.$store.dispatch('auth/signOut');
     },
     async summarizeTranscript(lectureId: number) {
       try {

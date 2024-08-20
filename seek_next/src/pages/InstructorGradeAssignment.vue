@@ -10,12 +10,7 @@
       </v-btn>
 
       <!-- Logout Button -->
-      <v-btn
-        @click="logout"
-        color="white"
-        variant="outlined"
-        append-icon="mdi-account-circle"
-      >
+      <v-btn @click="logout" color="white" variant="outlined" append-icon="mdi-account-circle">
         <v-icon>mdi-logout</v-icon>
         Logout
       </v-btn>
@@ -29,25 +24,16 @@
               <v-divider></v-divider>
               <v-list>
                 <v-list-item-group>
-                  <v-list-item
-                    v-for="(answer, index) in fetchAssignmentAnswers"
-                    :key="index"
-                  >
+                  <v-list-item v-for="(answer, index) in fetchAssignmentAnswers" :key="index">
                     <v-list-item-content>
                       <v-row>
                         <v-col> Student ID: {{ answer.student_id }} </v-col>
                         <v-col class="button-col">
                           <div class="button-container">
-                            <v-btn
-                              @click="gradeManually(answer)"
-                              color="primary"
-                            >
+                            <v-btn @click="gradeManually(answer)" color="primary">
                               Grade Manually
                             </v-btn>
-                            <v-btn
-                              @click="gradeUsingAI(answer)"
-                              color="secondary"
-                            >
+                            <v-btn @click="gradeUsingAI(answer)" color="secondary">
                               Grade using AI
                             </v-btn>
                           </div>
@@ -90,14 +76,8 @@
               <strong>Student Answer:</strong>
               {{ selectedAnswer.assignment_answer }}
             </p>
-            <v-textarea
-              v-model="aiPrompt"
-              label="Enter your prompt"
-            ></v-textarea>
-            <v-btn
-              @click="submitAIGrade(selectedAnswer.assignment_answer)"
-              color="primary"
-            >
+            <v-textarea v-model="aiPrompt" label="Enter your prompt"></v-textarea>
+            <v-btn @click="submitAIGrade(selectedAnswer.assignment_answer)" color="primary">
               Get Response
             </v-btn>
 
@@ -192,7 +172,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("signOut");
+      this.$store.dispatch("auth/signOut");
     },
     gradeManually(answer) {
       this.selectedAnswer = answer;
@@ -277,6 +257,7 @@ export default {
 
 .button-container {
   display: flex;
-  gap: 10px; /* Add space between buttons */
+  gap: 10px;
+  /* Add space between buttons */
 }
 </style>

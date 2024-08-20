@@ -1,12 +1,13 @@
 import axios from 'axios';
-import router from '../../routes/router';
+import router from '../../../routes/router';
 import { ActionContext } from 'vuex';
-import { State } from '../Store';
+import { State } from '../../store';
+import { AuthState } from './auth';
 
 const BASE_URL = 'http://localhost:8000';
 
 export default {
-    async signIn({ commit }: ActionContext<State, State>, credentials: { email: string, password: string }) {
+    async signIn({ commit }: ActionContext<AuthState, State>, credentials: { username: string, password: string }) {
         try {
             const response = await axios.post(BASE_URL + '/sign-in', credentials);
             commit('setUser', {
@@ -30,7 +31,7 @@ export default {
         }
     },
 
-    async signUp({ }: ActionContext<State, State>, userData: { name: string, email: string, password: string }) {
+    async signUp({ }, userData: { name: string, email: string, password: string }) {
         try {
             const response = await axios.post(BASE_URL + '/sign-up', userData);
             console.log('Signed up:', response.data);
@@ -40,19 +41,19 @@ export default {
         }
     },
 
-    async signOut({ commit }: ActionContext<State, State>) {
+    async signOut({ commit }: ActionContext<AuthState, State>) {
         try {
             // Call signout endpoint (if any)
             // await axios.post('/api/signout');
             commit('clearAuthData');
             console.log('Signed out');
-            router.push('/');
+            router.push('/sign-in');
         } catch (error) {
             console.error(error);
         }
     },
 
-    async autoLogin({ commit }: ActionContext<State, State>) {
+    async autoLogin({ commit }: ActionContext<AuthState, State>) {
         const token = localStorage.getItem('accessToken');
         if (token) {
             try {
@@ -70,6 +71,7 @@ export default {
                 commit('setUser', user);
                 commit('setAccessToken', token);
                 commit('setLoggedIn', true);
+
                 if (user.role === 'student') {
                     router.push('/student-home');
                 } else if (user.role === 'instructor') {

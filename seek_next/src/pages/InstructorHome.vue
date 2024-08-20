@@ -24,23 +24,18 @@
               <v-divider></v-divider>
 
               <v-list v-if="instructorCourses.length">
-                <v-list-item
-                  v-for="course in instructorCourses"
-                  :key="course.course_id"
-                >
+                <v-list-item v-for="course in instructorCourses" :key="course.course_id">
                   <v-list-item-content>
                     <v-row>
                       <v-col>
                         <v-list-item-title>{{
                           course.course_name
-                        }}</v-list-item-title>
+                          }}</v-list-item-title>
                         <v-list-item-subtitle>{{
                           course.description
-                        }}</v-list-item-subtitle>
+                          }}</v-list-item-subtitle>
                       </v-col>
-                      <v-col
-                        class="button-col"
-                      >
+                      <v-col class="button-col">
                         <div class="button-container">
                           <v-btn icon @click="viewCourse(course.course_id)">
                             <v-icon>mdi-eye</v-icon>
@@ -105,7 +100,7 @@ export default {
       console.log(`Course with ID ${courseId} deleted.`);
     },
     logout() {
-      this.$store.dispatch("signOut");
+      this.$store.dispatch("auth/signOut");
     },
   },
 };
@@ -138,6 +133,7 @@ export default {
 
 .button-container {
   display: flex;
-  gap: 10px; /* Add space between buttons */
+  gap: 10px;
+  /* Add space between buttons */
 }
 </style>

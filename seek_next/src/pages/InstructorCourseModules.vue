@@ -58,13 +58,8 @@
             <v-card class="pa-4" outlined>
               <v-card-title class="headline">Course Chatbot</v-card-title>
               <v-divider></v-divider>
-              <v-textarea
-                label="Type your question about this course here"
-                v-model="prompt"
-                rows="4"
-                outlined
-                class="mt-2"
-              ></v-textarea>
+              <v-textarea label="Type your question about this course here" v-model="prompt" rows="4" outlined
+                class="mt-2"></v-textarea>
               <v-btn color="deep-purple-lighten-2" block class="mt-2" @click="askAboutCourse">
                 Ask
               </v-btn>
@@ -132,14 +127,14 @@ export default {
       }
 
       try {
-        const response = await axios.post(BASE_URL + '/ai-explain-course', 
-          { prompt: prompt.value }, 
-          { 
-            headers: { 
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}` 
+        const response = await axios.post(BASE_URL + '/ai-explain-course',
+          { prompt: prompt.value },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
             params: { course_id: courseId }
-        });
+          });
         chatMessage.value = response.data.message;
       } catch (error) {
         console.error('Error explaining course:', error);
@@ -176,7 +171,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('signOut');
+      this.$store.dispatch('auth/signOut');
     },
   },
 };
@@ -194,8 +189,8 @@ export default {
 }
 
 .chat-response {
-  min-height: 200px; 
-  max-height: 400px; 
+  min-height: 200px;
+  max-height: 400px;
   overflow-y: auto;
   padding: 16px;
 }
@@ -206,7 +201,8 @@ export default {
 }
 
 .v-list-item-subtitle {
-  word-break: break-word; /* Ensures long words wrap to the next line */
+  word-break: break-word;
+  /* Ensures long words wrap to the next line */
 }
 
 .v-btn {

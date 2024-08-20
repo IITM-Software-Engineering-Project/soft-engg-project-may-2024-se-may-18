@@ -74,11 +74,11 @@
                     <v-col>
                       <v-list-item-title>{{ assignment.title }}</v-list-item-title>
                       <v-list-item-subtitle>{{ assignment.description }}</v-list-item-subtitle>
-                      <v-list-item-subtitle>Due Date: {{ formatDueDate(assignment.due_date) }}</v-list-item-subtitle>
+                      <!-- <v-list-item-subtitle>Due Date: {{ formatDueDate(assignment.due_date) }}</v-list-item-subtitle> -->
                     </v-col>
                     <v-col class="text-right">
                       <!-- Button to go to Module -->
-                      <v-btn @click="goToAssignments(assignment.id, assignment.type)" color="#BA68C8" size="small">
+                      <v-btn @click="goToAssignments(assignment.id)" color="#BA68C8" size="small">
                         Go to Assignment
                       </v-btn>
                     </v-col>
@@ -142,8 +142,7 @@ import { defineComponent } from 'vue';
 import axios from 'axios';
 import { mapState } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
-import CodeAssignment from './CodeAssignment.vue';
-import { ca } from 'vuetify/locale';
+import { StringLiteral } from 'typescript';
 
 const BASE_URL = 'http://localhost:8000';
 
@@ -210,9 +209,9 @@ export default defineComponent({
     goBackToModules() {
       this.$router.push(`/course-modules/${this.courseId}`);
     },
-    goToAssignments(assignmentId: string, assignmentType: string) {
-      // this.$router.push(`/assignment-details/${assignmentId}`);
-      console.log('Go to module:', assignmentId, assignmentType);
+    goToAssignments(assignmentId: string) {
+      this.$router.push(`/assignment/${assignmentId}`);
+      // console.log('Go to module:', assignmentId);
     },
     goToCodeAssignment(problemId: string) {
       this.$router.push(`/code-assignment/${problemId}`);

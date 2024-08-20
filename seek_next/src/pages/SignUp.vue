@@ -5,36 +5,51 @@
                 <v-container class="register align-content-center">
                     <v-row class="d-flex align-center justify-center">
                         <v-col cols="12" class="d-block">
-                            <v-card-text class="text-h4 text-center">Join Us and Start Learning</v-card-text>
+                            <v-card-text class="title text-h2 text-center mb-10">Sign Up</v-card-text>
+
                             <!-- Username Field -->
-                            <v-text-field v-model="username" label="Username" outlined dense></v-text-field>
+                            <v-text-field class="input" v-model="username" placeholder="Username" variant="solo" rounded
+                                flat></v-text-field>
+
                             <!-- Email Field -->
-                            <v-text-field v-model="email" label="Email" outlined dense></v-text-field>
-                            <!-- Password Field -->
-                            <v-text-field v-model="password" label="Password" outlined dense
-                                type="password"></v-text-field>
-                            <!-- Confirm Password Field -->
-                            <v-text-field v-model="confirmPassword" label="Confirm Password" outlined dense
-                                type="password"></v-text-field>
+                            <v-text-field class="input" v-model="email" placeholder="Email" variant="solo" rounded
+                                flat></v-text-field>
+
+                            <!-- Password Field with Hide/Show Toggle -->
+                            <v-text-field class="input" v-model="password" :type="showPassword ? 'text' : 'password'"
+                                variant="solo" append-inner-icon="mdi-eye" placeholder="Password"
+                                @click:append-inner="togglePasswordVisibility" rounded flat></v-text-field>
+
+                            <!-- Confirm Password Field without Toggle -->
+                            <v-text-field class="input" v-model="confirmPassword" :type="'password'" variant="solo"
+                                placeholder="Confirm Password" rounded flat></v-text-field>
+
                             <!-- Role Dropdown -->
-                            <v-select v-model="role" :items="roles" label="Role" outlined dense></v-select>
+                            <v-select class="input" v-model="role" :items="roles" placeholder="Select Role"
+                                variant="solo" rounded flat></v-select>
+
+                            <!-- Spacer Container -->
+                            <v-container style="height: 20px;"></v-container>
+
+                            <!-- Register Button -->
                             <v-row class="d-flex justify-center py-5">
-                                <v-btn @click="register" color="primary" dark>
-                                    Register
+                                <v-btn @click="register" size="large" elevation="0" color="white" rounded>
+                                    <span style="font-size: 14px;">Sign Up</span>
                                 </v-btn>
                             </v-row>
-                            <v-row class="d-flex justify-center mt-3">
-                                <span class="px-3">Already have an account?</span>
-                                <v-btn @click="goToSignIn" color="primary">
-                                    Sign In
+                            <v-row class="d-flex justify-center align-center mt-3">
+                                <span class="mx-6" style="font-family: 'Poppins', sans-serif;">Already have an
+                                    account?</span>
+                                <v-btn size="large" elevation="0" color="white" rounded @click="goToSignIn">
+                                    <span style="font-size: 14px;">Sign In</span>
                                 </v-btn>
                             </v-row>
                         </v-col>
                     </v-row>
                 </v-container>
             </v-col>
+
             <v-col cols="6" class="d-block align-self-center">
-                <!-- Centered image container -->
                 <v-container class="d-flex justify-center">
                     <v-img src="/src/assets/study_icon.png" width="300" height="300" />
                 </v-container>
@@ -54,12 +69,14 @@ export default {
     name: 'SignUp',
     data() {
         return {
-            username: '', // Added username field
+            username: '',
             email: '',
             password: '',
             confirmPassword: '',
-            role: '', // Added role field
-            roles: ['Student', 'Instructor'], // Role options
+            role: 'Student',
+            roles: ['Student', 'Instructor'],
+            showPassword: false,
+            showConfirmPassword: false
         }
     },
     methods: {
@@ -74,7 +91,7 @@ export default {
                 return;
             }
 
-            this.$store.dispatch('signIn', {
+            this.$store.dispatch('signUp', {
                 username: this.username,
                 email: this.email,
                 password: this.password,
@@ -83,23 +100,35 @@ export default {
         },
         goToSignIn() {
             this.$router.push('/sign-in');
+        },
+        togglePasswordVisibility() {
+            this.showPassword = !this.showPassword;
         }
     }
 }
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .root {
     height: 100vh;
+}
+
+.title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.input {
+    margin: 0 20px 0 20px;
+    font-family: "Popins", sans-serif;
 }
 
 .register {
     background-color: rgb(228, 228, 228);
     width: 70%;
     height: 80%;
-    /* Adjust height for additional fields */
     border-radius: 4%;
 }
 
@@ -107,5 +136,9 @@ export default {
     background-color: rgb(255, 255, 255);
     font-family: "Montserrat", sans-serif;
     text-align: center;
+}
+
+.v-text-field__input {
+    box-shadow: none;
 }
 </style>

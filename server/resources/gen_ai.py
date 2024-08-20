@@ -110,7 +110,6 @@ async def gemini(prompt: Annotated[str, Form()], data: Annotated[str, Form()], l
                                                 user_prompt=prompt, programming_language=language)
 
     response = call_gemini(prompt, data, data_is_json=True)
-    print(response)
     return response
 
 

@@ -10,6 +10,7 @@ export interface AuthState {
     };
     accessToken: string | null;
     isLoggedIn: boolean;
+    currentMessage: string | null;
 }
 
 const state: AuthState = {
@@ -21,6 +22,7 @@ const state: AuthState = {
     },
     accessToken: null,
     isLoggedIn: false,
+    currentMessage: null,
 };
 
 const mutations = {
@@ -38,6 +40,9 @@ const getters = {
     user(state: { user: any; }) {
         return state.user;
     },
+    currentMessage(state: { currentMessage: any; }) {
+        return state.currentMessage;
+    }
 };
 
 export const authModel = {

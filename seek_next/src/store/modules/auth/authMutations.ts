@@ -22,4 +22,7 @@ export default {
     setRedirectPath(state: { redirectPath: any; }, path: string) {
         state.redirectPath = path;
     },
+    setCurrentMessage(state: { currentMessage: any; }, message: string) {
+        state.currentMessage = message;
+    }
 };

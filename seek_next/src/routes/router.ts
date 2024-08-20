@@ -13,6 +13,7 @@ import InstructorCourseModules from '../pages/InstructorCourseModules.vue'
 import InstructorModuleDetails from '../pages/InstructorModuleDetails.vue'
 import InstructorGradeAssignment from '../pages/InstructorGradeAssignment.vue'
 import Assignment from '../pages/Assignment.vue'
+import { store } from '../store/store';
 
 const routes = [
     { path: '/', component: Loading, name: 'Loading' },
@@ -38,5 +39,23 @@ const router = createRouter({
         return { top: 0, left: 0 }
     }
 })
+
+router.afterEach(() => {
+    try {
+        const token = localStorage.getItem('accessToken');
+        const user = JSON.parse(localStorage.getItem('user') ?? '{}');
+        const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') ?? 'false');
+
+
+        store.commit('auth/setUser', user);
+        store.commit('auth/setAccessToken', token);
+        store.commit('auth/setLoggedIn', isLoggedIn);
+    }
+    catch (e) {
+        store.commit('auth/clearAuthData');
+        router.push('/sign-in');
+    }
+
+});
 
 export default router;

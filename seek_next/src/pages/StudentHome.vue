@@ -6,13 +6,13 @@
       <v-spacer></v-spacer>
 
       <!-- View All Courses Button -->
-      <v-btn @click="goToAllCourses" color="white">
-        <v-icon>mdi-book-open-page-variant</v-icon>
+      <v-btn class="mx-2" @click="goToAllCourses" color="white">
+        <v-icon class="mx-3">mdi-book-open-page-variant</v-icon>
         View All Courses
       </v-btn>
 
       <!-- Logout Button -->
-      <v-btn @click="logout" color="white" variant="outlined" append-icon="mdi-account-circle">
+      <v-btn class="mx-2" @click="logout" color="white" variant="outlined" append-icon="mdi-account-circle">
         <v-icon>mdi-logout</v-icon>
         Logout
       </v-btn>
@@ -27,8 +27,21 @@
               <v-card-title class="headline">Your Enrolled Courses</v-card-title>
               <v-divider></v-divider>
 
+              <!-- Loading Indicator -->
+              <v-row justify="center" v-if="loadingState === 'loading'">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+              </v-row>
+
+              <!-- Error Message -->
+              <v-alert v-if="loadingState === 'error'" type="error" dismissible>
+                Error fetching courses.
+                <v-btn class="mx-4" @click="retryFetchCourses" color="primary">
+                  Retry
+                </v-btn>
+              </v-alert>
+
               <!-- List of Enrolled Courses -->
-              <v-list two-line>
+              <v-list v-if="loadingState === 'loaded'" two-line>
                 <v-list-item v-for="course in enrolledCourses" :key="course['id']" class="mt-3">
                   <v-row justify="space-between">
                     <!-- Course Title -->
@@ -57,17 +70,19 @@
   </v-app>
 </template>
 
+
 <script lang="ts">
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
-  name: 'student-home',
+  name: 'StudentHome',
   mounted() {
-    this.$store.dispatch('fetchEnrolledCourses', this.$store.state.user.id);
+    this.fetchEnrolledCourses();
   },
   computed: {
-    ...mapGetters({
-      enrolledCourses: 'enrolledCourses',
+    ...mapGetters('student', ['enrolledCourses']),
+    ...mapState('student', {
+      loadingState: (state: any) => state.loading.fetchingEnrolledCourses,
     }),
   },
   methods: {
@@ -78,11 +93,18 @@ export default {
       this.$router.push(`/course-modules/${courseId}`);
     },
     logout() {
-      this.$store.dispatch('signOut');
+      this.$store.dispatch('auth/signOut');
+    },
+    fetchEnrolledCourses() {
+      this.$store.dispatch('student/fetchEnrolledCourses', this.$store.state.auth.user.id);
+    },
+    retryFetchCourses() {
+      this.fetchEnrolledCourses();
     },
   },
 };
 </script>
+
 
 <style scoped>
 .headline {

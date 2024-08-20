@@ -5,7 +5,7 @@ export default defineComponent({
     name: 'Loading',
     mounted() {
         console.log('App mounted')
-        this.$store.dispatch('autoLogin')
+        this.$store.dispatch('auth/autoLogin')
     },
 })
 </script>

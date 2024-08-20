@@ -37,6 +37,17 @@
                                     <span style="font-size: 14px;">Sign Up</span>
                                 </v-btn>
                             </v-row>
+
+                            <!-- Snackbar -->
+                            <v-snackbar v-model="showSnackbar" :timeout="2000">
+                                {{ currentMessage }}
+                                <template v-slot:actions>
+                                    <v-btn color="blue" variant="text" @click="showSnackbar = false">
+                                        Close
+                                    </v-btn>
+                                </template>
+                            </v-snackbar>
+
                             <v-row class="d-flex justify-center align-center mt-3">
                                 <span class="mx-6" style="font-family: 'Poppins', sans-serif;">Already have an
                                     account?</span>
@@ -64,7 +75,10 @@
     </v-container>
 </template>
 
+
 <script lang="ts">
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'SignUp',
     data() {
@@ -76,22 +90,28 @@ export default {
             role: 'Student',
             roles: ['Student', 'Instructor'],
             showPassword: false,
-            showConfirmPassword: false
+            showConfirmPassword: false,
+            showSnackbar: false,
         }
+    },
+    computed: {
+        ...mapGetters('auth', ['currentMessage'])
     },
     methods: {
         register() {
             if (this.password !== this.confirmPassword) {
-                console.error('Passwords do not match');
+                this.$store.commit('auth/setCurrentMessage', 'Passwords do not match');
+                this.showSnackbar = true;
                 return;
             }
 
             if (!this.username || !this.role) {
-                console.error('Username and role must be provided');
+                this.$store.commit('auth/setCurrentMessage', 'Username and role must be provided');
+                this.showSnackbar = true;
                 return;
             }
 
-            this.$store.dispatch('signUp', {
+            this.$store.dispatch('auth/signUp', {
                 username: this.username,
                 email: this.email,
                 password: this.password,
@@ -103,6 +123,18 @@ export default {
         },
         togglePasswordVisibility() {
             this.showPassword = !this.showPassword;
+        }
+    },
+    watch: {
+        currentMessage(newMessage) {
+            if (newMessage) {
+                this.showSnackbar = true;
+            }
+        },
+        showSnackbar(newVal) {
+            if (!newVal) {
+                this.$store.commit('auth/setCurrentMessage', null);
+            }
         }
     }
 }

@@ -25,6 +25,17 @@
                                     <span style="font-size: 14px;">Sign In</span>
                                 </v-btn>
                             </v-row>
+
+                            <!-- Snackbar -->
+                            <v-snackbar v-model="showSnackbar" :timeout="2000">
+                                {{ currentMessage }}
+                                <template v-slot:actions>
+                                    <v-btn color="blue" variant="text" @click="showSnackbar = false">
+                                        Close
+                                    </v-btn>
+                                </template>
+                            </v-snackbar>
+
                             <v-row class="d-flex justify-center align-center mt-3">
                                 <span class="mx-6" style="font-family: 'Poppins', sans-serif;">Don't have an
                                     account?</span>
@@ -54,17 +65,24 @@
 
 
 <script lang="ts">
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'SignIn',
     data() {
         return {
             username: '',
             password: '',
-            showPassword: false, // Add a variable to toggle password visibility
+            showPassword: false,
+            showSnackbar: false
         }
+    },
+    computed: {
+        ...mapGetters('auth', ['currentMessage'])
     },
     methods: {
         signIn() {
+
             this.$store.dispatch('auth/signIn', {
                 username: this.username,
                 password: this.password
@@ -75,6 +93,18 @@ export default {
         },
         togglePasswordVisibility() {
             this.showPassword = !this.showPassword; // Toggle the password visibility
+        }
+    },
+    watch: {
+        currentMessage(newMessage) {
+            if (newMessage) {
+                this.showSnackbar = true;
+            }
+        },
+        showSnackbar(newVal) {
+            if (!newVal) {
+                this.$store.commit('auth/setCurrentMessage', null);
+            }
         }
     }
 }

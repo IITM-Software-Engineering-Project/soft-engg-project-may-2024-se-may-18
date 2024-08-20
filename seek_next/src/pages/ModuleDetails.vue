@@ -220,7 +220,7 @@ export default defineComponent({
       return new Date(dueDate).toLocaleDateString();
     },
     logout() {
-      this.$store.dispatch('signOut');
+      this.$store.dispatch('auth/signOut');
     },
     async summarizeTranscript(lectureId: number) {
       try {

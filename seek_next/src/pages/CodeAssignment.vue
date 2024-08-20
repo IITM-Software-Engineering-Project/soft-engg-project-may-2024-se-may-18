@@ -233,7 +233,7 @@ export default {
             this.$router.push('/student-home');
         },
         logout() {
-            this.$store.dispatch('signOut');
+            this.$store.dispatch('auth/signOut');
         },
     },
 };

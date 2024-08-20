@@ -47,7 +47,7 @@ export default {
             // await axios.post('/api/signout');
             commit('clearAuthData');
             console.log('Signed out');
-            router.push('/');
+            router.push('/sign-in');
         } catch (error) {
             console.error(error);
         }

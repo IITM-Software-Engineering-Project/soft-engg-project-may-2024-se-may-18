@@ -77,7 +77,7 @@
                     </v-col>
                     <v-col class="text-right">
                       <v-list-item-subtitle class="font-weight-bold">
-                        ${{ course.price }}
+                        ₹{{ course.price }}
                       </v-list-item-subtitle>
 
                       <!-- Enroll Button -->

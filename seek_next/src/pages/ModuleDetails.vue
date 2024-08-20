@@ -35,13 +35,11 @@
                       <!-- Embedded YouTube Video -->
                       <v-responsive class="my-3">
                         <iframe width="100%" height="315"
-                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`" frameborder="0"
+                          :src="`https://www.youtube.com/embed/${getYouTubeVideoId(lecture.url)}`"
                           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen></iframe>
+                          allowfullscreen title="YouTube Video"></iframe>
                       </v-responsive>
-                      <!-- <v-list-item-subtitle>
-                        <a :href="lecture.url" target="_blank">Watch Lecture</a>
-                      </v-list-item-subtitle> -->
+
                       <!-- Summarize Transcript Button -->
                       <v-btn @click="summarizeTranscript(lecture.id)" color="teal-darken-2" class="mt-2">
                         Summarize Transcript
@@ -74,7 +72,6 @@
                     <v-col>
                       <v-list-item-title>{{ assignment.title }}</v-list-item-title>
                       <v-list-item-subtitle>{{ assignment.description }}</v-list-item-subtitle>
-                      <!-- <v-list-item-subtitle>Due Date: {{ formatDueDate(assignment.due_date) }}</v-list-item-subtitle> -->
                     </v-col>
                     <v-col class="text-right">
                       <!-- Button to go to Module -->
@@ -142,7 +139,6 @@ import { defineComponent } from 'vue';
 import axios from 'axios';
 import { mapState } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
-import { StringLiteral } from 'typescript';
 
 const BASE_URL = 'http://localhost:8000';
 
@@ -211,7 +207,6 @@ export default defineComponent({
     },
     goToAssignments(assignmentId: string) {
       this.$router.push(`/assignment/${assignmentId}`);
-      // console.log('Go to module:', assignmentId);
     },
     goToCodeAssignment(problemId: string) {
       this.$router.push(`/code-assignment/${problemId}`);

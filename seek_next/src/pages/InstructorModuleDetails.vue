@@ -173,7 +173,6 @@ export default defineComponent({
       this.$router.push(`/instructor/course-modules/${this.courseId}`);
     },
     goToAssignments(assignmentId: string, assignmentType: string) {
-      // this.$router.push(`/assignment-details/${assignmentId}`);
       console.log('Go to module:', assignmentId, assignmentType);
     },
     gradeAssignment(assignmentId: string, assignmentType: string) {

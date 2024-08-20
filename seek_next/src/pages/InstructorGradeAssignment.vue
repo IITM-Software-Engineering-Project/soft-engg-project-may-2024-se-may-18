@@ -83,8 +83,8 @@
 
             <!-- Directly bind the value to the model -->
             <v-text-field v-model="marks" label="Marks"
-              :value="aiResponse ? aiResponse.marks : selectedAnswer.marks"></v-text-field>
-            <v-textarea v-model="feedback" label="Feedback" :value="aiResponse ? aiResponse.feedback : selectedAnswer.feedback
+              :value="aiResponse ? aiResponse['score'] : selectedAnswer.marks"></v-text-field>
+            <v-textarea v-model="feedback" label="Feedback" :value="aiResponse ? aiResponse['description'] : selectedAnswer.feedback
               "></v-textarea>
           </v-card-text>
           <v-card-actions>
@@ -98,7 +98,6 @@
 </template>
 
 <script lang="ts">
-import { mapGetters } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios"; // Use Axios for API calls
 const BASE_URL = "http://localhost:8000";
@@ -168,12 +167,10 @@ export default {
   mounted() {
     this.fetchAssignmentAnswers = this.mockAssignmentAnswers;
   },
-  computed: {
-    username() {
-      return this.$store.state.user.name;
-    },
-  },
   methods: {
+    username() {
+      return this.$store.getters["auth/user"].username;
+    },
     logout() {
       this.$store.dispatch("auth/signOut");
     },
@@ -211,9 +208,7 @@ export default {
           }
         );
         const result = response.data;
-        this.aiResponse = result; // Store the AI response
-        this.marks = result.marks; // Update the marks field
-        this.feedback = result.feedback; // Update the feedback field
+        this.aiResponse = result;
       } catch (error) {
         console.error("Error grading with AI:", error);
       }

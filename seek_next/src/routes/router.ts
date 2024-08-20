@@ -12,6 +12,7 @@ import InstructorHome from '../pages/InstructorHome.vue'
 import InstructorCourseModules from '../pages/InstructorCourseModules.vue'
 import InstructorModuleDetails from '../pages/InstructorModuleDetails.vue'
 import InstructorGradeAssignment from '../pages/InstructorGradeAssignment.vue'
+import Assignment from '../pages/Assignment.vue'
 
 const routes = [
     { path: '/', component: Loading, name: 'Loading' },
@@ -27,6 +28,7 @@ const routes = [
     { path: '/instructor/course-modules/:courseId', component: InstructorCourseModules, name: 'InstructorCourseModules' },
     { path: '/instructor/module-details/:courseId/:moduleId/:moduleTitle', component: InstructorModuleDetails, name: 'InstructorModuleDetails' },
     { path: '/instructor/grade-assignment/:assignmentId', component: InstructorGradeAssignment, name: 'InstructorGradeAssignment' },
+    { path: '/assignment/:assignmentId', component: Assignment, name: 'Assignment' }
 ]
 
 const router = createRouter({

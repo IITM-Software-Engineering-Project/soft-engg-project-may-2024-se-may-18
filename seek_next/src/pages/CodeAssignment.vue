@@ -6,91 +6,100 @@
             <v-spacer></v-spacer>
 
             <!-- Back to Dashboard Button -->
-            <v-btn @click="goToDashboard" color="white">
+            <v-btn @click="goToDashboard" color="white" >
                 Dashboard
             </v-btn>
 
             <!-- Logout Button -->
-            <v-btn @click="logout" color="white" variant="outlined">
+            <v-btn @click="logout" color="white" >
                 Logout
             </v-btn>
         </v-app-bar>
 
         <v-main>
-            <div class="assignment-container">
-                <div class="section">
-                    <h2>Problem Statement</h2>
-                    <p>{{ problemStatement }}</p>
-                </div>
+            <v-container class="assignment-container">
+                <v-card class="mb-5" outlined>
+                    <v-card-title>Problem Statement</v-card-title>
+                    <v-card-text>
+                        <p>{{ problemStatement }}</p>
+                    </v-card-text>
+                </v-card>
 
-                <div class="section">
-                    <h2>Total Test Cases</h2>
-                    <p>{{ totalTestCases }}</p>
-                </div>
+                <v-card class="mb-5" outlined>
+                    <v-card-title>Total Test Cases</v-card-title>
+                    <v-card-text>
+                        <p>{{ totalTestCases }}</p>
+                    </v-card-text>
+                </v-card>
 
-                <div class="section">
-                    <h2>Test Cases</h2>
-                    <div v-for="(testCase, index) in testCases" :key="index" class="example">
-                        <p><strong>Test Case {{ index + 1 }}:</strong></p>
-                        <pre><code>
-                    Input: {{ testCase['input'] }}
-                    Expected Output: {{ testCase['expected_output'] }}
-                </code></pre>
-                    </div>
-                </div>
+                <v-card class="mb-5" outlined>
+                    <v-card-title>Test Cases</v-card-title>
+                    <v-card-text>
+                        <v-list>
+                            <v-list-item v-for="(testCase, index) in testCases" :key="index">
+                                <v-list-item-content>
+                                    <v-list-item-title>Test Case {{ index + 1 }}:</v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        <pre><code>Input: {{ testCase['input'] }}<br>Expected Output: {{ testCase['expected_output'] }}</code></pre>
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list>
+                    </v-card-text>
+                </v-card>
 
-                <div class="editor-container">
-                    <h2>Code Editor</h2>
-                    <v-select v-model="selectedLanguage" :items="languages" item-value="value" item-title="text"
-                        label="Select Language" class="dropdown mb-3" @update:model-value="updateEditorMode"></v-select>
+                <v-card class="mb-5" outlined>
+                    <v-card-title>Code Editor</v-card-title>
+                    <v-card-text>
+                        <v-select v-model="selectedLanguage" :items="languages" item-value="value" item-title="text"
+                            label="Select Language" class="mb-3" @update:model-value="updateEditorMode"></v-select>
 
+                        <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome"
+                            style="height: 300px" @init="editorInit" />
 
-                    <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome" style="height: 300px"
-                        @init="editorInit" />
+                        <v-btn @click="runCode" color="primary" class="mt-3">Run Code</v-btn>
+                        <v-btn @click="submitCode" color="success" class="mt-3">Submit</v-btn>
 
-                    <div class="button-container">
-                        <button class="px-3" @click="runCode">Run Code</button>
-                        <button @click="submitCode">Submit</button>
-                    </div>
+                        <!-- Input box for stdin -->
+                        <v-textarea label="Enter Input" v-model="stdin" rows="4"
+                            placeholder="Enter standard input here..." class="mt-3" outlined></v-textarea>
+                    </v-card-text>
+                </v-card>
 
-                    <!-- Input box for stdin -->
-                    <div class="stdin-container">
-                        <label for="stdin-input">Enter Input:</label>
-                        <textarea id="stdin-input" v-model="stdin" rows="4"
-                            placeholder="Enter standard input here..."></textarea>
-                    </div>
-                </div>
-
-                <div v-if="output.results && output.results.length" class="output-container">
-                    <h2>Output</h2>
-                    <div v-for="(result, index) in output.results" :key="index" class="example">
-                        <p><strong>Test Case {{ index + 1 }}:</strong></p>
-                        <pre><code>
-                    Expected Output: {{ result.expected_output }}
-                    Actual Output: {{ result.actual_output }}
-                    Passed: {{ result.passed }}
-                </code></pre>
-                    </div>
-                </div>
+                <v-card v-if="output.results && output.results.length" class="mb-5" outlined>
+                    <v-card-title>Output</v-card-title>
+                    <v-card-text>
+                        <v-list>
+                            <v-list-item v-for="(result, index) in output.results" :key="index">
+                                <v-list-item-content>
+                                    <v-list-item-title>Test Case {{ index + 1 }}:</v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        <pre><code>Expected Output: {{ result.expected_output }}<br>Actual Output: {{ result.actual_output }}<br>Passed: {{ result.passed }}</code></pre>
+                                    </v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list>
+                    </v-card-text>
+                </v-card>
 
                 <!-- Prompt input for AI programming feedback -->
-                <div class="feedback-container">
-                    <h2>Get AI Programming Feedback</h2>
-                    <label for="ai-prompt">Enter your prompt:</label>
-                    <textarea id="ai-prompt" v-model="aiPrompt" rows="4"
-                        placeholder="Enter your prompt here..."></textarea>
+                <v-card class="mb-5" outlined>
+                    <v-card-title>Get AI Programming Feedback</v-card-title>
+                    <v-card-text>
+                        <v-textarea label="Enter your prompt" v-model="aiPrompt" rows="4"
+                            placeholder="Enter your prompt here..." outlined></v-textarea>
 
-                    <div class="button-container">
-                        <button @click="getAIProgrammingFeedback">Get Feedback</button>
-                    </div>
+                        <v-btn @click="getAIProgrammingFeedback" color="info" class="mt-3">Get Feedback</v-btn>
 
-                    <!-- Display AI feedback -->
-                    <div v-if="aiFeedback" class="ai-feedback">
-                        <h3>AI Feedback</h3>
-                        <p v-html="aiFeedback"></p>
-                    </div>
-                </div>
-            </div>
+                        <!-- Display AI feedback -->
+                        <v-alert v-if="aiFeedback" color="light-blue-lighten-4" class="mt-3">
+                            <h3>AI Feedback</h3>
+                            <!-- <p v-html="aiFeedback"></p> -->
+                            <vue-markdown :source="aiFeedback" />
+                        </v-alert>
+                    </v-card-text>
+                </v-card>
+            </v-container>
         </v-main>
     </v-app>
 </template>
@@ -105,6 +114,7 @@ import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-chrome';
 import { VAceEditor } from 'vue3-ace-editor';
 import { useRoute } from 'vue-router';
+import VueMarkdown from 'vue-markdown-render'
 
 config.set('basePath', '/node_modules/ace-builds/src-min-noconflict');
 
@@ -137,6 +147,7 @@ export default {
     },
     components: {
         VAceEditor,
+        VueMarkdown,
     },
     data() {
         return {
@@ -241,141 +252,20 @@ export default {
 
 <style scoped>
 .assignment-container {
-    font-family: Arial, sans-serif;
     max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding-top: 20px;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+.v-ace-editor {
+    border: 1px solid #ddd;
 }
 
-.problem-description {
-    font-size: 16px;
-    margin-bottom: 20px;
+.v-card-title {
+    font-weight: 700;
 }
 
-.section {
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-ul {
-    list-style-type: disc;
-    margin-left: 20px;
-}
-
-.example {
-    background-color: #e6f7ff;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-
-pre {
-    background-color: #f1f1f1;
-    padding: 10px;
-    border-radius: 6px;
-    overflow-x: auto;
-}
-
-.editor-container {
-    margin-top: 30px;
-}
-
-.button-container {
-    margin-top: 10px;
-}
-
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.v-btn {
     margin-right: 10px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-.output-container {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.stdin-container {
-    margin-top: 20px;
-}
-
-#stdin-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-family: monospace;
-    font-size: 14px;
-}
-
-.dropdown {
-    padding: 8px;
-    border: 2px solid #007bff;
-    border-radius: 4px;
-    background-color: #fff;
-    font-size: 16px;
-}
-
-.feedback-container {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-#ai-prompt {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-family: monospace;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.ai-feedback {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #e6f7ff;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.ai-feedback p {
-    white-space: pre-wrap;
-    /* Preserves formatting */
-    font-family: monospace;
-    font-size: 14px;
 }
 </style>

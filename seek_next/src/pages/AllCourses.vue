@@ -1,21 +1,20 @@
 <template>
   <v-app>
     <!-- Navigation Bar -->
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app dark>
       <v-toolbar-title>All Courses</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!-- Back to Dashboard Button -->
-      <v-btn class="mx-2" @click="goToDashboard" color="white">
+      <v-btn class="mx-2" @click="goToDashboard">
         Dashboard
       </v-btn>
 
       <!-- Logout Button -->
-      <v-btn class="mx-2" @click="logout" color="white" variant="outlined" append-icon="mdi-account-circle">
+      <v-btn class="mx-2" @click="logout" variant="outlined" append-icon="mdi-account-circle">
         <v-icon>mdi-logout</v-icon>
         Logout
       </v-btn>
-
     </v-app-bar>
 
     <!-- Main Content -->
@@ -30,7 +29,8 @@
                 Course Helper Chatbot
               </v-card-title>
               <v-card-text>
-                <v-textarea label="Ask about courses" v-model="prompt" rows="4" outlined dense></v-textarea>
+                <v-textarea style="background-color: white;" label="Ask about courses" v-model="prompt" rows="4"
+                  outlined dense></v-textarea>
                 <v-btn color="deep-purple-lighten-2" block class="mt-2" @click="searchCourses">
                   Find Courses
                 </v-btn>
@@ -54,19 +54,17 @@
                   <strong>{{ chatMessage }}</strong>
                 </div>
                 <v-list v-if="chatCourses.length > 0 && !searchError">
-                  <v-list-item v-for="course in chatCourses" :key="course.course_id" class="chat-course-item">
+                  <v-list-item v-for="course in chatCourses" :key="course.course_id"
+                    @click="isEnrolled(course.course_id) ? goToCourse(course.course_id) : null"
+                    class="chat-course-item">
                     <v-list-item-content>
                       <v-list-item-title>{{ course.course_title }}</v-list-item-title>
                       <v-list-item-subtitle>{{ course.course_description }}</v-list-item-subtitle>
                     </v-list-item-content>
-                    <v-list-item-action class="my-3">
-                      <v-btn v-if="!isEnrolled(course.course_id)" color="success" @click="enroll(course.course_id)"
+                    <v-list-item-action>
+                      <v-btn v-if="!isEnrolled(course.course_id)" color="success" @click.stop="enroll(course.course_id)"
                         size="x-small">
                         Enroll
-                      </v-btn>
-                      <v-btn v-if="isEnrolled(course.course_id)" color="grey-darken-1"
-                        @click="goToCourse(course.course_id)" size="x-small">
-                        Go to Course
                       </v-btn>
                     </v-list-item-action>
                   </v-list-item>
@@ -81,7 +79,6 @@
           <!-- Available Courses List -->
           <v-col cols="12" md="8">
             <v-card outlined class="courses-card">
-              <v-card-title class="headline">Available Courses</v-card-title>
 
               <!-- Loading Indicator for Courses -->
               <v-row justify="center" v-if="loadingState === 'loading'" class="loading-container mb-3">
@@ -100,9 +97,46 @@
                 </v-btn>
               </v-alert>
 
-              <!-- List of Available Courses -->
-              <v-list v-if="loadingState === 'loaded'" two-line>
-                <v-list-item v-for="course in allCourses" :key="course.id" class="mt-3">
+              <!-- Enrolled Courses -->
+              <v-list v-if="enrolledCourses.length > 0">
+                <v-list-item-group subheader>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title class="headline">Enrolled Courses</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+                <v-list-item v-for="course in enrolledCourses" :key="course.id" @click="goToCourse(course.id)"
+                  class="mt-3 clickable-item">
+                  <v-row>
+                    <v-col>
+                      <v-list-item-title>{{ course.title }}</v-list-item-title>
+                      <v-list-item-subtitle>
+                        {{ course.description }}
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle>
+                        Total Modules: {{ course.total_modules }}
+                      </v-list-item-subtitle>
+                    </v-col>
+                    <v-col class="text-right">
+                      <v-list-item-subtitle class="font-weight-bold">
+                        Enrolled
+                      </v-list-item-subtitle>
+                    </v-col>
+                  </v-row>
+                </v-list-item>
+              </v-list>
+
+              <!-- Unenrolled Courses -->
+              <v-list v-if="unenrolledCourses.length > 0">
+                <v-list-item-group subheader>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title class="headline">Available Courses</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+                <v-list-item v-for="course in unenrolledCourses" :key="course.id" class=" mt-3 clickable-item">
                   <v-row>
                     <v-col>
                       <v-list-item-title>{{ course.title }}</v-list-item-title>
@@ -119,22 +153,17 @@
                       </v-list-item-subtitle>
 
                       <!-- Enroll Button -->
-                      <!-- If enrolled then Go To Course Button -->
-                      <v-btn v-if="!isEnrolled(course.id)" color="success" @click="enroll(course.id)" size="x-small">
+                      <v-btn color="success" @click.stop="enroll(course.id)" size="x-small">
                         Enroll
-                      </v-btn>
-                      <v-btn v-if="isEnrolled(course.id)" color="grey-darken-1" @click="goToCourse(course.id)"
-                        size="x-small">
-                        Go to Course
                       </v-btn>
                     </v-col>
                   </v-row>
                 </v-list-item>
-
-                <v-list-item v-if="allCourses.length === 0">
-                  <v-list-item-title>No courses available</v-list-item-title>
-                </v-list-item>
               </v-list>
+
+              <v-list-item v-if="allCourses.length === 0 && !loadingState">
+                <v-list-item-title>No courses available</v-list-item-title>
+              </v-list-item>
             </v-card>
           </v-col>
         </v-row>
@@ -166,6 +195,9 @@ export default {
     ...mapState('student', {
       loadingState: (state: any) => state.loading.fetchingAllCourses,
     }),
+    unenrolledCourses() {
+      return this.allCourses.filter((course: { id: any; }) => !this.enrolledCourses.some((enrolled: { id: any; }) => enrolled.id === course.id));
+    },
   },
   methods: {
     isEnrolled(courseId: number): boolean {
@@ -224,45 +256,65 @@ export default {
 </script>
 
 
-
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
 .headline {
   font-family: 'Montserrat', sans-serif;
-  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 30px;
+  margin: 20px 0;
   text-align: center;
 }
 
 .font-weight-bold {
-  font-weight: bold;
+  font-weight: 500;
 }
 
-.chat-card {
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-}
-
+.chat-card,
 .courses-card {
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  min-height: fit-content;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #e0e0e0;
+  margin: 20px 0;
 }
 
 .chat-response {
   margin-top: 15px;
-  font-size: 14px;
-  color: #555;
+  font-size: 16px;
+  color: #333;
 }
 
 .chat-course-item {
-  border-bottom: 1px solid #eee;
-  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+  padding: 12px 0;
 }
 
 .no-courses {
   text-align: center;
-  color: #999;
-  font-size: 14px;
+  color: #666;
+  font-size: 16px;
+}
+
+.v-btn {
+  margin-top: 10px;
+}
+
+.v-list-item {
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin: 10px 0;
+}
+
+.v-list-item:hover {
+  background-color: #f5f5f5;
+}
+
+.v-alert {
+  margin: 20px 0;
+}
+
+.v-progress-circular {
+  margin: 20px 0;
 }
 </style>

@@ -127,7 +127,7 @@ def get_enrolled_courses(student_id: int, session: Session = Depends(get_db)):
         CourseEnrollment.student_id == student_id).all()
     course_ids = [enrollment.course_id for enrollment in enrollments]
     courses = session.query(Course).filter(Course.id.in_(course_ids)).all()
-    return [CourseEnrolled(id=course.id, title=course.title) for course in courses]
+    return [CourseEnrolled(id=course.id, title=course.title, description=course.description) for course in courses]
 
 # enpoinrt to return modules in a course
 

@@ -18,6 +18,7 @@ export default {
             });
             commit('setAccessToken', response.data.access_token);
             commit('setLoggedIn', true);
+            commit('setCurrentMessage', response.data.detail);
             if (response.data.role === 'student') {
                 router.push('/student-home');
             } else if (response.data.role === 'instructor') {
@@ -25,18 +26,20 @@ export default {
             } else {
                 router.push('/home');
             }
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
             router.push('/sign-in');
+            commit('setCurrentMessage', error['response']['data']['detail']);
+            console.error(error);
         }
     },
 
-    async signUp({ }, userData: { name: string, email: string, password: string }) {
+    async signUp({ commit }: ActionContext<AuthState, State>, userData: { name: string, email: string, password: string }) {
         try {
             const response = await axios.post(BASE_URL + '/sign-up', userData);
-            console.log('Signed up:', response.data);
+            commit('setCurrentMessage', response.data.detail);
             router.push('/sign-in');
-        } catch (error) {
+        } catch (error: any) {
+            commit('setCurrentMessage', error['response']['data']['detail']);
             console.error(error);
         }
     },

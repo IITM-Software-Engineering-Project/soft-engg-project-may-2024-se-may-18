@@ -15,7 +15,6 @@ export default {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
             });
-            console.log(response.data);
             commit('setEnrolledCourses', response.data);
             commit('setLoadingFetchingEnrolledCourses', Loading.loaded);
         } catch (error) {

@@ -5,9 +5,8 @@
       <v-list dense>
         <!-- Logo or Title -->
         <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="headline">Dashboard</v-list-item-title>
-          </v-list-item-content>
+          <v-list-item-title class="headline">Dashboard</v-list-item-title>
+
         </v-list-item>
 
         <v-divider></v-divider>
@@ -16,14 +15,12 @@
         <v-list-item class="navigation-item" rounded="lg" @click="goToAllCourses">
           <v-row style="align-items: center;">
             <v-col cols="1">
-              <v-list-item-icon>
-                <v-icon>mdi-grid-large</v-icon>
-              </v-list-item-icon>
+              <v-icon>mdi-grid-large</v-icon>
+
             </v-col>
             <v-col cols="10">
-              <v-list-item-content>
-                <v-list-item-title>All Courses</v-list-item-title>
-              </v-list-item-content>
+              <v-list-item-title>All Courses</v-list-item-title>
+
             </v-col>
           </v-row>
         </v-list-item>
@@ -31,14 +28,11 @@
         <v-list-item class="navigation-item" rounded="lg" @click="logout">
           <v-row style="align-items: center;">
             <v-col cols="1">
-              <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
             </v-col>
             <v-col cols="10">
-              <v-list-item-content>
-                <v-list-item-title>Logout</v-list-item-title>
-              </v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+
             </v-col>
           </v-row>
         </v-list-item>

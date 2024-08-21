@@ -6,12 +6,12 @@
             <v-spacer></v-spacer>
 
             <!-- Back to Dashboard Button -->
-            <v-btn @click="goToDashboard" color="white" >
+            <v-btn @click="goToDashboard" color="white">
                 Dashboard
             </v-btn>
 
             <!-- Logout Button -->
-            <v-btn @click="logout" color="white" >
+            <v-btn @click="logout" color="white">
                 Logout
             </v-btn>
         </v-app-bar>
@@ -37,12 +37,13 @@
                     <v-card-text>
                         <v-list>
                             <v-list-item v-for="(testCase, index) in testCases" :key="index">
-                                <v-list-item-content>
-                                    <v-list-item-title>Test Case {{ index + 1 }}:</v-list-item-title>
-                                    <v-list-item-subtitle>
-                                        <pre><code>Input: {{ testCase['input'] }}<br>Expected Output: {{ testCase['expected_output'] }}</code></pre>
-                                    </v-list-item-subtitle>
-                                </v-list-item-content>
+                                <v-list-item-title>Test Case {{ index + 1 }}:</v-list-item-title>
+                                <v-list-item-subtitle>
+                                    <code>Input: {{ testCase['input'] }}</code>
+                                </v-list-item-subtitle>
+                                <v-list-item-subtitle>
+                                    <code>Output: {{ testCase['expected_output'] }}</code>
+                                </v-list-item-subtitle>
                             </v-list-item>
                         </v-list>
                     </v-card-text>
@@ -54,8 +55,8 @@
                         <v-select v-model="selectedLanguage" :items="languages" item-value="value" item-title="text"
                             label="Select Language" class="mb-3" @update:model-value="updateEditorMode"></v-select>
 
-                        <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome"
-                            style="height: 300px" @init="editorInit" />
+                        <v-ace-editor v-model:value="code" :lang="selectedLanguage" theme="chrome" style="height: 300px"
+                            @init="editorInit" />
 
                         <v-btn @click="runCode" color="primary" class="mt-3">Run Code</v-btn>
                         <v-btn @click="submitCode" color="success" class="mt-3">Submit</v-btn>
@@ -71,12 +72,15 @@
                     <v-card-text>
                         <v-list>
                             <v-list-item v-for="(result, index) in output.results" :key="index">
-                                <v-list-item-content>
-                                    <v-list-item-title>Test Case {{ index + 1 }}:</v-list-item-title>
-                                    <v-list-item-subtitle>
-                                        <pre><code>Expected Output: {{ result.expected_output }}<br>Actual Output: {{ result.actual_output }}<br>Passed: {{ result.passed }}</code></pre>
-                                    </v-list-item-subtitle>
-                                </v-list-item-content>
+
+                                <v-list-item-title>Test Case {{ index + 1 }}:</v-list-item-title>
+                                <v-list-item-subtitle>
+                                    <code>Expected Output: {{ result.expected_output }}</code>
+                                </v-list-item-subtitle>
+                                <v-list-item-subtitle>
+                                    <code>Actual Output: {{ result.actual_output }}</code>
+                                </v-list-item-subtitle>
+
                             </v-list-item>
                         </v-list>
                     </v-card-text>
@@ -94,7 +98,6 @@
                         <!-- Display AI feedback -->
                         <v-alert v-if="aiFeedback" color="light-blue-lighten-4" class="mt-3">
                             <h3>AI Feedback</h3>
-                            <!-- <p v-html="aiFeedback"></p> -->
                             <vue-markdown :source="aiFeedback" />
                         </v-alert>
                     </v-card-text>

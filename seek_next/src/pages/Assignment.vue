@@ -110,7 +110,12 @@ export default defineComponent({
 
         this.assignmentTitle = response.data.assignment.title;
         this.assignmentDescription = response.data.assignment.description;
-        this.questions = response.data.questions;
+        this.questions = response.data.questions.map((question: any) => ({
+          id: question.id,
+          question: question.question,
+          answer_choices: JSON.parse(question.answer_choices),
+          answer: question.answer,
+        }));
 
       } catch (error) {
         console.error('Error fetching assignment content:', error);

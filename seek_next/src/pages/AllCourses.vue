@@ -176,7 +176,7 @@ export default {
     },
     async enroll(courseId: number) {
       try {
-        await this.$store.dispatch('student/senrollInCourse', { studentId: this.$store.state.user.id, courseId });
+        await this.$store.dispatch('student/enrollInCourse', { studentId: this.$store.state.user.id, courseId });
         alert('Enrollment successful');
       } catch (error) {
         console.error('Error enrolling in course:', error);

@@ -22,7 +22,7 @@ export default {
         }
     },
     async fetchInstructorCourses(
-        { commit }: ActionContext<State, State>,
+        { commit }: ActionContext<InstructorState, State>,
         instructorId: number
     ) {
         try {
@@ -37,7 +37,7 @@ export default {
         }
     },
     async fetchAssignmentAnswers(
-        { commit }: ActionContext<State, State>,
+        { commit }: ActionContext<InstructorState, State>,
         assignmentId: number
     ) {
         try {

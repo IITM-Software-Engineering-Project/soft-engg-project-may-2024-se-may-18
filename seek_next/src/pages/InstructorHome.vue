@@ -30,10 +30,10 @@
                       <v-col>
                         <v-list-item-title>{{
                           course.course_name
-                          }}</v-list-item-title>
+                        }}</v-list-item-title>
                         <v-list-item-subtitle>{{
                           course.description
-                          }}</v-list-item-subtitle>
+                        }}</v-list-item-subtitle>
                       </v-col>
                       <v-col class="button-col">
                         <div class="button-container">
@@ -78,17 +78,17 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("fetchInstructorCourses", this.$store.state.user.id);
+    this.$store.dispatch("instructor/fetchInstructorCourses", this.$store.getters["auth/user"].id);
   },
   computed: {
     ...mapGetters({
-      instructorCourses: "instructorCourses",
+      instructorCourses: "instructor/instructorCourses",
     }),
-    username() {
-      return this.$store.state.user.name;
-    },
   },
   methods: {
+    username() {
+      return this.$store.getters["auth/user"].username;
+    },
     viewCourse(courseId: number) {
       this.$router.push(`/instructor/course-modules/${courseId}`);
     },

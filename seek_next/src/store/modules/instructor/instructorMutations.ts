@@ -5,4 +5,7 @@ export default {
     setLoadingFetchingCreatedCourses(state: { loading: { fetchingCreatedCourses: string } }, loading: string) {
         state.loading.fetchingCreatedCourses = loading;
     },
+    setInstructorCourses(state: { createdCourses: any[] }, courses: any[]) {
+        state.createdCourses = courses;
+    }
 };

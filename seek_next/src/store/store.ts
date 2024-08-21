@@ -2,8 +2,7 @@ import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
 import { authModel } from "./modules/auth/auth";
 import { studentModel } from "./modules/student/student";
-// Import the instructor model once created
-// import { instructorModel } from "./modules/instructor/instructor"; 
+import { instructorModel } from "./modules/instructor/instructor";
 
 export class Loading {
   static readonly loading = "loading";
@@ -24,7 +23,7 @@ export const store = createStore<State>({
   modules: {
     auth: authModel, // Namespaced module
     student: studentModel, // Namespaced module
-    // instructor: instructorModel, // Uncomment when you create the instructor model
+    instructor: instructorModel, // Uncomment when you create the instructor model
   },
   // Global mutations
   mutations: {},

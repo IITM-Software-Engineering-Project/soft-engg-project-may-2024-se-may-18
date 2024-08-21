@@ -1,7 +1,5 @@
-import { Module } from 'vuex';
 import instructorActions from '../instructor/instructorActions';
 import instructorMutations from '../instructor/instructorMutations';
-import { State } from '../../store';
 
 export interface InstructorCourse {
     id: string;
@@ -34,12 +32,13 @@ const actions = {
 };
 
 const getters = {
-    createdCourses(state: InstructorState) {
+    instructorCourses(state: { createdCourses: any; }) {
         return state.createdCourses;
     },
 };
 
-export const instructorModel: Module<InstructorState, State> = {
+export const instructorModel = {
+    namespaced: true,
     state,
     mutations,
     actions,

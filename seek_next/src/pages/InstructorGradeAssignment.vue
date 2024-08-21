@@ -80,7 +80,6 @@
             <v-btn @click="submitAIGrade(selectedAnswer.assignment_answer)" color="primary">
               Get Response
             </v-btn>
-
             <v-text-field v-model="marks" label="Marks"></v-text-field>
             <v-textarea v-model="feedback" label="Feedback"></v-textarea>
           </v-card-text>
@@ -95,7 +94,6 @@
 </template>
 
 <script lang="ts">
-import { mapGetters } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios"; // Use Axios for API calls
 const BASE_URL = "http://localhost:8000";
@@ -165,12 +163,10 @@ export default {
   mounted() {
     this.fetchAssignmentAnswers = this.mockAssignmentAnswers;
   },
-  computed: {
-    username() {
-      return this.$store.state.user.name;
-    },
-  },
   methods: {
+    username() {
+      return this.$store.getters["auth/user"].username;
+    },
     logout() {
       this.$store.dispatch("auth/signOut");
     },

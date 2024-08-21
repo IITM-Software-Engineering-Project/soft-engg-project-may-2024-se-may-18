@@ -11,7 +11,7 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@mdi/js": "^7.4.47",
-    "ace-builds": "^1.35.4",
+    "ace-builds": "^1.35.5",
     "axios": "^1.7.3",
     "vue": "^3.4.31",
     "vue-markdown-render": "^2.2.1",

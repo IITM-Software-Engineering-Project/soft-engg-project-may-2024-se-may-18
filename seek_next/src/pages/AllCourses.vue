@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
 
       <!-- Back to Dashboard Button -->
-      <v-btn class="mx-2" @click="goToDashboard">
+      <v-btn class="mx-2" style="background-color: #e0e0e0;" @click="goToDashboard">
         Dashboard
       </v-btn>
 
@@ -31,8 +31,15 @@
               <v-card-text>
                 <v-textarea style="background-color: white;" label="Ask about courses" v-model="prompt" rows="4"
                   outlined dense></v-textarea>
-                <v-btn color="deep-purple-lighten-2" block class="mt-2" @click="searchCourses">
-                  Find Courses
+                <v-btn block class="navigation-item" @click="searchCourses" rounded="lg">
+                  <v-row style="align-items: center;">
+                    <v-col cols="1">
+                      <v-icon>mdi-magnify</v-icon>
+                    </v-col>
+                    <v-col cols="10">
+                      <span>Find Courses</span>
+                    </v-col>
+                  </v-row>
                 </v-btn>
 
                 <!-- Loading Indicator for Search -->
@@ -107,7 +114,7 @@
                   </v-list-item>
                 </v-list-item-group>
                 <v-list-item v-for="course in enrolledCourses" :key="course.id" @click="goToCourse(course.id)"
-                  class="mt-3 clickable-item">
+                  class="mx-3 my-5 clickable-item" rounded="lg" style="background-color: #e0e0e0;">
                   <v-row>
                     <v-col>
                       <v-list-item-title>{{ course.title }}</v-list-item-title>
@@ -119,7 +126,7 @@
                       </v-list-item-subtitle>
                     </v-col>
                     <v-col class="text-right">
-                      <v-list-item-subtitle class="font-weight-bold">
+                      <v-list-item-subtitle class="font-weight-bold mt-3">
                         Enrolled
                       </v-list-item-subtitle>
                     </v-col>
@@ -136,7 +143,8 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
-                <v-list-item v-for="course in unenrolledCourses" :key="course.id" class=" mt-3 clickable-item">
+                <v-list-item v-for="course in unenrolledCourses" :key="course.id" class="mx-3 my-5 " rounded="lg"
+                  style="background-color: #e0e0e0;">
                   <v-row>
                     <v-col>
                       <v-list-item-title>{{ course.title }}</v-list-item-title>

@@ -100,11 +100,6 @@ async def login(request: Request, session: Session = Depends(get_db)):
         raise HTTPException(
             status_code=400, detail="Incorrect username or password")
 
-    # Check if the user is active (if you have an active/inactive user state)
-    if not user.is_active:
-        raise HTTPException(
-            status_code=400, detail="User account is inactive. Please contact support.")
-
     # Update the last login time
     user.last_login = datetime.now()
 

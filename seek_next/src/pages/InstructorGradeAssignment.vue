@@ -80,12 +80,8 @@
             <v-btn @click="submitAIGrade(selectedAnswer.assignment_answer)" color="primary">
               Get Response
             </v-btn>
-
-            <!-- Directly bind the value to the model -->
-            <v-text-field v-model="marks" label="Marks"
-              :value="aiResponse ? aiResponse['score'] : selectedAnswer.marks"></v-text-field>
-            <v-textarea v-model="feedback" label="Feedback" :value="aiResponse ? aiResponse['description'] : selectedAnswer.feedback
-              "></v-textarea>
+            <v-text-field v-model="marks" label="Marks"></v-text-field>
+            <v-textarea v-model="feedback" label="Feedback"></v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-btn color="primary" @click="aiGradeDialog = false">Submit</v-btn>
@@ -198,7 +194,7 @@ export default {
         const response = await axios.post(
           BASE_URL + "/grade-text-question",
           {
-            question: this.aiPrompt,
+            question: `${this.aiPrompt} \n\nResult Format (JSON): { "feedback": str, "marks": int }`,
             answer: this.selectedAnswer.assignment_answer,
           },
           {
@@ -208,10 +204,23 @@ export default {
           }
         );
         const result = response.data;
-        this.aiResponse = result;
+        this.aiResponse = result; // Store the AI response
+        this.typeText(result.marks, "marks"); // Typing effect for marks
+        this.typeText(result.feedback, "feedback"); // Typing effect for feedback
       } catch (error) {
         console.error("Error grading with AI:", error);
       }
+    },
+    typeText(text, field) {
+      text = String(text);
+      let index = 0;
+      const interval = setInterval(() => {
+        this[field] = text.slice(0, index);
+        index++;
+        if (index > text.length) {
+          clearInterval(interval);
+        }
+      }, 2); // Adjust the typing speed here
     },
   },
 };

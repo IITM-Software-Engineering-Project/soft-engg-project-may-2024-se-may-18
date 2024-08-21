@@ -6,7 +6,7 @@ from api.gemini import call_gemini, call_gemini_vision
 from fastapi import HTTPException
 
 from sqlalchemy.orm import sessionmaker, Session
-from database.models import Course
+from database.models import Course, Module
 from database.db_sql import init_db
 
 load_dotenv()
@@ -67,15 +67,26 @@ async def gemini(request: Request, course_id: int, session: Session = Depends(ge
         data = data["data"]
     except Exception:
         course = session.query(Course).filter(Course.id == course_id).first()
+        module = session.query(Module).filter(Module.course_id == course_id).all()
         if not course:
             raise HTTPException(status_code=404, detail="Course not found")
+        if not module:
+            raise HTTPException(status_code=404, detail="Module not found")
 
+        # data = []
+        # data.append({
+        #     "course_id": course.id,
+        #     "course_title": course.title,
+        #     "course_description": course.description
+        # })
         data = []
-        data.append({
-            "course_id": course.id,
-            "course_title": course.title,
-            "course_description": course.description
-        })
+        data.append({"course_title": course.title})
+        for i in module:
+            data.append({
+                "module_id": i.id,
+                "module_title": i.title,
+                "module_description": i.description
+            })
 
     response = call_gemini(prompt, data)
     return response

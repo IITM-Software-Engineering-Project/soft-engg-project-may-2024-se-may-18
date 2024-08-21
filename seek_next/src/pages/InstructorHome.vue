@@ -6,7 +6,7 @@
 
       <!-- View All Courses Button -->
       <v-btn @click="goToDashboard" color="white">
-        Jane Smith
+        Dashboard
       </v-btn>
 
       <!-- Logout Button -->
@@ -30,10 +30,10 @@
                       <v-col>
                         <v-list-item-title>{{
                           course.course_name
-                          }}</v-list-item-title>
+                        }}</v-list-item-title>
                         <v-list-item-subtitle>{{
                           course.description
-                          }}</v-list-item-subtitle>
+                        }}</v-list-item-subtitle>
                       </v-col>
                       <v-col class="button-col">
                         <div class="button-container">

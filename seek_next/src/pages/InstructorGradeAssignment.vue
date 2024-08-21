@@ -6,7 +6,7 @@
 
       <!-- View All Courses Button -->
       <v-btn @click="goToDashboard" color="white">
-        {{ username }}
+        Dashboard
       </v-btn>
 
       <!-- Logout Button -->

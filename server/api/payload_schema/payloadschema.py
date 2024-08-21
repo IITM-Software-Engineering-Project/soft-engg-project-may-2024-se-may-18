@@ -85,6 +85,7 @@ class EnrollmentResponse(BaseModel):
 class CourseEnrolled(BaseModel):
     id: int
     title: str
+    description: str
 
 
 class StudentEnrolled(BaseModel):
@@ -135,4 +136,4 @@ class CourseResponse(CourseBase):
 class AssignmentSubmission(BaseModel):
     student_id: int
     answers: dict
-    assignment_answer:str
+    assignment_answer: str

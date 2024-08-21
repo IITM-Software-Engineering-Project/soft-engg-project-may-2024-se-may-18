@@ -130,7 +130,7 @@ export default {
 .sign-in {
     background-color: rgb(228, 228, 228);
     width: 70%;
-    height: 60%;
+    height: 650px;
     border-radius: 4%;
 }
 
